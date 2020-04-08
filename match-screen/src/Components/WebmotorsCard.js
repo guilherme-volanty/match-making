@@ -8,7 +8,7 @@ import "../Style/WebmotorsCard.css"
 const WebmotorsCard = () => {
 
     return(
-        <div>
+        <div className="card">
             <Card border="secondary" style={{ height:"400px", marginTop:"10px", width: '350px' }}>
             <Card.Body>
                 <Card.Title className = "title">Webmotors</Card.Title>
@@ -42,7 +42,6 @@ const WebmotorsCard = () => {
             </Card.Text>
             </Card.Body>
             </Card>
-        
         </div>
     )
 

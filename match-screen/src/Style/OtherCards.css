@@ -1,0 +1,40 @@
+p{
+    margin:0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+span{
+    font-weight: 200 ;
+    font-size: 15px;
+}
+
+.title{
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+
+.row-selects{
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 18%;
+    margin-top: 7%;
+}
+
+.row-selects .select1{
+    width: 65%;
+}
+
+.row-selects .select2{
+    width: 27%;
+}
+
+.buttons{
+    margin-top: 13%;
+}
+
+.button{
+    margin-right: 7%;
+}
+
