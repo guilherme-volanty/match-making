@@ -1,13 +1,11 @@
 import React from 'react';
-import WebmotorsCard from './Components/WebmotorsCard'
+import MatchScreen from './Components/MatchScreen'
 import './App.css';
-import OtherCards from './Components/OtherCards'
 
 function App() {
   return (
     <div className="App">
-     <WebmotorsCard/>
-     <OtherCards />
+      <MatchScreen />
     </div>
   );
 }
