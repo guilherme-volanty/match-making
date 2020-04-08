@@ -8,9 +8,7 @@ import Button from 'react-bootstrap/Button';
 function App() {
   return (
     
-<Button />
-
-  );
+<Button />  );
 }
 
 export default App;
