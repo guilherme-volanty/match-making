@@ -1,11 +1,25 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
-import Card from "react-bootstrap/Card"
-import "../Style/WebmotorsCard.css"
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import Card from "react-bootstrap/Card";
+import "../Style/WebmotorsCard.css";
+import axios from 'axios';
 
 
 
 const WebmotorsCard = () => {
+    const [car, setCar] = useState({})
+    const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/Webmotors/1"
+
+    useEffect(() => {
+        axios.get(url)
+        .then( res => {
+            setCar(res.data)
+        })
+    }, []);
+
+
+
+
 
     return(
         <Card border="secondary" style={{ height:"400px", marginTop:"10px", width: '350px' }}>
@@ -15,27 +29,27 @@ const WebmotorsCard = () => {
             <div className= "attributes">
                 <div className = "row-attributes">
                     <div className ="attribute1">
-                        <p> Marca </p>
-                        <span> Ford</span>
+                        <p>Marca</p>
+                        <span> {car.brand}</span>
                     </div>
                     <div className = "attribute2">
                         <p> Modelo </p>
-                        <span> Fiesta</span>
+                        <span> {car.model}</span>
                     </div>
                 </div>
                 <div className = "row-attributes">
                     <div className ="attribute3">
                         <p> Ano </p>
-                        <span> 2017</span>
+                        <span> {car.modelYear}</span>
                     </div>
                     <div className = "attribute4">
                         <p> Carroceria </p>
-                        <span> Sedã</span>
+                        <span> {car.carroceria}</span>
                     </div>
                 </div>
                 <div className = "attribute5">
                         <p> Versão </p>
-                        <span> Todas informações </span>
+                        <span> {car.version} </span>
                 </div>
             </div>
         </Card.Text>
