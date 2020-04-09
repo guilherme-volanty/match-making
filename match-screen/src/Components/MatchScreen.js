@@ -7,8 +7,8 @@ const MatchScreen = () =>{
     return(
         <div className = "Cards">
             <WebmotorsCard className="webmotors"/>
-            <OtherCards className = "localiza" />
-            <OtherCards />
+            <OtherCards className = "localiza" origin = "Localiza"  />
+            <OtherCards className = "movida"  origin = "Movida"  />
         </div>
     )
 }

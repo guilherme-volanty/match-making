@@ -9,7 +9,6 @@ import axios from 'axios';
 const WebmotorsCard = () => {
     const [car, setCar] = useState({})
     const url = `https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/Webmotors/${((Math.random() * 10) + 1).toFixed(0)}`
-    console.log(url)
 
     useEffect(() => {
         axios.get(url)
