@@ -9,7 +9,6 @@ import * as firebase from "firebase";
 function App() {
     //Função de autenticação chamada no onclick do botão de login
     function authenticate() {
-
         // Usando um pop-up
         var provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope('profile');
