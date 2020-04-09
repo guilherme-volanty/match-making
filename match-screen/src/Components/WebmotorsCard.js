@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Card from "react-bootstrap/Card";
 import "../Style/WebmotorsCard.css";
 import axios from 'axios';
 
@@ -15,13 +14,13 @@ const WebmotorsCard = () => {
             .then(res => {
                 setCar(res.data)
             })
-    }, [url]);
+    }, []);
 
     return (
-        <Card border="secondary" style={{ height: "400px", marginTop: "10px", width: '350px' }}>
-            <Card.Body>
-                <Card.Title className="title">Webmotors</Card.Title>
-                <Card.Text>
+        <div className="card border-secondary mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+            <div className="card-body text-dark">
+                <h5 className="card-title title ">Webmotors</h5>
+                <div className ="card-text ">
                     <div className="attributes">
                         <div className="row-attributes">
                             <div className="attribute1">
@@ -48,10 +47,9 @@ const WebmotorsCard = () => {
                             <span> {car.version} </span>
                         </div>
                     </div>
-                </Card.Text>
-            </Card.Body>
-        </Card>
-
+                </div>
+            </div>
+        </div>
     )
 
 }

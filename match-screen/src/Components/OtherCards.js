@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import { Card, Button, Form } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import "../Style/OtherCards.css"
 import axios from 'axios'
 
@@ -10,7 +10,7 @@ const OtherCards = (props) => {
     const [cars, setCars] = useState([])
     const [origin, setOrigin] = useState("")
     const [form,setForm] = useState({name:"", year:"", version:""})
-    const [isfilled, setIsFilled] = useState(false)
+    const [accepted, setAccepted] = useState(false)
 
     useEffect(() => {
         axios.get(url)
@@ -18,24 +18,38 @@ const OtherCards = (props) => {
             setCars(res.data)
             setOrigin(res.data[0].origin)
         });
-    },[url])
+    },[])
 
     const onChangeSelect = field => event => {
         setForm({
             ...form,
             [field]: (event.target.value)
         });
+        
     }
 
-    console.log(form)
+
+    if(accepted){alert("Aceito")}
 
 
+    const submitCard = () => {
+        if(form.name !== "" && form.version!== "" && form.year!=="") {
+            alert(`Card da ${origin} Enviado com sucesso`)
+            setAccepted(true)
+            console.log(form)
+        }
+        else{
+            alert("Digite tudo")
+        }
+    }
 
+    
     return (
-        <Card border="secondary" style={{ height: "400px", marginTop: "10px", width: '350px' }}>
-            <Card.Body>
-                <Card.Title className="title">{origin}</Card.Title>
-                <Card.Text>
+
+        <div className="card border-secondary mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+            <div className="card-body text-dark">  
+                <h5 className="card-title title">{origin}</h5>
+                <div className="card-text">
                     <div className="selects">
                         <div className="row-selects">
                             <div className="select1 form-group">
@@ -64,12 +78,12 @@ const OtherCards = (props) => {
                         </div>
                         <div className="buttons">
                             <Button className="button" variant="outline-secondary">Anúncio</Button>{' '}
-                            <Button variant="outline-primary">Enviar</Button>{' '}
+                            <Button variant="outline-primary" type="submit" onClick={submitCard}>Enviar</Button>{' '}
                         </div>
                     </div>
-                </Card.Text>
-            </Card.Body>
-        </Card>
+                </div>
+            </div>
+        </div>
     )
 
 }
