@@ -3,13 +3,23 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleButton from 'react-google-button'
 import {Card, Container, Row} from "react-bootstrap";
+import * as firebase from "firebase";
 
 
 function App() {
     //Função de autenticação chamada no onclick do botão de login
     function authenticate() {
+        // Usando um pop-up
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('profile');
+        provider.addScope('email');
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            // Isso fornece um token do Google Access
+            var token = result.credential.accessToken;
+            // As informações do usuário conectado.
+            var user = result.user;
+        });
     }
-    
 
     return (
     //    HTML do Card d Login
