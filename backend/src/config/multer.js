@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 
 module.exports = {
-    defaultDestination: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+    defaultDestination: path.resolve(__dirname, '..', 'tmp', 'uploads'),
     storage: multer.diskStorage({
         destination: (request, file, cb) => {
             cb(null, path.resolve(__dirname, '..', 'tmp', 'uploads'))
@@ -12,7 +12,7 @@ module.exports = {
         }
     }),
     limits: {
-        fileSize: 50 * 1024 *1024
+        fileSize: 50*1024*1024,
     },
     fileFilter: (request, file, cb) => {
         const allowedFormat = 'text/csv';

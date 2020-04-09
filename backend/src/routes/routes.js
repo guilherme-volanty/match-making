@@ -7,13 +7,10 @@ routes.get('/status', (request, response) => {
     return response.status(200).send('Rota ok!')  
   });
 
-// routes.get('/json', (request, response) =>{
-//   console.log(jsonParser)
-// })
 
 routes.post('/base-upload', multer(multerConfigs).single('file'), (request, response) =>{
   console.log(request.file);
-
+  jsonParser(request.file.filename);
   return response.status(200).send('Arquivo CSV recebido')
 })
   
