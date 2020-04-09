@@ -13,12 +13,12 @@ function App() {
 
     return (
     //    HTML do Card d Login
-    <Container>
+    <Container className="boxgoogle">
         <Row className="justify-content-md-center">
-      <Card style={{ width: '18rem' }}>
-          <Card.Header>Car Match</Card.Header>
+      <Card style={{ width: '20rem' }}>
+          <Card.Header><h1 className = "titulo1" >Acesso à plataforma</h1></Card.Header>
         <Card.Body>
-          <Card.Subtitle className="mb-2 text-muted">Login com google</Card.Subtitle>
+          <Card.Subtitle className="titulo2"/*</Card.Body>className="mb-2 text-muted"*/><h2>Autenticar, usando sua conta em:</h2></Card.Subtitle>
           <Card.Text>
             <GoogleButton onClick={() => { authenticate()}}/>
           </Card.Text>
