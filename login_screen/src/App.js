@@ -7,11 +7,13 @@ import {Card, Container, Row} from "react-bootstrap";
 
 
 function App() {
+    //Função de autenticação chamada no onclick do botão de login
     function authenticate() {
     }
 
 
     return (
+    //    HTML do Card d Login
     <Container>
         <Row className="justify-content-md-center">
       <Card style={{ width: '18rem' }}>

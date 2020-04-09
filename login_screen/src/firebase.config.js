@@ -1,3 +1,4 @@
+//Configuração da app do firebase
 export default {
     apiKey: "AIzaSyDsMkC3IASilEz43r1OXY2t_NFFDWRgZsE",
     authDomain: "macth-making-login.firebaseapp.com",
