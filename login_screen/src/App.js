@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleButton from 'react-google-button'
@@ -10,7 +9,7 @@ function App() {
     //Função de autenticação chamada no onclick do botão de login
     function authenticate() {
     }
-
+    
 
     return (
     //    HTML do Card d Login
