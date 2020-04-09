@@ -9,7 +9,7 @@ const OtherCards = (props) => {
     const url = `https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/${props.origin}`
     const [cars, setCars] = useState([])
     const [origin, setOrigin] = useState("")
-    const [form,setForm] = useState({})
+    const [form,setForm] = useState({name:"", year:"", version:""})
     const [isfilled, setIsFilled] = useState(false)
 
     useEffect(() => {
@@ -20,6 +20,14 @@ const OtherCards = (props) => {
         });
     },[url])
 
+    const onChangeSelect = field => event => {
+        setForm({
+            ...form,
+            [field]: (event.target.value)
+        });
+    }
+
+    console.log(form)
 
 
 
@@ -30,34 +38,28 @@ const OtherCards = (props) => {
                 <Card.Text>
                     <div className="selects">
                         <div className="row-selects">
-                            <div className="select1">
-                                <Form.Group controlId="exampleForm.ControlSelect1">
-                                    <Form.Label>Nome</Form.Label>
-                                    <Form.Control as="select">
+                            <div className="select1 form-group">
+                                <label htmlFor="nome">Nome</label>
+                                <select className="form-control" onChange={onChangeSelect("name")}>
                                         <option value = "">Selecione</option>
                                         {cars.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
-                                    </Form.Control>
-                                </Form.Group>
+                                </select>
                             </div>
-                            <div className="select2">
-                                <Form.Group controlId="exampleForm.ControlSelect1" >
-                                    <Form.Label>Ano</Form.Label>
-                                    <Form.Control as="select" onChange={console.log(5)}>
+                            <div className="select2 form-group">
+                                <label htmlFor="nome">Ano</label>
+                                <select className="form-control" onChange={onChangeSelect("year")}>
                                     <option value = "">-</option>
                                     {cars.map(car => <option value= {car.year} key ={car.id}> {car.year}</option>)}
-                                    </Form.Control>
-                                </Form.Group>
+                                </select>
                             </div>
                         </div>
                         <div>
-                            <div className="select3">
-                                <Form.Group controlId="exampleForm.ControlSelect1">
-                                    <Form.Label>Versão</Form.Label>
-                                    <Form.Control as="select">
+                            <div className="select3 form-group">
+                                <label htmlFor="nome">Nome</label>
+                                <select className="form-control" onChange={onChangeSelect("version")}>
                                     <option value = "">Selecione</option>
                                     {cars.map(car => <option value= {car.version}key ={car.id}> {car.version}</option>)}
-                                    </Form.Control>
-                                </Form.Group>
+                                </select>
                             </div>
                         </div>
                         <div className="buttons">
