@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleButton from 'react-google-button'
-import {Card, Container} from "react-bootstrap";
-import Row from "react-bootstrap/Row";
+import {Card, Container, Row} from "react-bootstrap";
 
 
 function App() {
-  return (
+    function authenticate() {
+    }
+
+
+    return (
     <Container>
         <Row className="justify-content-md-center">
       <Card style={{ width: '18rem' }}>
@@ -16,11 +19,12 @@ function App() {
         <Card.Body>
           <Card.Subtitle className="mb-2 text-muted">Login com google</Card.Subtitle>
           <Card.Text>
-            <GoogleButton onClick={() => { console.log('Google button clicked')}}/>
+            <GoogleButton onClick={() => { authenticate()}}/>
           </Card.Text>
         </Card.Body>
       </Card>
         </Row>
+
     </Container>
     );
 
