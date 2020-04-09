@@ -15,9 +15,13 @@ function App() {
         provider.addScope('email');
         firebase.auth().signInWithPopup(provider).then(function (result) {
             // Isso fornece um token do Google Access
+            console.log("Funcionou");
             var token = result.credential.accessToken;
             // As informações do usuário conectado.
             var user = result.user;
+            console.log(result.user);
+        }).catch(function(error){
+          console.error("Erro",error);
         });
     }
 
