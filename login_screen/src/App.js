@@ -15,7 +15,7 @@ function App() {
     //    HTML do Card d Login
     <Container className="boxgoogle">
         <Row className="justify-content-md-center">
-      <Card style={{ width: '20rem' }}>
+      <Card style={{ width: '35rem' ,height: '35rem' }}>
           <Card.Header><h1 className = "titulo1" >Acesso à plataforma</h1></Card.Header>
         <Card.Body>
           <Card.Subtitle className="titulo2"/*</Card.Body>className="mb-2 text-muted"*/><h2>Autenticar, usando sua conta em:</h2></Card.Subtitle>
