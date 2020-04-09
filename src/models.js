@@ -5,7 +5,7 @@ const fileSchema = new Schema({
     _id: String,
     name: String,
     image: String,
-    year: Int16Array,
+    year: Number,
     origin: String,
     meanPrice: Number,
     href: String,
