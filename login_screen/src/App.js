@@ -8,12 +8,8 @@ import GoogleButton from 'react-google-button'
 
 function App() {
   return (
-   
-  //<Button />  );
-
-
-  <GoogleButton
-  onClick={() => { console.log('Google button clicked')}}/> );
+    <GoogleButton onClick={() => { console.log('Google button clicked')}}/>
+  );
 
   }
  
