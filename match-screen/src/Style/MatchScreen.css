@@ -1,7 +1,22 @@
+.items{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
 .Cards{
-    height: 100vh;
+    margin-top: 10%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.Button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
