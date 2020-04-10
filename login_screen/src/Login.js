@@ -6,7 +6,7 @@ import {Card, Container, Row} from "react-bootstrap";
 import {authenticate} from './Auth';
 
 
-function App() {
+function Login() {
 
     return (
     //    HTML do Card d Login
@@ -34,6 +34,6 @@ function App() {
   }
  
 
-export default App;
+export default Login;
 
 

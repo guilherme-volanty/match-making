@@ -19,6 +19,7 @@ function authenticate() {
     });
 
 
+
     firebase.auth().signInWithPopup(provider).then(function (result) {
         Cookies.set("user", result.user.displayName);
         Cookies.set("email", result.user.email);
