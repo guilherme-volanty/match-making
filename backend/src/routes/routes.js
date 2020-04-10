@@ -2,6 +2,7 @@ const routes = require('express').Router();
 const multer = require('multer');
 const multerConfigs = require('../config/multer');
 const jsonParser = require('../services/jsonParser');
+const baseCsvController = require('../controller/baseCsvController')
 
 routes.get('/status', (request, response) => {
     return response.status(200).send('Rota ok!')  
@@ -15,9 +16,7 @@ routes.post('/base-upload', multer(multerConfigs).single('file'), (request, resp
 })
 
 
-routes.post('/upload-test', (request,response) =>{
-    console.log(request.body);
-    return response.status(200).send('Chegou')
-})
+routes.post('/upload-test', baseCsvController.store);
+
   
 module.exports = routes;
