@@ -12,7 +12,8 @@
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-google-button": "^0.7.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "@firebase/firestore": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
