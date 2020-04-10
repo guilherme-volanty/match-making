@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
+const matchFile = require("./models");
 
 function jsonParser(fileName){
     fs.createReadStream(path.resolve(__dirname,'uploads', fileName))
@@ -8,12 +9,11 @@ function jsonParser(fileName){
         .on('error', error => {
             console.log(error)
         })
-        .on('data', row => {
+        .on('data', (row)=>{
             console.log(row)
         })
-        .on('end', rowCounter =>{
-            console.log(`Parsed ${rowCounter} rows! FOI CARALHO!!!`)
-        });
+        
+        
 }
 
 
