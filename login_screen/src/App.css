@@ -45,6 +45,8 @@ font-weight: bold;
 }
 
 .titulo2{
+margin: 0 10px;
+display: inline-block;
 text-align: center;
 font-weight: bold;
 
@@ -53,5 +55,6 @@ font-weight: bold;
 .boxgoogle{
 
   padding: 200px;
+  /*margin: 100px 50px 20px 0px;*/
 }
 
