@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import OtherCards from './OtherCards';
 import WebmotorsCard from './WebmotorsCard'
 import { Button } from "react-bootstrap"
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
-const MatchScreen = () =>{
+const MatchScreen = () => {
     //==========WEBMOTORS==============
     const [webmotorsCars, setWebmotorsCar] = useState({})
 
@@ -18,6 +18,8 @@ const MatchScreen = () =>{
             })
     }, []);
 
+    console.log(webmotorsCars)
+
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])
     const [localizaName, setLocalizaName] = useState("")
@@ -25,15 +27,12 @@ const MatchScreen = () =>{
     const [localizaVersion, setLocalizaVersion] = useState("")
     const [localizaAccepted, setLocalizaAccepted] = useState(false)
 
-
-
     useEffect(() => {
         axios.get(`${url}Localiza`)
-        .then(res => {
-            setLocalizaCars(res.data)
-        });
-    },[])
-
+            .then(res => {
+                setLocalizaCars(res.data)
+            });
+    }, [])
 
     //===========MOVIDA===============
     const [MovidaCars, setMovidaCars] = useState([])
@@ -43,39 +42,81 @@ const MatchScreen = () =>{
     const [movidaAccepted, setMovidaAccepted] = useState(false)
     useEffect(() => {
         axios.get(`${url}Movida`)
-        .then(res => {
-            setMovidaCars(res.data)
-        });
-    },[])
+            .then(res => {
+                setMovidaCars(res.data)
+            });
+    }, [])
 
-    return(
-        <div className="items">
-            <div className = "Cards">
-                <WebmotorsCard data ={webmotorsCars}
-                className="webmotors"/>
+    const sendForm = () => {
+        axios({
+            method: 'post',
+            url: "http://localhost:3001/match",
+            data: {
+                operationId: 21,
+                date: "10-21-20",
+                webmotors: {
+                    id: webmotorsCars.id,
+                    brand: webmotorsCars.brand,
+                    model: webmotorsCars.model,
+                    bodywork: webmotorsCars.carroceria,
+                    year: webmotorsCars.year,
+                    version: webmotorsCars.version
+                },
+                localiza: {
+                    id: 1,
+                    name: localizaName,
+                    year: localizaYear,
+                    version: localizaVersion
+                },
+                movida: {
+                    id: 1,
+                    name: movidaName,
+                    year: movidaYear,
+                    version: movidaVersion
+                },
+                user: {
+                    userId: 3213,
+                    name: "Alysson",
+                    email: "alysson@volanty.com"
+                }
+            }
+
+        }).then(res =>{
+            console.log({message:"Enviado com sucesso"})
+        }).catch(error=> {
+            console.log(error)
+        })
+    }
 
 
-                <OtherCards data = {LocalizaCars}
-                    setLocalizaName={setLocalizaName}
-                    setLocalizaYear={setLocalizaYear}
-                    setLocalizaVersion={setLocalizaVersion}
-                    setLocalizaAccepted={setLocalizaAccepted}
-                    className = "localiza"
-                    origin = "Localiza"/>
+    return (
+            <div className="items">
+                <div className="Cards">
+                    <WebmotorsCard data={webmotorsCars}
+                        className="webmotors" />
 
-                <OtherCards data={MovidaCars}
-                    setMovidaName={setMovidaName}
-                    setMovidaYear={setMovidaYear}
-                    setMovidaVersion={setMovidaVersion}
-                    setMovidaAccepted={setMovidaAccepted}
-                    className = "movida"
-                    origin = "Movida"/>
+
+                    <OtherCards data={LocalizaCars}
+                        setLocalizaName={setLocalizaName}
+                        setLocalizaYear={setLocalizaYear}
+                        setLocalizaVersion={setLocalizaVersion}
+                        setLocalizaAccepted={setLocalizaAccepted}
+                        className="localiza"
+                        origin="Localiza" />
+
+                    <OtherCards data={MovidaCars}
+                        setMovidaName={setMovidaName}
+                        setMovidaYear={setMovidaYear}
+                        setMovidaVersion={setMovidaVersion}
+                        setMovidaAccepted={setMovidaAccepted}
+                        className="movida"
+                        origin="Movida" />
+                </div>
+                <div className="Button">
+                    {localizaAccepted === true && movidaAccepted === true && <Button onClick={sendForm} type="submit" className="button" variant="primary">Enviar</Button>}
+                </div>
             </div>
-            <div className="Button">
-            {localizaAccepted===true && movidaAccepted===true &&<Button className= "button"variant="primary">Enviar</Button>}
-            </div>
-        </div>
-    )
-}
+        )
+    }
 
-export default MatchScreen;
+    export default MatchScreen;
