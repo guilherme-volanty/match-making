@@ -1,9 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const useRoutes = require('./routes/routes');
-// const fileObservable = require('./services/fileObservable')
-
+const dbConnect = require('./db/mongoDB');
 
 const app = express();
+
+dbConnect();
+app.use(bodyParser.json());
 
 app.use(useRoutes);
 
