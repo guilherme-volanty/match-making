@@ -1,0 +1,21 @@
+body {
+    background-image: 
+    url("https://assets.volanty.com/images/3.0/volanty-car2.png"),
+    url("https://assets.volanty.com/images/3.0/hero-orange-mobile2.svg"),
+    url("https://assets.volanty.com/images/3.0/form-hero-blue-mobile.svg");
+    
+
+    background-repeat: 
+       no-repeat,
+       no-repeat, 
+       no-repeat;
+
+    background-position: 
+      right 120px, 
+        center, 
+          0 0;
+
+    background-size:
+        700px
+  }
+  
