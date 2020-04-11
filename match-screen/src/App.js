@@ -6,6 +6,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route path = "/match-screen" component= {MatchScreen}></Route>
           <Route path = "/match-table" component = {Crud}></Route>
+
         </Switch>
       </div>
     </Router>

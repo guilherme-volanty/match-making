@@ -10,8 +10,9 @@ const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const MatchScreen = () => {
     //==========WEBMOTORS==============
-    const [webmotorsCars, setWebmotorsCar] = useState({})
     const mathRandom = ((Math.random() * 10) + 10).toFixed(0)
+    const [webmotorsCars, setWebmotorsCar] = useState({})
+    
 
 
     useEffect(() => {
@@ -21,7 +22,6 @@ const MatchScreen = () => {
             })
     }, []);
 
-    console.log(webmotorsCars)
 
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])
@@ -57,8 +57,8 @@ const MatchScreen = () => {
             method: 'post',
             url: "http://localhost:3001/match",
             data: {
-                operationId: 21,
-                date: "10-21-20",
+                operationId: `${mathRandom}`,
+                date: `${Date.now()}`,
                 webmotors: {
                     id: webmotorsCars.id,
                     brand: webmotorsCars.brand,
@@ -100,7 +100,6 @@ const MatchScreen = () => {
                 <div className="Cards">
                     <WebmotorsCard data={webmotorsCars}
                         className="webmotors" />
-
 
                     <OtherCards data={LocalizaCars}
                         setLocalizaName={setLocalizaName}
