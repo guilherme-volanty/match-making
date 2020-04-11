@@ -1,4 +1,33 @@
 const matchFile = require("./models");
+const fs = require('fs');
+const path = require('path');
+const csv = require('fast-csv');
+
+function saveDataFromFile(request, response){
+
+	 
+	fs.createReadStream(path.resolve(__dirname,'uploads', request.file.filename))
+		.pipe(csv.parse({headers: true}))
+		.on('error', error => {
+			console.log(error)
+		})
+		.on('data', (row)=>{
+			
+			matchFile.create(row)
+			.then(function(data) {
+				console.log("objeto salvo com sucesso: " + data);
+			})
+			.catch(function(err) {
+				console.error(err);
+			});
+		})
+		.on('end', (rowCount)=>{
+			response.status(200).send({ message: "Arquivo importado com sucesso!" });
+		})
+			
+}
+
+
 
 function createMatchFiles(request, response) {
 	const file = request.body;
@@ -31,4 +60,5 @@ function createMatchFiles(request, response) {
   }
 
   module.exports = { createMatchFiles: createMatchFiles,
-					 getAllMatchFiles: getAllMatchFiles }
+					 getAllMatchFiles: getAllMatchFiles,
+					 saveDataFromFile: saveDataFromFile }
