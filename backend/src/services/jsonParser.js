@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
 const keyTransform = require('./keyTransform');
-const BaseCSV2 = require('../models/baseSchema');
+const BaseCSV = require('../models/baseSchema');
+
 
 function jsonParser(fileName){
     let buffer =[], counter =0
@@ -19,11 +20,11 @@ function jsonParser(fileName){
             buffer.push(tey)
             counter++;
             try{
-                if(counter>=100){
-                    await BaseCSV2.insertMany(buffer);
+                if(counter>=1000){
+                    await BaseCSV.insertMany(buffer);
                     buffer = [];
                     counter = 0;
-                }
+                } 
             } catch(e){
                 stream.destroy(e);
             }
@@ -34,19 +35,18 @@ function jsonParser(fileName){
         .on('end', async rowCounter =>{
             try{
                 if(counter>0){
-                    await BaseCSV2.insertMany(buffer);
+                    await BaseCSV.insertMany(buffer);
                     buffer = [];
                     counter = 0;
                     const endTime = new Date();
                     const sec = Math.round((endTime-startTime)/1000);
-                    console.log(`Parsed ${rowCounter} rows in ${sec} seconds! FOI CARALHO!!!`)
-                }
+                    console.log(`Parsed ${rowCounter} rows in ${sec} seconds!`)
+                } 
             } catch(e){
                 stream.destroy(e)
             }
         });
 
 }
-
 
 module.exports = jsonParser;

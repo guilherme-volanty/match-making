@@ -13,4 +13,4 @@ const BaseSchema = new mongoose.Schema({
     versionId: String
 });
 
-module.exports = mongoose.model('BaseCSV', BaseSchema)
+module.exports = mongoose.model('BaseCSV', BaseSchema, "base-csv")

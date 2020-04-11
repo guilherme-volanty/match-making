@@ -3,7 +3,7 @@ const BaseCSV = require('../models/baseSchema');
 module.exports = {
     async index(request, response){
         allVersions = await BaseCSV.find();
-
+        console.log(allVersions);
         return response.json(allVersions)
     }, 
 

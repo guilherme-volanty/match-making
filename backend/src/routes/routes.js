@@ -15,5 +15,4 @@ routes.post('/base-csv', multer(multerConfigs).single('file'), (request, respons
   return response.status(200).send('Arquivo CSV recebido! Processando')
 })
 
-  
 module.exports = routes;
