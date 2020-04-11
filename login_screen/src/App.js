@@ -4,12 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleButton from 'react-google-button'
 import {Card, Container, Row} from "react-bootstrap";
 import {authenticate} from './Auth';
-
+import './background.css';
 
 function App() {
-
+    
     return (
-    //    HTML do Card d App
+      //HTML do Card d App
+      <>
+    <div className="wrap">
+    <img className ="car"src = "https://assets.volanty.com/images/3.0/volanty-car2.png" alt="carro"/>
+    <img className="logo"src= "https://assets.volanty.com/images/3.0/nova-logo.svg" alt="logo"/>
+
     <Container className="boxgoogle">
         <Row className="justify-content-md-center">
       <Card style={{ width: '23m' ,height: '23m' }}>
@@ -23,9 +28,10 @@ function App() {
       </Card>
         </Row>
 
-
     </Container>
+    </div>
 
+    </>
 
 
     );

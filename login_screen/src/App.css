@@ -55,6 +55,9 @@ font-weight: bold;
 .boxgoogle{
 
   padding: 200px;
+  position: relative;
+  z-index: 30;
+  
 
 }
 

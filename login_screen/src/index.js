@@ -10,6 +10,7 @@ import firebaseConfig from "./firebase.config";
 
 firebase.initializeApp(firebaseConfig);
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
