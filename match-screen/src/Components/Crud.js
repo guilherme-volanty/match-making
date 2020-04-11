@@ -26,9 +26,6 @@ const Crud = () => {
                     </td>
                 </tr>
             );
-
-
-
     }
 
     return(
