@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 function dbConnect(){
-    mongoose.connect('mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test-uploads?retryWrites=true&w=majority', {
+    mongoose.connect('mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(function() {
