@@ -6,10 +6,10 @@ import {Card, Container, Row} from "react-bootstrap";
 import {authenticate} from './Auth';
 
 
-function Login() {
+function App() {
 
     return (
-    //    HTML do Card d Login
+    //    HTML do Card d App
     <Container className="boxgoogle">
         <Row className="justify-content-md-center">
       <Card style={{ width: '23m' ,height: '23m' }}>
@@ -34,6 +34,6 @@ function Login() {
   }
  
 
-export default Login;
+export default App;
 
 
