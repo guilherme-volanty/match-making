@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const MatchSchema = new mongoose.Schema({
     operationId: Number,
     date: Date,
+    mockId:Number,
     webmotors: {
         id: Number,
         brand: String,

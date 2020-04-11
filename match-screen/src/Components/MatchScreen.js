@@ -3,6 +3,7 @@ import OtherCards from './OtherCards';
 import WebmotorsCard from './WebmotorsCard'
 import { Button } from "react-bootstrap"
 import '../Style/MatchScreen.css'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -10,9 +11,11 @@ const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 const MatchScreen = () => {
     //==========WEBMOTORS==============
     const [webmotorsCars, setWebmotorsCar] = useState({})
+    const mathRandom = ((Math.random() * 10) + 10).toFixed(0)
+
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/${((Math.random() * 10) + 10).toFixed(0)}`)
+        axios.get(`${url}Webmotors/${mathRandom}`)
             .then(res => {
                 setWebmotorsCar(res.data)
             })
@@ -47,6 +50,8 @@ const MatchScreen = () => {
             });
     }, [])
 
+
+    const [send, setSend] = useState(false)
     const sendForm = () => {
         axios({
             method: 'post',
@@ -80,12 +85,13 @@ const MatchScreen = () => {
                     email: "alysson@volanty.com"
                 }
             }
-
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
+            setSend(true)
         }).catch(error=> {
             console.log(error)
         })
+        
     }
 
 
@@ -114,6 +120,8 @@ const MatchScreen = () => {
                 </div>
                 <div className="Button">
                     {localizaAccepted === true && movidaAccepted === true && <Button onClick={sendForm} type="submit" className="button" variant="primary">Enviar</Button>}
+                    {send === true && <Link to="/match-table" className="btn btn-primary" >Prosseguir</Link>}
+                
                 </div>
             </div>
         )
