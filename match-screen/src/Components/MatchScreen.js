@@ -12,7 +12,7 @@ const MatchScreen = () => {
     const [webmotorsCars, setWebmotorsCar] = useState({})
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/${((Math.random() * 10) + 1).toFixed(0)}`)
+        axios.get(`${url}Webmotors/${((Math.random() * 10) + 10).toFixed(0)}`)
             .then(res => {
                 setWebmotorsCar(res.data)
             })
