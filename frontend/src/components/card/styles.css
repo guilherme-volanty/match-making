@@ -1,0 +1,52 @@
+/* Product List */
+
+.card{
+    margin-top: 50px;
+    border: none;
+}
+.card-columns{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-self: center;
+    width: 500px;
+}
+
+.mb-3{
+    width: 540px;
+    border: none;
+    border-radius: 20px;
+    -webkit-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+    box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+}
+
+.card-title{
+    font-size: 32px;
+}
+
+.card-options{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 5%;
+}
+
+.find-csv{
+    width: 140px;
+    height: 40px;
+}
+
+.base-select{
+    width: 100px;
+    height: 40px;
+}
+
+.select-container{
+    display: grid;
+}
+
+.form-label{
+    font-size: 24px;;
+}
