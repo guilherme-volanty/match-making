@@ -50,6 +50,23 @@ const OtherCards = (props) => {
         }
     }
 
+
+    const noMatch = () => {
+        if(props.origin ==="Localiza"){
+            props.setLocalizaName("")
+            props.setLocalizaYear("")
+            props.setLocalizaVersion("")
+            props.setLocalizaAccepted(true)
+
+        }else {
+            props.setMovidaName("")
+            props.setMovidaYear("")
+            props.setMovidaVersion("")
+            props.setMovidaAccepted(true)
+        }
+        alert(`Que pena que não há match na ${props.origin}!`)
+    }
+
     return (
 
         <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
@@ -83,8 +100,8 @@ const OtherCards = (props) => {
                             </div>
                         </div>
                         <div className="buttons">
-                            <Button variant="outline-primary" type="submit" onClick={submitCard}>Enviar</Button>{' '}
-                            
+                            <button type="button" onClick={noMatch} className="btn btn-outline-dark">Não há Match</button>
+                            <button className="btn btn-outline-primary" onClick={submitCard}>Enviar</button>{' '}
                         </div>
                     </div>
                 </div>
