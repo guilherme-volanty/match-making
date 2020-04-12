@@ -3,6 +3,8 @@ import OtherCards from './OtherCards';
 import WebmotorsCard from './WebmotorsCard'
 import { Button } from "react-bootstrap"
 import '../Style/MatchScreen.css'
+import '../Style/background.css'
+
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 
@@ -96,6 +98,11 @@ const MatchScreen = () => {
 
 
     return (
+        <div className="">
+            <div className="wrap">
+                <img className ="car"src = "https://assets.volanty.com/images/3.0/volanty-car2.png" alt="carro"/>
+                <img className="logo"src= "https://assets.volanty.com/images/3.0/nova-logo.svg" alt="logo"/>
+            </div>
             <div className="items">
                 <div className="Cards">
                     <WebmotorsCard data={webmotorsCars}
@@ -122,6 +129,7 @@ const MatchScreen = () => {
                     {send === true && <Link to="/match-table" className="btn btn-primary" >Prosseguir</Link>}
                 
                 </div>
+            </div>
             </div>
         )
     }

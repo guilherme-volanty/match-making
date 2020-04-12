@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"; 
+import React, {Fragment, useState, useEffect} from "react"; 
 import axios from "axios";
 import '../Style/Crud.css'
 
@@ -8,7 +8,6 @@ const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 const Crud = () => {
     const [data, setData] = useState([])
     const [openEdit, setOpenEdit] = useState(false);
-    const [refresh, setRefresh] = useState(false)
     const [idToOpen, setIdToOpen] = useState()
 
     useEffect(() => {
@@ -38,7 +37,6 @@ const Crud = () => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
             })
-        setRefresh(true)
     }
 
     const setaEdit = (id) =>{
@@ -93,13 +91,13 @@ const Crud = () => {
 
     const renderizaLinha = record => {
             return(
-                <>
-                    <tr key = {record._id}>
+                <Fragment  key = {record._id}>
+                    <tr className='table' key = {record._id}>
                             <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.year} {record.webmotors.version}{record.webmotors.bodywork}</th>
                             <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
-                        <td>
+                        <td className="buttons"> 
                             <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Remover </button>
                             <button onClick={(e)=>setaEdit(record._id)} className="btn btn-outline-warning">  Editar </button>
                             
@@ -163,12 +161,14 @@ const Crud = () => {
                         </div>    
                         }
                     </div>
-                </>
+                </Fragment>
             );
     }
 
     return(
         <div className = "table">
+            <div className="space"></div>
+
         <h1>MATCHS</h1>
         <table className="table">
             <thead className="thead-dark">

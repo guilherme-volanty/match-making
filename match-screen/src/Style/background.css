@@ -1,0 +1,47 @@
+.wrap {
+  top: 50px;
+  width: 100vw;
+  height: 15vh;
+  position: relative;
+}
+.wrap::before {
+  content: "";
+  background: url("https://assets.volanty.com/images/3.0/tech/graphic-orange.svg")
+  no-repeat right top;
+  width: 20%;
+  height: 100vh;
+  background-size: 410px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+.wrap::after {
+  content: "";
+  background: url("https://assets.volanty.com/images/3.0/tech/graphic-blue.svg")
+  no-repeat;
+  width: 100%;
+  height: 650px;
+  background-size: contain;
+  position: absolute;
+  left: 0;
+  top: 200px;
+  background-size: cover;
+  z-index: -2;
+}
+
+.logo {
+  width: 450px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  top: 50px;
+  z-index: 6;
+}
+.car {
+  position: absolute;
+  right: -60px;
+  top: 600px;
+  z-index: 1;
+  transform: scaleX(-1);
+}

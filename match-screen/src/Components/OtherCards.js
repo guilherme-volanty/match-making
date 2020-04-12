@@ -52,7 +52,7 @@ const OtherCards = (props) => {
 
     return (
 
-        <div className="card border-secondary mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+        <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
             <div className="card-body text-dark">  
                 <h5 className="card-title title">{props.origin}</h5>
                 <div className="card-text">
@@ -83,7 +83,6 @@ const OtherCards = (props) => {
                             </div>
                         </div>
                         <div className="buttons">
-                            <Button className="button" variant="outline-secondary">Anúncio</Button>{' '}
                             <Button variant="outline-primary" type="submit" onClick={submitCard}>Enviar</Button>{' '}
                         </div>
                     </div>
