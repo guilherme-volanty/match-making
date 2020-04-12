@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
 import 'firebase/auth';
 import Cookies from 'js-cookie';
-import{history} from "./history";
+import {history} from "./history";
 
 //Função de autenticação chamada no onclick do botão de login
 function authenticate() {
@@ -24,7 +24,6 @@ function authenticate() {
         Cookies.set("user", result.user.displayName);
         Cookies.set("email", result.user.email);
         Cookies.set("photo", result.user.photoURL);
-        console.log(Cookies.get());
 
         if (!result.user.email.match(/.*@volanty.com$/)) {
             alert("Não é possivel efetuar login com emails que não sejam do domínio @volanty");
@@ -36,15 +35,18 @@ function authenticate() {
     });
 }
 
-export const isAuthenticated = () => true ;
+function isAuthenticated (props){
+    console.log(props);
+    return true;
+};
 
-function singOut () {
-    firebase.auth().signOut().then(function() {
+function singOut() {
+    firebase.auth().signOut().then(function () {
         history.push("/")
-    }).catch(function(error) {
+    }).catch(function (error) {
         // An error happened.
     });
 
 }
 
-export {authenticate, singOut};
+export {authenticate, singOut, isAuthenticated};

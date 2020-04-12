@@ -12,7 +12,7 @@ class Home extends Component {
                     <a className="navbar-brand" href="#">Car Match </a>
 
                     <div className="navbar-nav ml-auto">
-                        <div className="navbar-brand justify-content-between" href="#">{this.userName}</div>
+                        <div className="navbar-brand justify-content-between">{this.userName}</div>
                         <button className="btn btn-outline-light"  onClick={() => {
                             singOut()
                         }}>Sair
