@@ -1,5 +1,28 @@
-import React from "react";
+import React, {Component} from "react";
+import './NotFound.css'
+import imagemErro from '../assets/imagemErro.jpg'
+import {history} from "../history";
 
-const NotFound = () => <h1>Not Found</h1>;
 
+
+class NotFound extends Component {
+    render() {
+        return (
+            <div className="notfound" >
+
+                <div className=" ">
+                  <h1 className="number">404</h1>
+                  <h1 className="msg">Página não encontrada</h1>
+                    <div>
+                        <img src={imagemErro}/>
+                        </div>
+                </div>
+                <button className="btn btn-primary" onClick={() => {redirect()}}>Página inicial</button>
+            </div>
+        );
+    }
+}
+ function redirect () {
+     history.push("/Login")
+ }
 export default NotFound;

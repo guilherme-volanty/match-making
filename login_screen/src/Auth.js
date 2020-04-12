@@ -17,13 +17,15 @@ function authenticate() {
         Cookies.set("email", result.user.email);
         Cookies.set("photo", result.user.photoURL);
         Cookies.set("idToken", result.credential.idToken);
-        //restringir o dominio volanty.
+
+        // restringir o dominio volanty.
         if (!result.user.email.match(/.*@volanty.com$/)) {
             alert("Não é possivel efetuar login com emails que não sejam do domínio @volanty");
             firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
-            history.push("/");
+            Cookies.remove('idToken','user','email','photo');
+            history.push("/login");
         } else {
-            history.push("/Home");
+            history.push("/home");
         }
     }).catch(function (error) {
         alert("Erro ao criar usuário :" + error);
@@ -31,12 +33,13 @@ function authenticate() {
 }
 //verifica se existi o IdToken
 function isAuthenticated() {
+    console.log(Cookies.get("idToken"));
     return Cookies.get("idToken") != null;
 }
 // faz logOut e apaga o id do cookie
 function singOut() {
     firebase.auth().signOut().then(function () {
-        Cookies.remove('idToken')
+        Cookies.remove('idToken');
         history.push("/")
     }).catch(function (error) {
         // An error happened.
