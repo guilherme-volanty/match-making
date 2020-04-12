@@ -27,11 +27,10 @@
     top: -2px;
     background-size: cover;
   }
-  
-  .car {
+
+  .car-asset {
     position: absolute;
-    right: -60px;
+    right: 0ch;
     top: 500px;
     z-index: 1;
-    transform: scaleX(-1);
   }
