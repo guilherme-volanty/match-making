@@ -20,7 +20,7 @@ function App() {
       <Card style={{ width: '23m' ,height: '23m' }}>
           <Card.Header><h1>Acesso à plataforma</h1></Card.Header>
         <Card.Body>
-            <Card.Subtitle className="mb-2 text-muted">Car Match</Card.Subtitle>
+            <Card.Subtitle className="mb-2 text-muted">Autenticar, usando sua conta em:</Card.Subtitle>
           <Card.Text>
             <GoogleButton onClick={() => { authenticate()}}/>
           </Card.Text>

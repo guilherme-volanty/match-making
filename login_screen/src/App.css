@@ -57,6 +57,8 @@ font-weight: bold;
   padding: 200px;
   position: relative;
   z-index: 30;
+  text-align: center;
+  align-content: center;
   
 
 }

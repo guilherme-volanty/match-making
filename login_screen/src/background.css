@@ -7,9 +7,9 @@
   content: "";
   background: url("https://assets.volanty.com/images/3.0/tech/graphic-orange.svg")
   no-repeat right top;
-  width: 23%;
-  height: 90vh;
-  background-size: 100vh;
+  width: 20%;
+  height: 100vh;
+  background-size: 410px;
   position: absolute;
   left: 0;
   top: 0;
@@ -29,7 +29,7 @@
 }
 
 .logo {
-  width: 500px;
+  width: 450px;
   margin: 0 auto;
   display: block;
   position: relative;
