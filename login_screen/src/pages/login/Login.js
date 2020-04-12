@@ -7,7 +7,8 @@ import {authenticate} from '../../Auth';
 import '../../background.css';
 
 class Login extends Component {
-    //HTML do Card d App
+
+    //HTML do Card de Autenticação.
     render() {
         return (
             <>
