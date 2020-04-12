@@ -9,6 +9,7 @@ const Crud = () => {
     const [data, setData] = useState([])
     const [openEdit, setOpenEdit] = useState(false);
     const [refresh, setRefresh] = useState(false)
+    const [idToOpen, setIdToOpen] = useState()
 
     useEffect(() => {
         axios.get("http://localhost:3001/match/all")
@@ -16,7 +17,7 @@ const Crud = () => {
                 setData(res.data)
             })
 
-    },[refresh])
+    },[data])
 
     useEffect(()=>{
         axios.get(`${url}Localiza`)
@@ -40,66 +41,74 @@ const Crud = () => {
         setRefresh(true)
     }
 
-    const setaEdit = () =>{
+    const setaEdit = (id) =>{
         setOpenEdit(!openEdit)
+        setIdToOpen(id)
     }
 
     //=========LOCALIZA==============
     const [localizaCars,setLocalizaCars] = useState([]);
-    const [localizaName,setLocalizaName] = useState();
-    const [localizaYear, setLocalizaYear] = useState();
-    const [localizaVersion, setLocalizaVersion] = useState();
+    const [localizaName,setLocalizaName] = useState("");
+    const [localizaYear, setLocalizaYear] = useState("");
+    const [localizaVersion, setLocalizaVersion] = useState("");
 
 
     //==========MOVIDA===============
     const [movidaCars, setMovidaCars] = useState([]);
-    const [movidaName, setMovidaName] = useState(); 
-    const [movidaYear, setMovidaYear] = useState();
-    const [movidaVersion, setMovidaVersion] = useState();
+    const [movidaName, setMovidaName] = useState(""); 
+    const [movidaYear, setMovidaYear] = useState("");
+    const [movidaVersion, setMovidaVersion] = useState("");
 
     const updateMatch = (id) => {
-        axios({
-            method: 'put',
-            url: `http://localhost:3001/match/update/${id}`,
-            data: {
-                localiza: {
-                    id: 1,
-                    name: localizaName,
-                    year: localizaYear,
-                    version: localizaVersion
-                },
-                movida: {
-                    id: 1,
-                    name: movidaName,
-                    year: movidaYear,
-                    version: movidaVersion
+        console.log(id)
+        if(localizaName!=="" && localizaYear!=="" && localizaYear!==""
+        && movidaName!=="" && movidaYear!=="" && movidaVersion!==""){
+            axios({
+                method: 'put',
+                url: `http://localhost:3001/match/update/${id}`,
+                data: {
+                    localiza: {
+                        id: 1,
+                        name: localizaName,
+                        year: localizaYear,
+                        version: localizaVersion
+                    },
+                    movida: {
+                        id: 1,
+                        name: movidaName,
+                        year: movidaYear,
+                        version: movidaVersion
+                    }
                 }
-            }
-        }).then(res =>{
-            console.log({message:"Enviado com sucesso"})
-        }).catch(error=> {
-            console.log(error)
-        })
+            }).then(res =>{
+                alert("Enviado com sucesso")
+            }).catch(error=> {
+                console.log(error)
+            })
+        }else{
+            alert("Digite todos os campos")
+        }
+
     }
- 
 
     const renderizaLinha = record => {
             return(
                 <>
                     <tr key = {record._id}>
-                        <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.year} {record.webmotors.version}</th>
+                            <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.year} {record.webmotors.version}{record.webmotors.bodywork}</th>
                             <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
                         <td>
-                            <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-danger"> Remover </button>
-                            <button onClick={setaEdit} className="btn btn-warning"> Editar </button>
+                            <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Remover </button>
+                            <button onClick={(e)=>setaEdit(record._id)} className="btn btn-outline-warning">  Editar </button>
                             
                         </td>
                     </tr>
+
                     <div>
-                        {openEdit===true&&
-                        <div className = "itens">
+                        {openEdit===true && record._id === idToOpen&&
+                        <div className = "container">
                                 <div className="localiza"> 
                                     <h5 className="title">LOCALIZA</h5>
                                     <div className ="name">
@@ -124,6 +133,8 @@ const Crud = () => {
                                         </select>
                                     </div>
                                 </div>
+                                <div className="division">
+                                </div>
                                 <div className="movida"> 
                                 <h5 className="title">MOVIDA</h5>
                                 <div className ="name">
@@ -147,12 +158,11 @@ const Crud = () => {
                                         {movidaCars.map(car => <option value= {car.version} key ={car.id}> {car.version}</option>)}
                                     </select>
                                 </div>
-                                <button type="button" onClick={(e) => {updateMatch(record._id)}}> Salvar</button>
+                                <button type="button" className="btn btn-outline-primary" onClick={(e) => {updateMatch(record._id)}}> Salvar</button>
                             </div>
                         </div>    
                         }
                     </div>
-
                 </>
             );
     }

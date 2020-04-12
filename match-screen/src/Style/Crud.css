@@ -1,9 +1,14 @@
+
+.container{
+    display: flex;
+}
+
 .itens{
     display: flex;
     width: 40vw;
     
 }
 
-.movida{
-
+.division{
+    width: 200px;
 }

@@ -43,7 +43,9 @@ function deleteMatchById (request, response) {
 }
 
 function updateMatchById (request, response){
-    Match.findOneAndUpdate(request.params.id, request.body)
+    console.log(request.params.id)
+    console.log(request.body)
+    Match.findByIdAndUpdate(request.params.id, request.body)
     .then(function(){
         response.status(200).send("Item atualizado com sucesso")
     }).catch(function(err){
