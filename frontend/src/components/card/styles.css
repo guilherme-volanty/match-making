@@ -1,8 +1,11 @@
 /* Product List */
 
-.card{
-    margin-top: 50px;
+.card-section{
+    width: 100%;
+    position: absolute;
+    top: 350px;
     border: none;
+    z-index: 2;
 }
 .card-columns{
     display: flex;
@@ -11,6 +14,7 @@
     align-content: center;
     align-self: center;
     width: 500px;
+    margin: 0 auto;
 }
 
 .mb-3{

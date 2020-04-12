@@ -5,7 +5,7 @@ import { Button, Form, FormFile } from 'react-bootstrap';
 const Carde = () => {
 
     return (
-        <section className="card">
+        <section className="card-section">
             <div className="card-columns">
                 <div className="card mb-3">
                     <div className="card-body">

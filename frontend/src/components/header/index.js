@@ -1,6 +1,6 @@
 import React  from 'react';
 import './styles.css';
-import volantyLogo from '../../assets/volanty-logo.svg';
+import volantyLogo from '../../assets/volanty-logo.png';
 
 
 const Header = () => {
