@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
 import 'firebase/auth';
 import Cookies from 'js-cookie';
+import{history} from "./history";
 
 //Função de autenticação chamada no onclick do botão de login
 function authenticate() {
@@ -19,7 +20,6 @@ function authenticate() {
     });
 
 
-
     firebase.auth().signInWithPopup(provider).then(function (result) {
         Cookies.set("user", result.user.displayName);
         Cookies.set("email", result.user.email);
@@ -30,10 +30,21 @@ function authenticate() {
             alert("Não é possivel efetuar login com emails que não sejam do domínio @volanty");
             firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
         }
+        history.push("/Home")
     }).catch(function (error) {
         alert("Erro ao criar usuário :" + error);
     });
 }
 
+export const isAuthenticated = () => true ;
 
-export {authenticate};
+function singOut () {
+    firebase.auth().signOut().then(function() {
+        history.push("/")
+    }).catch(function(error) {
+        // An error happened.
+    });
+
+}
+
+export {authenticate, singOut};

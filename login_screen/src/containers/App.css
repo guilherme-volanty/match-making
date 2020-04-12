@@ -53,7 +53,7 @@ font-weight: bold;
 
 }
 .boxgoogle{
-
+  position: absolute;
   padding: 200px;
   position: relative;
   z-index: 30;
