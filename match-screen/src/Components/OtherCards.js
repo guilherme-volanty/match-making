@@ -84,6 +84,7 @@ const OtherCards = (props) => {
                         </div>
                         <div className="buttons">
                             <Button variant="outline-primary" type="submit" onClick={submitCard}>Enviar</Button>{' '}
+                            
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, {Fragment, useState, useEffect} from "react"; 
 import axios from "axios";
 import '../Style/Crud.css'
+import {Link} from 'react-router-dom'
 
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -169,7 +170,9 @@ const Crud = () => {
         <div className = "table">
             <div className="space"></div>
 
-        <h1>MATCHS</h1>
+        <h1>TABELA DE MATCHS</h1>
+        <Link to="/match-screen" className="link btn btn-outline-primary">NOVO MATCH</Link>
+
         <table className="table">
             <thead className="thead-dark">
                 <tr>
