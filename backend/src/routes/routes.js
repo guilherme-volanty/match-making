@@ -15,4 +15,5 @@ routes.post('/base-csv', multer(multerConfigs).single('file'), (request, respons
   return response.status(200).send('Arquivo CSV recebido! Processando')
 })
 
+routes.delete('/base-csv', baseCsvController.delete)
 module.exports = routes;

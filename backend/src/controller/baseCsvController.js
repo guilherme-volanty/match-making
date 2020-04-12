@@ -7,6 +7,11 @@ module.exports = {
         return response.json(allVersions)
     }, 
 
+    async delete(request, response){
+        BaseCSV.collection.drop();
+        return response.status(200).send("Base deletada com sucesso! Envie uma Nova Base")
+    },
+
     async store(request, response){
 
         const { fipePrice, 
