@@ -3,6 +3,7 @@
   height: 100vh;
   position: relative;
 }
+
 .wrap::before {
   content: "";
   background: url("https://assets.volanty.com/images/3.0/tech/graphic-orange.svg")
@@ -37,6 +38,8 @@
   z-index: 6;
 }
 .car {
+  width: 270px;
+  height: 270px;
   position: absolute;
   right: -60px;
   top: 500px;
