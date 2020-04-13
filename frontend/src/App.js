@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import uploadApi from './services/uploadApi';
 import Header from './components/header/index';
 import Background from './components/background/index';
-import Card from './components/card/index';
+import UploadCard from './components/cardUpload/index';
+import SearchCard from './components/cardSearch/index';
 
 function App() {
   
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <Header />
       <Background />
-      <Card />
+      <UploadCard />
     </div>
   );
 }

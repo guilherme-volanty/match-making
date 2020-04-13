@@ -1,0 +1,23 @@
+.card-columns{
+    width: 80%;
+}
+
+.card-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.btn.btn-danger{
+    margin: 0;
+}
+
+.btn.btn-secondary{
+    margin: 0;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: space-between;
+}
