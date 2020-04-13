@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GoogleButton from 'react-google-button'
 import {Card, Container, Row} from "react-bootstrap";
-import {authenticate} from '../../Auth';
+import {authenticate, errorLogin, errorMessage} from '../../Auth';
 import '../../background.css';
 
 class Login extends Component {
@@ -22,11 +22,12 @@ class Login extends Component {
                                 <Card.Header><h3>Acesso à plataforma</h3></Card.Header>
                                 <Card.Body>
                                     <Card.Subtitle className="mb-2 text-muted">Autenticar usando sua conta :</Card.Subtitle>
-                                    <Card.Text>
+                                    <Card.Text class="button">
                                         <GoogleButton onClick={() => {
                                             authenticate()
                                         }}/>
                                     </Card.Text>
+                                    <Card.Footer class="msgErro" hidden={errorLogin}><p>{errorMessage}</p></Card.Footer>
                                 </Card.Body>
                             </Card>
                         </Row>
@@ -34,7 +35,7 @@ class Login extends Component {
                     </Container>
                 </div>
                 </>
-    );
+        );
     }
 }
 
