@@ -9,7 +9,7 @@ class Home extends Component {
         return (
             <div className="container-fluid p-0">
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#">Car Match </a>
+                    <a className="navbar-brand" href="_blank">Car Match </a>
 
                     <div className="navbar-nav ml-auto">
                         <div className="navbar-brand justify-content-between">{this.userName}</div>
