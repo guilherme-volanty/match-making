@@ -30,6 +30,7 @@ const MatchScreen = () => {
     const [localizaName, setLocalizaName] = useState("")
     const [localizaYear, setLocalizaYear] = useState("")
     const [localizaVersion, setLocalizaVersion] = useState("")
+    const [localizaId, setLocalizaId] = useState("")
     const [localizaAccepted, setLocalizaAccepted] = useState(false)
 
     useEffect(() => {
@@ -44,6 +45,7 @@ const MatchScreen = () => {
     const [movidaName, setMovidaName] = useState("")
     const [movidaYear, setMovidaYear] = useState("")
     const [movidaVersion, setMovidaVersion] = useState("")
+    const [movidaId, setMovidaId] = useState("")
     const [movidaAccepted, setMovidaAccepted] = useState(false)
     useEffect(() => {
         axios.get(`${url}Movida`)
@@ -70,13 +72,13 @@ const MatchScreen = () => {
                     version: webmotorsCars.version
                 },
                 localiza: {
-                    id: 1,
+                    id: localizaId,
                     name: localizaName,
                     year: localizaYear,
                     version: localizaVersion
                 },
                 movida: {
-                    id: 1,
+                    id: movidaId,
                     name: movidaName,
                     year: movidaYear,
                     version: movidaVersion
@@ -96,6 +98,11 @@ const MatchScreen = () => {
         
     }
 
+    console.log(`localizaVersion:${localizaVersion}`)
+    console.log(`localizaId:${localizaId}`)
+    console.log(`movidaVersion:${movidaVersion}`)
+    console.log(`movidaId:${movidaId}`)
+
 
     return (
         <div className="">
@@ -113,6 +120,7 @@ const MatchScreen = () => {
                         setLocalizaYear={setLocalizaYear}
                         setLocalizaVersion={setLocalizaVersion}
                         setLocalizaAccepted={setLocalizaAccepted}
+                        setLocalizaId={setLocalizaId}
                         className="localiza"
                         origin="Localiza" />
 
@@ -121,6 +129,7 @@ const MatchScreen = () => {
                         setMovidaYear={setMovidaYear}
                         setMovidaVersion={setMovidaVersion}
                         setMovidaAccepted={setMovidaAccepted}
+                        setMovidaId={setMovidaId}
                         className="movida"
                         origin="Movida" />
                 </div>

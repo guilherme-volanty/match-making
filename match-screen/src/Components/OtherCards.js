@@ -7,9 +7,11 @@ const OtherCards = (props) => {
     const [name, setName] = useState("")
     const [year, setYear] = useState(0)
     const [version, setVersion] = useState("")
+    const [id, setId] = useState("")
 
     const onChangeName = (event) => {
         setName(event.target.value)
+
         if(props.origin ==="Localiza"){
             props.setLocalizaName(event.target.value)
         }else{
@@ -26,19 +28,21 @@ const OtherCards = (props) => {
         }
     }
 
-
-
     const onChangeVersion = (event) => {
         setVersion(event.target.value)
+        
         if(props.origin ==="Localiza"){
             props.setLocalizaVersion(event.target.value)
         }else {
             props.setMovidaVersion(event.target.value)
+
         }
     }
 
+
     const submitCard = () => {
         if(name !== "" && version!== "" && year!=="") {
+            getId()
             alert(`Card da ${props.origin} Enviado com sucesso`)
             if(props.origin === "Localiza"){
                 props.setLocalizaAccepted(true)
@@ -50,22 +54,31 @@ const OtherCards = (props) => {
             alert("Digite tudo")
         }
     }
+    const getId = () => {
+        props.data.filter(filter => filter.year===year).
+            map(car => props.origin === "Localiza" ? props.setLocalizaId(car.id): props.setMovidaId(car.id))
+        
+    }
 
     const noMatch = () => {
         if(props.origin ==="Localiza"){
             props.setLocalizaName("")
             props.setLocalizaYear("")
             props.setLocalizaVersion("")
+            props.setLocalizaId("")
             props.setLocalizaAccepted(true)
 
         }else {
             props.setMovidaName("")
             props.setMovidaYear("")
             props.setMovidaVersion("")
+            props.setMovidaId("")
             props.setMovidaAccepted(true)
         }
         alert(`Que pena que não há match na ${props.origin}!`)
     }
+
+    console.log(id)
 
     return (
 
@@ -88,14 +101,13 @@ const OtherCards = (props) => {
                                     <option value = "">-</option>
                                         {props.data.filter(filter =>filter.name===name)
                                             .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
-
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div className="select3 form-group">
                                 <label htmlFor="nome">Versão</label>
-                                <select className="form-control" onChange={onChangeVersion}>
+                                <select className="form-control" onChange={getId, onChangeVersion}>
                                     <option value = "">Selecione</option>
                                     {props.data.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                 </select>
@@ -105,7 +117,7 @@ const OtherCards = (props) => {
                             <button type="button" onClick={noMatch} className="btn btn-outline-dark">Não há Match</button>
                             <button className="btn btn-outline-primary" onClick={submitCard}>Enviar</button>{' '}
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
