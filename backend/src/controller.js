@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
 
-function saveDataFromFile(request, response){
+function saveDataFromUpload(request, response){
 
 	 
 	fs.createReadStream(path.resolve(__dirname,'uploads', request.file.filename))
@@ -21,7 +21,7 @@ function saveDataFromFile(request, response){
 				console.error(err);
 			});
 		})
-		.on('end', (rowCount)=>{
+		.on('end', ()=>{
 			response.status(200).send({ message: "Arquivo importado com sucesso!" });
 		})
 			
@@ -61,4 +61,4 @@ function createMatchFiles(request, response) {
 
   module.exports = { createMatchFiles: createMatchFiles,
 					 getAllMatchFiles: getAllMatchFiles,
-					 saveDataFromFile: saveDataFromFile }
+					 saveDataFromUpload: saveDataFromUpload }
