@@ -23,6 +23,6 @@ class NotFound extends Component {
     }
 }
  function redirect () {
-     history.push("/Login")
+     history.push("/Home")
  }
 export default NotFound;

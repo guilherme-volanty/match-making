@@ -2,7 +2,8 @@ import * as firebase from "firebase";
 import 'firebase/auth';
 import Cookies from 'js-cookie';
 import {history} from "./history";
-
+let errorLogin = true;
+let errorMessage= '';
 //Função de autenticação chamada no onclick do botão google authenticated.
 function authenticate() {
 
@@ -20,7 +21,8 @@ function authenticate() {
 
         // restringir o dominio volanty.
         if (!result.user.email.match(/.*@volanty.com$/)) {
-            alert("Não é possivel efetuar login com emails que não sejam do domínio @volanty");
+            errorLogin = false;
+            errorMessage  = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
             firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
             Cookies.remove('idToken','user','email','photo');
             history.push("/login");
@@ -47,4 +49,4 @@ function singOut() {
 
 }
 
-export {authenticate, singOut, isAuthenticated};
+export {authenticate, singOut, isAuthenticated, errorLogin,errorMessage};

@@ -53,13 +53,28 @@ font-weight: bold;
 
 }
 .boxgoogle{
+
   position: absolute;
-  padding: 200px;
+  padding: 47px;
   position: relative;
   z-index: 30;
   text-align: center;
   align-content: center;
-  
+  padding-bottom: 5cm;
 
 }
+.button {
+  position: center;
+  padding: 15px 20px;
+}
+
+.msgErro,p {
+  max-width: 42ch ;
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
+  word-break: break-all;
+}
+
 
