@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import { Button } from "react-bootstrap"
 import "../Style/OtherCards.css"
 
 const OtherCards = (props) => {
 
     const [name, setName] = useState("")
-    const [year, setYear] = useState("")
+    const [year, setYear] = useState(0)
     const [version, setVersion] = useState("")
 
     const onChangeName = (event) => {
@@ -19,13 +18,15 @@ const OtherCards = (props) => {
     }    
 
     const onChangeYear = (event) => {
-        setYear(event.target.value)
+        setYear(Number(event.target.value))
         if(props.origin ==="Localiza"){
-            props.setLocalizaYear(event.target.value)
+            props.setLocalizaYear(Number(event.target.value))
         }else {
-            props.setMovidaYear(event.target.value)
-        }        
+            props.setMovidaYear(Number(event.target.value))
+        }
     }
+
+
 
     const onChangeVersion = (event) => {
         setVersion(event.target.value)
@@ -49,7 +50,6 @@ const OtherCards = (props) => {
             alert("Digite tudo")
         }
     }
-
 
     const noMatch = () => {
         if(props.origin ==="Localiza"){
@@ -86,16 +86,18 @@ const OtherCards = (props) => {
                                 <label htmlFor="nome">Ano</label>
                                 <select className="form-control" onChange={onChangeYear}>
                                     <option value = "">-</option>
-                                    {props.data.map(car => <option value= {car.year} key ={car.id}> {car.year}</option>)}
+                                        {props.data.filter(filter =>filter.name===name)
+                                            .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
+
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div className="select3 form-group">
-                                <label htmlFor="nome">Nome</label>
+                                <label htmlFor="nome">Versão</label>
                                 <select className="form-control" onChange={onChangeVersion}>
                                     <option value = "">Selecione</option>
-                                    {props.data.map(car => <option value= {car.version}key ={car.id}> {car.version}</option>)}
+                                    {props.data.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                 </select>
                             </div>
                         </div>
