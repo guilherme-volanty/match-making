@@ -9,7 +9,7 @@ const express = require('express')
 	
 
 
-app.use(express.static('public'));
+app.use(express.static('public/index.html'));
 app.use(bodyParser.json());
 app.use(routes);
 
@@ -22,12 +22,11 @@ routes.get('/status', (request, response) => {
 
 routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
 
-routes.post('/file/post', Controller.createMatchFiles);
-
 routes.get('/file/get', Controller.getAllMatchFiles);
 
+routes.get('/file/:name ', Controller.getCarByName);
 
 
 
 
-app.listen(3000, () => console.log('App na porta 3000'));
+app.listen(4000, () => console.log('App na porta 3000'));

@@ -14,7 +14,7 @@ const fileSchema = new Schema({
 
 },{
 
-    collection: 'matchFiles'
+    collection: 'matchFiles-teste'
 });
 
 module.exports = mongoose.model('matchFile', fileSchema)

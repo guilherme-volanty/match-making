@@ -26,39 +26,56 @@ function saveDataFromUpload(request, response){
 		})
 			
 }
-
-
-
-function createMatchFiles(request, response) {
-	const file = request.body;
-  
-	matchFile.create(file)
-	  .then(function() {
-		response.status(201).send({ message: "Objeto salvo no banco!" });
-	  })
-	  .catch(function(err) {
-		console.error(err);
-		response
-		  .status(500)
-		  .send({ message: "Ops! Estamos com alguns problemas." });
-	  });
-  }
-
-  function getAllMatchFiles(request, response) {
+function getCarByName(request, response) {
 	
-  
-	matchFile.find({})
+	matchFile.find({name:request.params.name})
 	  .then(function(files) {
 		response.status(201).send(files);
 	  })
 	  .catch(function(err) {
-		console.error(err);
-		response
-		  .status(500)
-		  .send({ message: "Ops! Estamos com alguns problemas." });
+		response.status(500).send({ message: "Ops! Ocorreu um erro" });
 	  });
   }
 
-  module.exports = { createMatchFiles: createMatchFiles,
+function getCarByYear(request, response) {
+	
+	matchFile.find({year:request.params.name})
+	  .then(function(files) {
+		response.status(201).send(files);
+	  })
+	  .catch(function(err) {
+		response.status(500).send({ message: "Ops! Ocorreu um erro" });
+	  });
+  }
+
+function getCarByOrigin(request, response) {
+	
+	matchFile.find({origin:request.params.name})
+	  .then(function(files) {
+		response.status(201).send(files);
+	  })
+	  .catch(function(err) {
+		response.status(500).send({ message: "Ops! Ocorreu um erro" });
+	  });
+  }
+
+
+function getAllMatchFiles(request, response) {
+	
+  	matchFile.find({})
+	  .then(function(files) {
+		response.status(200).send(files);
+	  })
+	  .catch(function(err) {
+		console.error(err);
+		response
+		  .status(500)
+		  .send({ message: "Ops! Ocorreu um erro" });
+	  });
+  }
+
+  module.exports = { getCarByName : getCarByName,
+					 getCarByYear : getCarByYear,
+					 getCarByOrigin : getCarByOrigin,
 					 getAllMatchFiles: getAllMatchFiles,
 					 saveDataFromUpload: saveDataFromUpload }

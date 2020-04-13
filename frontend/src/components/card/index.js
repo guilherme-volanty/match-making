@@ -2,6 +2,14 @@ import React from 'react';
 import './styles.css';
 import { Button, Form, FormFile } from 'react-bootstrap';
 
+function postUpload(){
+
+    return axios.post('http://localhost:4000/file/upload')
+    .then(function(response){
+      console.log('salvo com sucesso')
+    });  
+}
+
 const Carde = () => {
 
     return (
@@ -24,6 +32,7 @@ const Carde = () => {
                                             <option>Localiza</option>
                                         </Form.Control>
                                     </div>
+                                    <Button className="send" onClick={postUpload}>ENVIAR</Button>
                                 </Form.Group>
                             </FormFile >
                         </div>
