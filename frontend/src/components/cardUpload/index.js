@@ -7,7 +7,7 @@ import FormFileLabel from 'react-bootstrap/FormFileLabel';
 
 
 
-const Carde = () => {
+const UploadCard = () => {
     const [fileUpload, setFileUpload] = useState('');
     const [fileName, setFileName] = useState('Procure sua Base');
 
@@ -63,4 +63,4 @@ const Carde = () => {
     );
 }
 
-export default Carde;
+export default UploadCard;
