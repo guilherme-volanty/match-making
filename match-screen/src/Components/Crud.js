@@ -2,6 +2,8 @@ import React, {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import '../Style/Crud.css'
 import {Link} from 'react-router-dom'
+import Popup from 'reactjs-popup'
+
 
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -106,9 +108,18 @@ const Crud = () => {
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
                         <td className="buttons"> 
-                            <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Remover </button>
                             <button onClick={(e)=>setaEdit(record._id)} className="btn btn-outline-warning">  Editar </button>
-                            
+                            <Popup
+                                trigger={<button className="button" className="btn btn-outline-danger"> Remover </button>}
+                                modal
+                                >
+                                <div className='content'>
+                                    <div className="modalHeader"><p>Deseja remover? </p></div>
+                                    <div className="modalButtons">
+                                        <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
+                                    </div>
+                                </div>
+                            </Popup>
                         </td>
                     </tr>
 

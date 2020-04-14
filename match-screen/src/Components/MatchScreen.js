@@ -6,7 +6,7 @@ import '../Style/MatchScreen.css'
 import '../Style/background.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
-import Ilustration from './undraw_fast_car_p4cu.png'
+import Ilustration from '../assets/undraw_fast_car_p4cu.png'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
