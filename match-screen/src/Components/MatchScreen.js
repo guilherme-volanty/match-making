@@ -6,6 +6,7 @@ import '../Style/MatchScreen.css'
 import '../Style/background.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
+import Ilustration from './undraw_fast_car_p4cu.png'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -121,11 +122,18 @@ const MatchScreen = () => {
             </div>
             <div className="items">
 
-                <Modal show={loading} animation={false}>
-                    <Modal.Header >
-                    <Modal.Title > CARREGANDO...</Modal.Title>
+                <Modal show={loading} animation={true}>
+                    <Modal.Header style={{ position: 'center' }} >
+                    <Modal.Title  > CARREGANDO...</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Estamos enviando o Match e preparando um novo carro!</Modal.Body>
+                    <Modal.Body>
+                        <img style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
+                        width="60%"
+                        src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
+                        <img width="100%"src ={Ilustration} />
+                        <p style={{ textAlign: 'center' }}>Estamos enviando seu Match e trazendo outro carro!</p>
+
+                    </Modal.Body>
                 </Modal>
                 
                 <div className="Cards">

@@ -33,8 +33,14 @@ span{
 .buttons{
     margin-top: 13%;
 }
+.noMatch p{
+    margin-top: 8%;
+    margin: 10%;
+}
 
 .button{
     margin-right: 4%;
 }
+
+
 
