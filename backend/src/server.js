@@ -5,13 +5,15 @@ const express = require('express')
 	, routes = require('express').Router()
 	, connectToMongo = require('./mongo')
 	, Controller = require('./controller')
-	, bodyParser= require('body-parser');
+	, bodyParser= require('body-parser')
+	, cors = require('cors');
 	
 
 
 app.use(express.static('public/index.html'));
 app.use(bodyParser.json());
 app.use(routes);
+app.use(cors());
 
 
 connectToMongo();
@@ -26,7 +28,9 @@ routes.get('/file/get', Controller.getAllMatchFiles);
 
 routes.get('/file/:name ', Controller.getCarByName);
 
+routes.delete('/file/delete', Controller.Delete);
 
 
 
-app.listen(4000, () => console.log('App na porta 3000'));
+
+app.listen(4000, () => console.log('App na porta 4000'));

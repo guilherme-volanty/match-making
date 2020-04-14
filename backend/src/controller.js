@@ -74,8 +74,19 @@ function getAllMatchFiles(request, response) {
 	  });
   }
 
+  function Delete(request, response){
+	matchFile.collection.remove({})
+	.then(function() {
+		response.status(200).send({message: "Collection limpada."});
+	  })
+	.catch(function(err) {
+		response.status(500).send({ message: "Ops! Ocorreu um erro" });
+	  });
+}
+
   module.exports = { getCarByName : getCarByName,
 					 getCarByYear : getCarByYear,
 					 getCarByOrigin : getCarByOrigin,
 					 getAllMatchFiles: getAllMatchFiles,
-					 saveDataFromUpload: saveDataFromUpload }
+					 saveDataFromUpload: saveDataFromUpload,
+					 Delete : Delete }

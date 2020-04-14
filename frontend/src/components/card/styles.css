@@ -15,9 +15,7 @@
     margin: 0 auto;
 }
 
-
 .mb-3{
-    
     width: 540px;
     border: none;
     border-radius: 20px;
@@ -47,10 +45,32 @@
     height: 40px;
 }
 
-.select-container{
-    display: grid;
+
+.test-inputo{
+    width: 40%;
 }
 
-.form-label{
-    font-size: 24px;;
+.input-block{
+    width: 50%;
+}
+
+.custom-file-label {
+    top: 65px;
+    width: 50%;
+    margin: 0 auto;
+
+}
+
+label{
+    margin: 15px;
+}
+
+.form-control{
+    width: 30%;
+    margin: 0 auto;
+}
+
+.btn{
+    margin: 0 auto;
+    margin-top: 30px;
 }

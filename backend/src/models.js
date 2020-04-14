@@ -12,9 +12,7 @@ const fileSchema = new Schema({
     version: String,
 
 
-},{
 
-    collection: 'matchFiles-teste'
 });
 
 module.exports = mongoose.model('matchFile', fileSchema)
