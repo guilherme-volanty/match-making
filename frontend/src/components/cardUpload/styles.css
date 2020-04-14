@@ -7,7 +7,7 @@
     border: none;
     z-index: 2;
 }
-.card-columns{
+.column-card{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

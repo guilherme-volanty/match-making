@@ -22,7 +22,7 @@ const SearchCard = () => {
 
     return (
         <section className="card-section">
-            <div className="card-columns">
+            <div className="column-card">
                 <div className="card mb-3">
                     <div className="card-body">
                         <div className="card-title">

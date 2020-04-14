@@ -40,7 +40,7 @@ const UploadCard = () => {
 
     return (
         <section className="card-section">
-            <div className="card-columns">
+            <div className="column-card">
                 <div className="card mb-3">
                     <div className="card-body">
                         <h2 id="Base-title" className="card-title">Base Root</h2>
