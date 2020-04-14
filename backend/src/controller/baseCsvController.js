@@ -8,7 +8,8 @@ module.exports = {
     }, 
 
     async delete(request, response){
-        BaseCSV.collection.drop();
+        BaseCSV.collection.updateMany({isDeleted: false},{$set: {isDeleted: true}});
+        console.log("Deletou!")
         return response.status(200).send("Base deletada com sucesso! Envie uma Nova Base")
     },
 

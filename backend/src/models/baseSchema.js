@@ -10,7 +10,8 @@ const BaseSchema = new mongoose.Schema({
     version: String,
     modelYear: Number,
     bodyWork: String,
-    versionId: String
+    versionId: String,
+    isDeleted: false 
 });
 
 module.exports = mongoose.model('BaseCSV', BaseSchema, "base-csv-test")

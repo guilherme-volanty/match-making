@@ -11,6 +11,7 @@ function keyTransform(csvObject) {
         modelYear: csvObject.modelYear,
         bodyWork: csvObject.carroceria,
         versionId: csvObject.versionId,
+        isDeleted: false,
     }
 }
 
