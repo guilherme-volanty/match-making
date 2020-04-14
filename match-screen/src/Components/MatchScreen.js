@@ -4,17 +4,16 @@ import WebmotorsCard from './WebmotorsCard'
 import { Button } from "react-bootstrap"
 import '../Style/MatchScreen.css'
 import '../Style/background.css'
-
-import {Link} from 'react-router-dom'
-import axios from 'axios';
+import axios from 'axios'
+import Modal from 'react-bootstrap/Modal'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const MatchScreen = () => {
     //==========WEBMOTORS==============
-    const mathRandom = ((Math.random() * 10) + 10).toFixed(0)
+    const mathRandom = ((Math.random() * 10)+1).toFixed(0)
     const [webmotorsCars, setWebmotorsCar] = useState({})
-    
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
@@ -23,6 +22,10 @@ const MatchScreen = () => {
                 setWebmotorsCar(res.data)
             })
     }, []);
+
+    
+
+       console.log(loading)
 
 
     //===========LOCALIZA===============
@@ -40,6 +43,8 @@ const MatchScreen = () => {
             });
     }, [])
 
+    
+
     //===========MOVIDA===============
     const [MovidaCars, setMovidaCars] = useState([])
     const [movidaName, setMovidaName] = useState("")
@@ -54,55 +59,59 @@ const MatchScreen = () => {
             });
     }, [])
 
+    useEffect(() => {
+        LocalizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName && filter.version===localizaVersion)
+            .map(car => setLocalizaId(car.id))
+        MovidaCars.filter(filter => filter.year===movidaYear && filter.name===movidaName && filter.version===movidaVersion)
+            .map(car =>(setMovidaId(car.id)))
+    }, [movidaVersion,localizaVersion])
 
-    const [send, setSend] = useState(false)
+
     const sendForm = () => {
-        axios({
-            method: 'post',
-            url: "http://localhost:3001/match",
-            data: {
-                operationId: `${mathRandom}`,
-                date: `${Date.now()}`,
-                webmotors: {
-                    id: webmotorsCars.id,
-                    brand: webmotorsCars.brand,
-                    model: webmotorsCars.model,
-                    bodywork: webmotorsCars.carroceria,
-                    year: webmotorsCars.year,
-                    version: webmotorsCars.version
-                },
-                localiza: {
-                    id: localizaId,
-                    name: localizaName,
-                    year: localizaYear,
-                    version: localizaVersion
-                },
-                movida: {
-                    id: movidaId,
-                    name: movidaName,
-                    year: movidaYear,
-                    version: movidaVersion
-                },
-                user: {
-                    userId: 3213,
-                    name: "Alysson",
-                    email: "alysson@volanty.com"
+        if(movidaAccepted===true && localizaAccepted===true){
+            setLoading(true)
+            axios({
+                method: 'post',
+                url: "http://localhost:3001/match",
+                data: {
+                    operationId: `${mathRandom}`,
+                    date: `${Date.now()}`,
+                    webmotors: {
+                        id: webmotorsCars.id,
+                        brand: webmotorsCars.brand,
+                        model: webmotorsCars.model,
+                        bodywork: webmotorsCars.carroceria,
+                        year: webmotorsCars.year,
+                        version: webmotorsCars.version
+                    },
+                    localiza: {
+                        id: localizaId,
+                        name: localizaName,
+                        year: localizaYear,
+                        version: localizaVersion
+                    },
+                    movida: {
+                        id: movidaId,
+                        name: movidaName,
+                        year: movidaYear,
+                        version: movidaVersion
+                    },
+                    user: {
+                        userId: 3213,
+                        name: "Alysson",
+                        email: "alysson@volanty.com"
+                    }
                 }
-            }
-        }).then(res =>{
-            console.log({message:"Enviado com sucesso"})
-            setSend(true)
-        }).catch(error=> {
-            console.log(error)
-        })
-        
+            }).then(res =>{
+                console.log({message:"Enviado com sucesso"})
+                window.location.reload()
+            }).catch(error=> {
+                console.log(error)
+            })
+        }else{
+            alert("Preencha o todos os campos")
+        }
     }
-
-    console.log(`localizaVersion:${localizaVersion}`)
-    console.log(`localizaId:${localizaId}`)
-    console.log(`movidaVersion:${movidaVersion}`)
-    console.log(`movidaId:${movidaId}`)
-
 
     return (
         <div className="">
@@ -111,6 +120,14 @@ const MatchScreen = () => {
                 <img className="logo"src= "https://assets.volanty.com/images/3.0/nova-logo.svg" alt="logo"/>
             </div>
             <div className="items">
+
+                <Modal show={loading} animation={false}>
+                    <Modal.Header >
+                    <Modal.Title > CARREGANDO...</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Estamos enviando o Match e preparando um novo carro!</Modal.Body>
+                </Modal>
+                
                 <div className="Cards">
                     <WebmotorsCard data={webmotorsCars}
                         className="webmotors" />
@@ -134,9 +151,7 @@ const MatchScreen = () => {
                         origin="Movida" />
                 </div>
                 <div className="Button">
-                    {localizaAccepted === true && movidaAccepted === true && <Button onClick={sendForm} type="submit" className="button" variant="primary">Enviar</Button>}
-                    {send === true && <Link to="/match-table" className="btn btn-primary" >Prosseguir</Link>}
-                
+                    <Button onClick={sendForm} type="submit" className="button" variant="primary">Enviar</Button>
                 </div>
             </div>
             </div>

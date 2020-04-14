@@ -7,15 +7,16 @@ const OtherCards = (props) => {
     const [name, setName] = useState("")
     const [year, setYear] = useState(0)
     const [version, setVersion] = useState("")
-    const [id, setId] = useState("")
 
     const onChangeName = (event) => {
         setName(event.target.value)
 
         if(props.origin ==="Localiza"){
             props.setLocalizaName(event.target.value)
+            props.setLocalizaAccepted(false)
         }else{
             props.setMovidaName(event.target.value)
+            props.setMovidaAccepted(false)
         }
     }    
 
@@ -23,41 +24,31 @@ const OtherCards = (props) => {
         setYear(Number(event.target.value))
         if(props.origin ==="Localiza"){
             props.setLocalizaYear(Number(event.target.value))
+            props.setLocalizaAccepted(false)
         }else {
             props.setMovidaYear(Number(event.target.value))
+            props.setMovidaAccepted(false)
         }
     }
 
     const onChangeVersion = (event) => {
         setVersion(event.target.value)
-        
+        getId()   
         if(props.origin ==="Localiza"){
             props.setLocalizaVersion(event.target.value)
+            props.setLocalizaAccepted(true)
+
         }else {
             props.setMovidaVersion(event.target.value)
+            props.setMovidaAccepted(true)
 
         }
     }
 
 
-    const submitCard = () => {
-        if(name !== "" && version!== "" && year!=="") {
-            getId()
-            alert(`Card da ${props.origin} Enviado com sucesso`)
-            if(props.origin === "Localiza"){
-                props.setLocalizaAccepted(true)
-            }else{
-                props.setMovidaAccepted(true)
-            }
-        }
-        else{
-            alert("Digite tudo")
-        }
-    }
     const getId = () => {
-        props.data.filter(filter => filter.year===year).
-            map(car => props.origin === "Localiza" ? props.setLocalizaId(car.id): props.setMovidaId(car.id))
-        
+        props.data.filter(filter => filter.year===year && filter.name===name && filter.version===version)
+            .map(car => props.origin === "Localiza" ? props.setLocalizaId(car.id): props.setMovidaId(car.id))
     }
 
     const noMatch = () => {
@@ -77,8 +68,6 @@ const OtherCards = (props) => {
         }
         alert(`Que pena que não há match na ${props.origin}!`)
     }
-
-    console.log(id)
 
     return (
 
@@ -107,15 +96,15 @@ const OtherCards = (props) => {
                         <div>
                             <div className="select3 form-group">
                                 <label htmlFor="nome">Versão</label>
-                                <select className="form-control" onChange={getId, onChangeVersion}>
+                                <select className="form-control" onChange={onChangeVersion}>
                                     <option value = "">Selecione</option>
-                                    {props.data.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
+                                    {props.data.filter(filter => filter.year===year && filter.name===name)
+                                        .map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                 </select>
                             </div>
                         </div>
                         <div className="buttons">
                             <button type="button" onClick={noMatch} className="btn btn-outline-dark">Não há Match</button>
-                            <button className="btn btn-outline-primary" onClick={submitCard}>Enviar</button>{' '}
                         </div>
                     </div> 
                 </div>

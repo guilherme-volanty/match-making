@@ -49,6 +49,7 @@ const Crud = () => {
     const [localizaCars,setLocalizaCars] = useState([]);
     const [localizaName,setLocalizaName] = useState("");
     const [localizaYear, setLocalizaYear] = useState("");
+    const [localizaId, setLocalizaId] = useState(0)
     const [localizaVersion, setLocalizaVersion] = useState("");
 
 
@@ -56,10 +57,17 @@ const Crud = () => {
     const [movidaCars, setMovidaCars] = useState([]);
     const [movidaName, setMovidaName] = useState(""); 
     const [movidaYear, setMovidaYear] = useState("");
+    const [movidaId, setMovidaId] = useState(0);
     const [movidaVersion, setMovidaVersion] = useState("");
 
+    useEffect(() => {
+        localizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName && filter.version===localizaVersion)
+            .map(car => setLocalizaId(car.id))
+        movidaCars.filter(filter => filter.year===movidaYear && filter.name===movidaName && filter.version===movidaVersion)
+            .map(car =>(setMovidaId(car.id)))
+    }, [movidaVersion,localizaVersion])
+
     const updateMatch = (id) => {
-        console.log(id)
         if(localizaName!=="" && localizaYear!=="" && localizaYear!==""
         && movidaName!=="" && movidaYear!=="" && movidaVersion!==""){
             axios({
@@ -67,13 +75,13 @@ const Crud = () => {
                 url: `http://localhost:3001/match/update/${id}`,
                 data: {
                     localiza: {
-                        id: 1,
+                        id: localizaId,
                         name: localizaName,
                         year: localizaYear,
                         version: localizaVersion
                     },
                     movida: {
-                        id: 1,
+                        id: movidaId,
                         name: movidaName,
                         year: movidaYear,
                         version: movidaVersion
@@ -87,7 +95,6 @@ const Crud = () => {
         }else{
             alert("Digite todos os campos")
         }
-
     }
 
     const renderizaLinha = record => {
@@ -119,16 +126,18 @@ const Crud = () => {
                                     </div>
                                     <div className ="year">
                                         <span>ANO</span>
-                                        <select className="form-control" onChange={(e) => setLocalizaYear(e.target.value)}  >
+                                        <select className="form-control" onChange={(e) => setLocalizaYear(Number(e.target.value))}  >
                                             <option value = "">Selecione</option>
-                                            {localizaCars.map(car => <option value= {car.year} key ={car.id}> {car.year}</option>)}
+                                            {localizaCars.filter(filter =>filter.name===localizaName)
+                                                .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
                                         </select>
                                     </div>
                                     <div className ="version">
                                         <span>VERSÃO</span>
                                         <select className="form-control" onChange={(e) => setLocalizaVersion(e.target.value)} >
                                             <option value = "">Selecione</option>
-                                            {localizaCars.map(car => <option value= {car.version} key ={car.id}> {car.version}</option>)}
+                                            {localizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName)
+                                                .map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                         </select>
                                     </div>
                                 </div>
@@ -145,19 +154,21 @@ const Crud = () => {
                                 </div>
                                 <div className ="year">
                                     <span>ANO</span>
-                                    <select className="form-control"onChange={(e) => setMovidaYear(e.target.value)} >
+                                    <select className="form-control"onChange={(e) => setMovidaYear(Number(e.target.value))} >
                                         <option value = "">Selecione</option>
-                                        {movidaCars.map(car => <option value= {car.year} key ={car.id}> {car.year}</option>)}
+                                        {movidaCars.filter(filter =>filter.name===movidaName)
+                                                .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
                                     </select>
                                 </div>
                                 <div className ="version">
                                     <span>VERSÃO</span>
                                     <select className="form-control" onChange={(e) => setMovidaVersion(e.target.value)}>
                                         <option value = "">Selecione</option>
-                                        {movidaCars.map(car => <option value= {car.version} key ={car.id}> {car.version}</option>)}
+                                        {movidaCars.filter(filter => filter.year===movidaYear && filter.name===movidaName)
+                                                .map(car => <option  value= {car.version} key ={car.id}>{car.version}</option>)}
                                     </select>
                                 </div>
-                                <button type="button" className="btn btn-outline-primary" onClick={(e) => {updateMatch(record._id)}}> Salvar</button>
+                                <button type="button" className="btn btn-outline-primary" onClick={() => {updateMatch(record._id)}}> Salvar</button>
                             </div>
                         </div>    
                         }
