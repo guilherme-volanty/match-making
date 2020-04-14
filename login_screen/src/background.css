@@ -38,8 +38,10 @@
   z-index: 6;
 }
 .car {
+  /*
   height: 270px;
   width: 270px;
+  */
   position: absolute;
   right: 0ch;
   top: 500px;
