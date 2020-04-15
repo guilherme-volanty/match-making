@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 
 const MatchSchema = new mongoose.Schema({
     operationId: Number,
-    date: Date,
+    createDate: Date,
+    updateDate: Date,
     mockId:Number,
     webmotors: {
         id: Number,
         brand: String,
         model:String,
         bodywork: String,
-        year: Number,
+        modelYear: Number,
         version:String
     },
     localiza: {
