@@ -20,6 +20,7 @@
     display: inline-block;
     width: 50%;
     height: 480px;
+    margin-top: -80px;
 }
 .custom-file-label {
     position: absolute;
@@ -52,9 +53,9 @@
     font-size: 32px;
     
 }
-.custom-file-label{
-    width: 50%;
-
+.custom-file-label.custom-file-label{
+    width: 70%;
+    height: 8%;
 }
 
 .card-options{

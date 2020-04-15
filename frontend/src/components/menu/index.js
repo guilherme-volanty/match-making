@@ -14,9 +14,9 @@ const Headerr = () => {
          <Navbar collapseOnSelect expand="lg" variant="light">
           <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="linksnavgador">
-            <Nav.Link href="Home">Home</Nav.Link>
-            <Nav.Link href="Bases">Bases</Nav.Link>
-            <Nav.Link href="Match">Match</Nav.Link>
+            <Nav.Link href="home"><p>Home</p></Nav.Link>
+            <Nav.Link href="upload-database"><p>Bases</p></Nav.Link>
+            <Nav.Link href="match"><p>Match</p></Nav.Link>
            </Nav>
            </Navbar.Collapse>
       
