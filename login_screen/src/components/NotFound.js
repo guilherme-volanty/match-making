@@ -14,7 +14,7 @@ class NotFound extends Component {
                   <h1 className="number">404</h1>
                   <h1 className="msg">Página não encontrada</h1>
                     <div>
-                        <img src={CarErro} alt="Imagem para Erro 404"/>
+                        <img className="imgCarErro" src={CarErro} alt="Imagem para Erro 404"/>
                         </div>
                 </div>
                 <button className="btn btn-primary" onClick={() => {redirect()}}>Página inicial</button>

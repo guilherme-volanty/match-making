@@ -38,12 +38,9 @@
   z-index: 6;
 }
 .car {
-  /*
-  height: 270px;
-  width: 270px;
-  */
+
   position: absolute;
-  right: 0ch;
+  right: -60px;
   top: 500px;
   z-index: 1;
   transform: scaleX(-1);
