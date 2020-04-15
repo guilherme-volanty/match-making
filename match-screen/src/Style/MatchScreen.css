@@ -1,0 +1,28 @@
+body{
+    background-color: #f0f0f0;
+}
+
+.items{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.Cards{
+    margin-top: 12%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10%;
+}
+
+
