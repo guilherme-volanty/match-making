@@ -5,9 +5,6 @@ import Ilustration from '../assets/undraw_towing_6yy4.png'
 
 const OtherCards = (props) => {
 
-    const [matchFalse,setMatchFalse] = useState(false)
-
-
     const onChangeVersion = (event) => {
         if(props.origin ==="Localiza"){
             props.setLocalizaId(event.target.value)
@@ -19,9 +16,6 @@ const OtherCards = (props) => {
 
         }
     }
-    const noMatch = () =>{
-
-    }
 
     const checkHasCar = () =>{
         const regex = new RegExp(props.webmotorsData.model)
@@ -31,10 +25,6 @@ const OtherCards = (props) => {
         return filter
 
     }
-
-
-
-    
 
     return (
         <div>
@@ -78,7 +68,7 @@ const OtherCards = (props) => {
                         <div className="noMatch">
                             <h5 className="card-title title">{props.origin}</h5>
                             <img src={Ilustration} alt="ilustração" width="100%" height="50%"></img>
-                                        <p>Que pena que não há match! Infelizmente a {props.origin} não possui nenhum {props.webmotorsData.model}/{props.webmotorsData.modelYear} </p>
+                            <p>Que pena que não há match! Infelizmente a {props.origin} não possui nenhum {props.webmotorsData.model}/{props.webmotorsData.modelYear} </p>
                         </ div>
                     </div>
                 </div>
