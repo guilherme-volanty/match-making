@@ -11,24 +11,17 @@ const Filter = (props) => {
     const [version, setVersion] = useState("");
     const [origin, setOrigin] = useState("");
 
-    // useEffect(() => {
-    //     Api.get('/file/get')
-    //         .then(res => {
-    //             setCars(res.data)
-    //         });
-    // }, [])
-    try{
+    useEffect(() => {
         Api.get('/file/get')
-            .then(res=>{
+            .then(res => {
                 setCars(res.data)
-            });
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+    }, [])
 
-    } 
-    
-    catch(err){
-        console.log(err);
-    }
-
+        
 
     const onChangeName = (event) => {
         setName(event.target.value)
@@ -48,12 +41,12 @@ const Filter = (props) => {
         setOrigin(event.target.value)
     
     }
-    console.log(cars);
+    
     
 return (
         
 
-        <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+        <div className="card mb-3" style={{height: "500px", marginTop: "10px", width: '350px'}}>
             <div className="card-body text-dark">  
                 <h5 className="card-title title">{props.origin}</h5>
                 <div className="card-text">
@@ -63,14 +56,14 @@ return (
                                 <label htmlFor="nome">Nome</label>
                                 <select className="form-control" onChange={onChangeName}>
                                         <option value = "">Selecione</option>
-                                        {props.data.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
+                                        {cars.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
                                 </select>
                             </div>
                             <div className="select2 form-group">
                                 <label htmlFor="nome">Ano</label>
                                 <select className="form-control" onChange={onChangeYear}>
                                     <option value = "">-</option>
-                                        {props.data.filter(filter =>filter.name===name)
+                                        {cars.filter(filter =>filter.name===name)
                                             .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
                                 </select>
                             </div>
@@ -80,7 +73,7 @@ return (
                                 <label htmlFor="nome">Versão</label>
                                 <select className="form-control" onChange={onChangeVersion}>
                                     <option value = "">Selecione</option>
-                                    {props.data.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
+                                    {cars.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                 </select>
                             </div>
                         </div>
@@ -88,7 +81,7 @@ return (
                                 <label htmlFor="nome">Origem</label>
                                 <select className="form-control" onChange={onChangeOrigin}>
                                     <option value = "">Selecione</option>
-                                    {props.data.filter(filter => filter.version===version).map(car => <option value= {car.origin} key ={car.id}>{car.origin}</option>)}
+                                    {cars.filter(filter => filter.version===version).map(car => <option value= {car.origin} key ={car.id}>{car.origin}</option>)}
                                 </select>
                             </div>
                     </div> 
@@ -98,6 +91,6 @@ return (
     );
 
 }
-
+        
 
 export default Filter;

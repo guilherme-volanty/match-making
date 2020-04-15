@@ -1,4 +1,4 @@
-const express = require('express')
+var express = require('express')
 	, app = express()
 	, multer = require('multer')
 	, multerConfigs = require('./multer')
@@ -6,7 +6,7 @@ const express = require('express')
 	, connectToMongo = require('./mongo')
 	, Controller = require('./controller')
 	, bodyParser= require('body-parser')
-	, cors = require('cors');
+var cors = require('cors');
 	
 
 
@@ -24,7 +24,7 @@ routes.get('/status', (request, response) => {
 
 routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
 
-routes.get('/file/get', Controller.getAllMatchFiles);
+routes.get('/file/get',cors(), Controller.getAllMatchFiles);
 
 routes.get('/file/:name ', Controller.getCarByName);
 

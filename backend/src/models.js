@@ -7,7 +7,6 @@ const fileSchema = new Schema({
     image: String,
     year: Number,
     origin: String,
-    meanPrice: Number,
     href: String,
     version: String,
 

@@ -9,6 +9,7 @@ import FormFileLabel from 'react-bootstrap/FormFileLabel';
 const Carde = () => {
     const [fileUpload, setFileUpload] = useState('');
     const [fileName, setFileName] = useState('Procure sua Base');
+    const origins=["Localiza","Movida"];
 
     function onChange(e){
         setFileUpload(e.target.files[0]);
@@ -42,16 +43,17 @@ const Carde = () => {
             <div className="card-columns">
                 <div className="card mb-3">
                     <div className="card-body">
-                        <h2 id="Base-title" className="card-title">Base Root</h2>
+                        <h2 id="Base-title" className="card-title">BASE MATCH</h2>
                         <div>
                             <Form onSubmit={onSubmit}>
                                 <FormFileInput type="file" className="custom-file-input" id="customFile" onChange={onChange}></FormFileInput>
                                 <FormFileLabel className="custom-file-label" htmlFor="customFile">{fileName}</FormFileLabel>
-                                <FormLabel>Base</FormLabel>
+                                <FormLabel className="origin-title">ORIGEM</FormLabel>
                                 <FormControl as="select">
-                                    <option>Webmotors</option>
+                                <option value = "">Selecione</option>
+                                        {origins.map(origin => <option value= {origin} key ={origin}> {origin}</option>)}
                                 </FormControl>
-                                <Button type="submit"onSubmit={onSubmit}>Enviar</Button>
+                                <Button type="submit"onSubmit={onSubmit}>ENVIAR</Button>
                             </Form>
                         </div>
                         
