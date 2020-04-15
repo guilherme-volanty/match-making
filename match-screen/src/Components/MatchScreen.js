@@ -18,16 +18,11 @@ const MatchScreen = () => {
 
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/${mathRandom}`)
+        axios.get(`${url}Webmotors/4`)
             .then(res => {
                 setWebmotorsCar(res.data)
             })
     }, []);
-
-    
-
-       console.log(loading)
-
 
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])
@@ -44,8 +39,6 @@ const MatchScreen = () => {
             });
     }, [])
 
-    
-
     //===========MOVIDA===============
     const [MovidaCars, setMovidaCars] = useState([])
     const [movidaName, setMovidaName] = useState("")
@@ -61,11 +54,22 @@ const MatchScreen = () => {
     }, [])
 
     useEffect(() => {
-        LocalizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName && filter.version===localizaVersion)
-            .map(car => setLocalizaId(car.id))
-        MovidaCars.filter(filter => filter.year===movidaYear && filter.name===movidaName && filter.version===movidaVersion)
-            .map(car =>(setMovidaId(car.id)))
-    }, [movidaVersion,localizaVersion])
+        LocalizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaName(car.name))
+        LocalizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaYear(car.year))
+        LocalizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaVersion(car.version))
+
+
+        MovidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaName(car.name))
+        MovidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaYear(car.year))
+        MovidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaVersion(car.version))
+
+    }, [movidaId,localizaId])
 
 
     const sendForm = () => {
@@ -114,6 +118,7 @@ const MatchScreen = () => {
         }
     }
 
+
     return (
         <div className="">
             <div className="wrap">
@@ -141,18 +146,14 @@ const MatchScreen = () => {
                         className="webmotors" />
 
                     <OtherCards data={LocalizaCars}
-                        setLocalizaName={setLocalizaName}
-                        setLocalizaYear={setLocalizaYear}
-                        setLocalizaVersion={setLocalizaVersion}
+                        webmotorsData={webmotorsCars}
                         setLocalizaAccepted={setLocalizaAccepted}
                         setLocalizaId={setLocalizaId}
                         className="localiza"
                         origin="Localiza" />
 
                     <OtherCards data={MovidaCars}
-                        setMovidaName={setMovidaName}
-                        setMovidaYear={setMovidaYear}
-                        setMovidaVersion={setMovidaVersion}
+                        webmotorsData={webmotorsCars}
                         setMovidaAccepted={setMovidaAccepted}
                         setMovidaId={setMovidaId}
                         className="movida"

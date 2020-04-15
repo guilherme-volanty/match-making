@@ -99,6 +99,7 @@ const Crud = () => {
         }
     }
 
+
     const renderizaLinha = record => {
             return(
                 <Fragment  key = {record._id}>

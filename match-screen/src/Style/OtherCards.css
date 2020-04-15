@@ -23,19 +23,15 @@ span{
 }
 
 .row-selects .select1{
-    width: 65%;
+    width: 50%;
 }
 
 .row-selects .select2{
     width: 27%;
 }
 
-.buttons{
-    margin-top: 13%;
-}
-.noMatch p{
-    margin-top: 8%;
-    margin: 10%;
+.select3{
+    margin-top: 38%;
 }
 
 .button{
@@ -43,4 +39,7 @@ span{
 }
 
 
-
+label{
+    font-weight: bold;
+    font-size: 18px;
+}

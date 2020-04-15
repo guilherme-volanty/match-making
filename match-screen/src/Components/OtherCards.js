@@ -5,74 +5,40 @@ import Ilustration from '../assets/undraw_towing_6yy4.png'
 
 const OtherCards = (props) => {
 
-    const [name, setName] = useState("")
-    const [year, setYear] = useState(0)
-    const [version, setVersion] = useState("")
     const [matchFalse,setMatchFalse] = useState(false)
 
-    const onChangeName = (event) => {
-        setName(event.target.value)
-
-        if(props.origin ==="Localiza"){
-            props.setLocalizaName(event.target.value)
-            props.setLocalizaAccepted(false)
-        }else{
-            props.setMovidaName(event.target.value)
-            props.setMovidaAccepted(false)
-        }
-    }    
-
-    const onChangeYear = (event) => {
-        setYear(Number(event.target.value))
-        if(props.origin ==="Localiza"){
-            props.setLocalizaYear(Number(event.target.value))
-            props.setLocalizaAccepted(false)
-        }else {
-            props.setMovidaYear(Number(event.target.value))
-            props.setMovidaAccepted(false)
-        }
-    }
 
     const onChangeVersion = (event) => {
-        setVersion(event.target.value)
-        getId()   
         if(props.origin ==="Localiza"){
-            props.setLocalizaVersion(event.target.value)
+            props.setLocalizaId(event.target.value)
             props.setLocalizaAccepted(true)
 
         }else {
-            props.setMovidaVersion(event.target.value)
+            props.setMovidaId(event.target.value)
             props.setMovidaAccepted(true)
 
         }
     }
+    const noMatch = () =>{
 
-    const getId = () => {
-        props.data.filter(filter => filter.year===year && filter.name===name && filter.version===version)
-            .map(car => props.origin === "Localiza" ? props.setLocalizaId(car.id): props.setMovidaId(car.id))
     }
 
-    const noMatch = () => {
-        setMatchFalse(true)
-        if(props.origin ==="Localiza"){
-            props.setLocalizaName("")
-            props.setLocalizaYear("")
-            props.setLocalizaVersion("")
-            props.setLocalizaId("")
-            props.setLocalizaAccepted(true)
+    const checkHasCar = () =>{
+        const regex = new RegExp(props.webmotorsData.model)
+        var filter = props.data.filter(filter =>filter.year === props.webmotorsData.modelYear &&
+            filter.name.match(regex))
+    
+        return filter
 
-        }else {
-            props.setMovidaName("")
-            props.setMovidaYear("")
-            props.setMovidaVersion("")
-            props.setMovidaId("")
-            props.setMovidaAccepted(true)
-        }
     }
+
+
+
+    
 
     return (
         <div>
-            {!matchFalse ?        
+            {checkHasCar().length >0 ?        
             <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
                 <div className="card-body text-dark">
                     <h5 className="card-title title">{props.origin}</h5>
@@ -80,33 +46,28 @@ const OtherCards = (props) => {
                         <div className="selects">
                             <div className="row-selects">
                                 <div className="select1 form-group">
-                                    <label htmlFor="nome">Nome</label>
-                                    <select className="form-control" onChange={onChangeName}>
-                                            <option value = "">Selecione</option>
-                                            {props.data.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
-                                    </select>
+                                    <label htmlFor="nome">Nome</label><br/>
+                                    {checkHasCar().length>0
+                                    ? <span>{props.webmotorsData.brand} {props.webmotorsData.model} </span>
+                                        :<span></span>}
                                 </div>
                                 <div className="select2 form-group">
-                                    <label htmlFor="nome">Ano</label>
-                                    <select className="form-control" onChange={onChangeYear}>
-                                        <option value = "">-</option>
-                                            {props.data.filter(filter =>filter.name===name)
-                                                .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
-                                    </select>
+                                    <label htmlFor="nome">Ano</label><br />
+                                    {checkHasCar().length>0
+                                            ? <span>{props.webmotorsData.modelYear} </span>
+                                                :<span></span>}
                                 </div>
                             </div>
                             <div>
                                 <div className="select3 form-group">
                                     <label htmlFor="nome">Versão</label>
-                                    <select className="form-control" onChange={onChangeVersion}>
-                                        <option value = "">Selecione</option>
-                                        {props.data.filter(filter => filter.year===year && filter.name===name)
-                                            .map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
+                                    <select className="form-control" placeholder="Selecione" onChange={onChangeVersion}>
+                                        <option disabled selected>Selecione</option>
+                                        <option value = "">Não há Match</option>
+                                        {checkHasCar()
+                                            .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                     </select>
                                 </div>
-                            </div>
-                            <div className="buttons">
-                                <button type="button" onClick={noMatch} className="btn btn-outline-dark">Não há Match</button>
                             </div>
                         </div> 
                     </div>
@@ -116,9 +77,8 @@ const OtherCards = (props) => {
                     <div className="card-body text-dark">
                         <div className="noMatch">
                             <h5 className="card-title title">{props.origin}</h5>
-                            <img src={Ilustration} width="100%" height="50%"></img>
-                            <p>Que pena que não há match!</p>
-                            <button type="button" onClick={()=>setMatchFalse(false)} className="btn btn-outline-dark">Ver de novo</button>
+                            <img src={Ilustration} alt="ilustração" width="100%" height="50%"></img>
+                                        <p>Que pena que não há match! Infelizmente a {props.origin} não possui nenhum {props.webmotorsData.model}/{props.webmotorsData.modelYear} </p>
                         </ div>
                     </div>
                 </div>
