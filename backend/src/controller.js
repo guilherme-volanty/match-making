@@ -21,9 +21,11 @@ function saveDataFromUpload(request, response){
 				console.error(err);
 			});
 		})
-		.on('end', ()=>{
+		.on('end', (data)=>{
+			
 			response.status(200).send({ message: "Arquivo importado com sucesso!" });
 		})
+		
 			
 }
 function getCarByName(request, response) {
