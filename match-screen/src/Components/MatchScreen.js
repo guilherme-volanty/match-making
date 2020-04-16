@@ -7,6 +7,7 @@ import '../Style/background.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Ilustration from '../assets/undraw_fast_car_p4cu.png'
+import { set } from 'mongoose';
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -17,12 +18,26 @@ const MatchScreen = () => {
     const [loading, setLoading] = useState(false)
 
 
+//    useEffect(()=>{
+//        axios.get(`${url}Webmotors`)
+//            .then(res=>{
+//                axios.get(`${url}Webmotors/${res.data[mathRandom].id}`)
+//                    .then(res => {
+//                        setWebmotorsCar(res.data)
+//                        })
+//            })
+//    },[])
+
+
+
     useEffect(() => {
-        axios.get(`${url}Webmotors/4`)
+        axios.get(`${url}Webmotors/${mathRandom}`)
             .then(res => {
-                setWebmotorsCar(res.data)
+               setWebmotorsCar(res.data)
             })
     }, []);
+
+    console.log(mathRandom)
 
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])

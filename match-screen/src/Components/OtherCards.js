@@ -66,7 +66,7 @@ const OtherCards = (props) => {
                         <div className="noMatch">
                             <h5 className="card-title title">{props.origin}</h5>
                             <img src={Ilustration} alt="ilustração" width="100%" height="50%"></img>
-                            <p>Que pena que não há match! Infelizmente a {props.origin} não possui nenhum {props.webmotorsData.model}/{props.webmotorsData.modelYear} </p>
+                            <p>Que pena, não há match! Infelizmente a {props.origin} não possui nenhum {props.webmotorsData.model}/{props.webmotorsData.modelYear} </p>
                         </ div>
                     </div>
                 </div>
