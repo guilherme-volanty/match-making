@@ -57,15 +57,14 @@ const MatchScreen = () => {
         LocalizaCars.filter(filter => filter.id===localizaId)
             .map(car => setLocalizaName(car.name))
         LocalizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaYear(car.year))
+            .map(car => setLocalizaYear(Number(car.year)))
         LocalizaCars.filter(filter => filter.id===localizaId)
             .map(car => setLocalizaVersion(car.version))
-
 
         MovidaCars.filter(filter => filter.id===movidaId)
             .map(car => setMovidaName(car.name))
         MovidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaYear(car.year))
+            .map(car => setMovidaYear(Number(car.year)))
         MovidaCars.filter(filter => filter.id===movidaId)
             .map(car => setMovidaVersion(car.version))
 
@@ -80,13 +79,14 @@ const MatchScreen = () => {
                 url: "http://localhost:3001/match",
                 data: {
                     operationId: `${mathRandom}`,
-                    date: `${Date.now()}`,
+                    createDate: `${Date.now()}`,
+                    updateDate: null,
                     webmotors: {
                         id: webmotorsCars.id,
                         brand: webmotorsCars.brand,
                         model: webmotorsCars.model,
                         bodywork: webmotorsCars.carroceria,
-                        year: webmotorsCars.year,
+                        modelYear: webmotorsCars.modelYear,
                         version: webmotorsCars.version
                     },
                     localiza: {
@@ -119,6 +119,7 @@ const MatchScreen = () => {
     }
 
 
+
     return (
         <div className="">
             <div className="wrap">
@@ -132,10 +133,10 @@ const MatchScreen = () => {
                     <Modal.Title  > CARREGANDO...</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
+                        <img alt="logo-volanty" style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
                         width="60%"
                         src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
-                        <img width="100%"src ={Ilustration} />
+                        <img alt="ilustration"  width="100%"src ={Ilustration} />
                         <p style={{ textAlign: 'center' }}>Estamos enviando seu Match e trazendo outro carro!</p>
 
                     </Modal.Body>

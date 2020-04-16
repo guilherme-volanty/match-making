@@ -10,6 +10,7 @@ const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const Crud = () => {
     const [data, setData] = useState([])
+    const [refreshData, setRefreshData]=useState(false)
     const [openEdit, setOpenEdit] = useState(false);
     const [idToOpen, setIdToOpen] = useState()
 
@@ -35,6 +36,7 @@ const Crud = () => {
 
     
     const deleteItem = (id) => {
+        setRefreshData(!refreshData)
         axios.delete(`http://localhost:3001/match/delete/${id}`)
             .then((res) =>{
                 const filtrado = data.filter(item => item.id !== id);
@@ -72,10 +74,12 @@ const Crud = () => {
     const updateMatch = (id) => {
         if(localizaName!=="" && localizaYear!=="" && localizaYear!==""
         && movidaName!=="" && movidaYear!=="" && movidaVersion!==""){
+        setRefreshData(!refreshData)
             axios({
                 method: 'put',
                 url: `http://localhost:3001/match/update/${id}`,
                 data: {
+                    updateDate: `${Date.now()}`,
                     localiza: {
                         id: localizaId,
                         name: localizaName,
@@ -91,6 +95,7 @@ const Crud = () => {
                 }
             }).then(res =>{
                 alert("Enviado com sucesso")
+                setaEdit(false)
             }).catch(error=> {
                 console.log(error)
             })
@@ -98,13 +103,29 @@ const Crud = () => {
             alert("Digite todos os campos")
         }
     }
+    useEffect(() => {
+        localizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaName(car.name))
+        localizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaYear(Number(car.year)))
+        localizaCars.filter(filter => filter.id===localizaId)
+            .map(car => setLocalizaVersion(car.version))
+
+        movidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaName(car.name))
+        movidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaYear(Number(car.year)))
+        movidaCars.filter(filter => filter.id===movidaId)
+            .map(car => setMovidaVersion(car.version))
+
+    }, [movidaId,localizaId])
 
 
     const renderizaLinha = record => {
             return(
                 <Fragment  key = {record._id}>
                     <tr className='table' key = {record._id}>
-                            <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.year} {record.webmotors.version}{record.webmotors.bodywork}</th>
+                            <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                             <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
@@ -130,26 +151,20 @@ const Crud = () => {
                                 <div className="localiza"> 
                                     <h5 className="title">LOCALIZA</h5>
                                     <div className ="name">
-                                        <span>NOME</span>
-                                        <select onChange={(e) => setLocalizaName(e.target.value)} className="form-control" >
-                                            <option value = "">Selecione</option>
-                                            {localizaCars.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
-                                        </select>
+                                        <p>NOME</p><br />
+                                            <span>{record.webmotors.brand} {record.webmotors.model}</span>
                                     </div>
                                     <div className ="year">
-                                        <span>ANO</span>
-                                        <select className="form-control" onChange={(e) => setLocalizaYear(Number(e.target.value))}  >
-                                            <option value = "">Selecione</option>
-                                            {localizaCars.filter(filter =>filter.name===localizaName)
-                                                .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
-                                        </select>
+                                        <p>ANO</p> <br />
+                                        <span>{record.webmotors.modelYear}</span>
+                                        
                                     </div>
                                     <div className ="version">
-                                        <span>VERSÃO</span>
-                                        <select className="form-control" onChange={(e) => setLocalizaVersion(e.target.value)} >
+                                        <p>VERSÃO</p>
+                                        <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
                                             <option value = "">Selecione</option>
-                                            {localizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName)
-                                                .map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
+                                            {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                         </select>
                                     </div>
                                 </div>
@@ -158,26 +173,19 @@ const Crud = () => {
                                 <div className="movida"> 
                                 <h5 className="title">MOVIDA</h5>
                                 <div className ="name">
-                                    <span>NOME</span>
-                                    <select className="form-control" onChange={(e) => setMovidaName(e.target.value)} >
-                                        <option value = "">Selecione</option>
-                                        {movidaCars.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
-                                    </select>
+                                    <p>NOME</p><br />
+                                    <span>{record.webmotors.brand} {record.webmotors.model}</span>
                                 </div>
                                 <div className ="year">
-                                    <span>ANO</span>
-                                    <select className="form-control"onChange={(e) => setMovidaYear(Number(e.target.value))} >
-                                        <option value = "">Selecione</option>
-                                        {movidaCars.filter(filter =>filter.name===movidaName)
-                                                .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
-                                    </select>
+                                    <p>ANO</p><br />
+                                    <span>{record.webmotors.modelYear}</span>
                                 </div>
                                 <div className ="version">
-                                    <span>VERSÃO</span>
-                                    <select className="form-control" onChange={(e) => setMovidaVersion(e.target.value)}>
+                                    <p>VERSÃO</p><br />
+                                    <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
                                         <option value = "">Selecione</option>
-                                        {movidaCars.filter(filter => filter.year===movidaYear && filter.name===movidaName)
-                                                .map(car => <option  value= {car.version} key ={car.id}>{car.version}</option>)}
+                                        {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                     </select>
                                 </div>
                                 <button type="button" className="btn btn-outline-primary" onClick={() => {updateMatch(record._id)}}> Salvar</button>

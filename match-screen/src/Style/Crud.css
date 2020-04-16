@@ -9,6 +9,12 @@
     
 }
 
+p{
+    
+    font-weight: bold;
+    font-size: 18px;
+}
+
 .division{
     width: 200px;
 }
@@ -46,3 +52,7 @@
 }
 
 
+
+.name span{
+    margin-top: -10%;
+}

@@ -21,9 +21,7 @@ const OtherCards = (props) => {
         const regex = new RegExp(props.webmotorsData.model)
         var filter = props.data.filter(filter =>filter.year === props.webmotorsData.modelYear &&
             filter.name.match(regex))
-    
         return filter
-
     }
 
     return (
