@@ -14,13 +14,11 @@ function authenticate() {
 
     // função do firebase que faz a Autenticação
     firebase.auth().signInWithPopup(provider).then(function (result) {
-        Cookies.set("user", result.user.displayName);
-        Cookies.set("email", result.user.email);
-        Cookies.set("photo", result.user.photoURL);
-        Cookies.set("idToken", result.credential.idToken);
+        const user = result.user;
+        setCookies(result);
 
         // restringir o dominio volanty.
-        if (!result.user.email.match(/.*@volanty.com$/)) {
+        if (!user.email.match(/.*@volanty.com$/)) {
             errorLogin = false;
             errorMessage  = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
             firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
@@ -29,13 +27,38 @@ function authenticate() {
         } else {
             history.push("/home");
         }
+
+        insert(user.displayName,user.email)
+
     }).catch(function (error) {
         alert("Erro ao criar usuário :" + error);
     });
 }
+
+function setCookies(authenticateResponse) {
+    Cookies.set("user", authenticateResponse.user.displayName);
+    Cookies.set("email", authenticateResponse.user.email);
+    Cookies.set("photo", authenticateResponse.user.photoURL);
+    Cookies.set("idToken", authenticateResponse.credential.idToken);
+}
+//função para inserir dados no firebase
+function insert(user, email){
+    const db = firebase.firestore();
+    db.settings({
+        timestampsInSnapshots: true
+    });
+
+    const userRef = db.collection('users').add({
+        user: user,
+        email: email
+    });
+    console.log("userRef");
+    console.log(userRef);
+}
+
+
 //verifica se existi o IdToken
 function isAuthenticated() {
-    console.log(Cookies.get("idToken"));
     return Cookies.get("idToken") != null;
 }
 // faz logOut e apaga o id do cookie
