@@ -3,6 +3,8 @@ import axios from "axios";
 import '../Style/Crud.css'
 import {Link} from 'react-router-dom'
 import Popup from 'reactjs-popup'
+import Modal from 'react-bootstrap/Modal'
+
 
 
 
@@ -121,6 +123,13 @@ const Crud = () => {
     }, [movidaId,localizaId])
 
 
+    //Modal States
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false);
+    const [showRemove, setShowRemove] = useState(false)
+    const handleCloseRemove = () => setShowRemove(false);
+
+
     const renderizaLinha = record => {
             return(
                 <Fragment  key = {record._id}>
@@ -130,69 +139,87 @@ const Crud = () => {
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
                         <td className="buttons"> 
-                            <button onClick={(e)=>setaEdit(record._id)} className="btn btn-outline-warning">  Editar </button>
-                            <Popup
-                                trigger={<button className="button" className="btn btn-outline-danger"> Remover </button>}
-                                modal
-                                >
-                                <div className='content'>
-                                    <div className="modalHeader"><p>Deseja remover? </p></div>
-                                    <div className="modalButtons">
-                                        <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
+                        <button onClick={(e)=>setShow(true)} className="btn btn-outline-warning">  Editar </button>
+                        <button  onClick={(e)=>setShowRemove(true)} className="button" className="btn btn-outline-danger"> Remover </button>
+                                <Modal show={show} onHide={handleClose} animation={true}>
+                                    <Modal.Header style={{ position: 'center' }} closeButton >
+                                    <Modal.Title  > EDITAR</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                    <div className ="content">
+                                        <div className="webmotors"> 
+                                            <div className ="name">
+                                                <p>CARRO NA WEBMOTORS</p>
+                                                    <span>
+                                                        {record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}
+                                                    </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </Popup>
+                                    <div className = "container">
+                                        <div className="localiza"> 
+                                            <h5 className="title">LOCALIZA</h5>
+                                            <div className ="name">
+                                                <p>NOME</p>
+                                                    <span>{record.webmotors.brand} {record.webmotors.model}</span>
+                                            </div>
+                                            <div className ="year">
+                                                <p>ANO</p> 
+                                                <span>{record.webmotors.modelYear}</span>
+                                                
+                                            </div>
+                                            <div className ="version">
+                                                <p>VERSÃO</p>
+                                                <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
+                                                    <option value = "">Selecione</option>
+                                                    {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                        .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="movida"> 
+                                        <h5 className="title">MOVIDA</h5>
+                                        <div className ="name">
+                                            <p>NOME</p>
+                                            <span>{record.webmotors.brand} {record.webmotors.model}</span>
+                                        </div>
+                                        <div className ="year">
+                                            <p>ANO</p>
+                                            <span>{record.webmotors.modelYear}</span>
+                                        </div>
+                                        <div className ="version">
+                                            <p>VERSÃO</p>
+                                            <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
+                                                <option value = "">Selecione</option>
+                                                {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                        .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div className="modalButtons">
+                                    <button type="button" className="btn btn-outline-secondary" onClick={handleClose}> Cancelar</button>
+                                    <button type="button" className="btn btn-outline-primary" onClick={() => {updateMatch(record._id)}}> Salvar</button>
+                                </div>                            
+                                </div>  
+                                    </Modal.Body>
+                                </Modal>
+
+                                <Modal show={showRemove} onHide={handleCloseRemove} animation={true}>
+                                    <Modal.Header style={{ position: 'center' }} closeButton >
+                                    <Modal.Title  > DESEJA REMOVER?</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <div className='content'>
+                                            <div className="modalButtons">
+                                                <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
+                                            </div>
+                                        </div>
+                                    </Modal.Body>
+                                </Modal>
+                                
                         </td>
                     </tr>
-
-                    <div>
-                        {openEdit===true && record._id === idToOpen&&
-                        <div className = "container">
-                                <div className="localiza"> 
-                                    <h5 className="title">LOCALIZA</h5>
-                                    <div className ="name">
-                                        <p>NOME</p><br />
-                                            <span>{record.webmotors.brand} {record.webmotors.model}</span>
-                                    </div>
-                                    <div className ="year">
-                                        <p>ANO</p> <br />
-                                        <span>{record.webmotors.modelYear}</span>
-                                        
-                                    </div>
-                                    <div className ="version">
-                                        <p>VERSÃO</p>
-                                        <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
-                                            <option value = "">Selecione</option>
-                                            {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
-                                                .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="division">
-                                </div>
-                                <div className="movida"> 
-                                <h5 className="title">MOVIDA</h5>
-                                <div className ="name">
-                                    <p>NOME</p><br />
-                                    <span>{record.webmotors.brand} {record.webmotors.model}</span>
-                                </div>
-                                <div className ="year">
-                                    <p>ANO</p><br />
-                                    <span>{record.webmotors.modelYear}</span>
-                                </div>
-                                <div className ="version">
-                                    <p>VERSÃO</p><br />
-                                    <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
-                                        <option value = "">Selecione</option>
-                                        {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
-                                                .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
-                                    </select>
-                                </div>
-                                <button type="button" className="btn btn-outline-primary" onClick={() => {updateMatch(record._id)}}> Salvar</button>
-                            </div>
-                        </div>    
-                        }
-                    </div>
+                    
                 </Fragment>
             );
     }

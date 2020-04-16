@@ -1,6 +1,7 @@
 
 .container{
     display: flex;
+    align-items: space-around;
 }
 
 .itens{
@@ -15,9 +16,6 @@ p{
     font-size: 18px;
 }
 
-.division{
-    width: 200px;
-}
 .space{
     height: 100px;
 }
@@ -51,8 +49,69 @@ p{
     margin-bottom: 5%;
 }
 
-
-
-.name span{
-    margin-top: -10%;
+.movida{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
 }
+
+.localiza{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+
+}
+
+.name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0 5% 0
+
+}
+
+.year{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0 5% 0
+
+}
+
+.version{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0 5% 0
+}
+
+.localiza .version {
+    width: 100%;
+}
+
+select.form-control {
+    width: 90%;
+}
+
+.webmotors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.webmotors span{
+    text-align: center;
+}
+
+.modalButtons{
+    display: flex;
+}
+
+
+

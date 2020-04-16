@@ -110,15 +110,17 @@ const MatchScreen = () => {
             }).then(res =>{
                 console.log({message:"Enviado com sucesso"})
                 window.location.reload()
+
+                
             }).catch(error=> {
+                setLoading(false)
                 console.log(error)
+                alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
             })
         }else{
             alert("Preencha o todos os campos")
         }
     }
-
-
 
     return (
         <div className="">
@@ -137,7 +139,7 @@ const MatchScreen = () => {
                         width="60%"
                         src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
                         <img alt="ilustration"  width="100%"src ={Ilustration} />
-                        <p style={{ textAlign: 'center' }}>Estamos enviando seu Match e trazendo outro carro!</p>
+                        <p style={{ textAlign: 'center' }}>Enviando</p>
 
                     </Modal.Body>
                 </Modal>
