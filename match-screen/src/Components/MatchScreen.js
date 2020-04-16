@@ -7,7 +7,6 @@ import '../Style/background.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Ilustration from '../assets/undraw_fast_car_p4cu.png'
-import { set } from 'mongoose';
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -31,13 +30,17 @@ const MatchScreen = () => {
 
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/${mathRandom}`)
+        axios.get(`${url}Webmotors/5`)
             .then(res => {
                setWebmotorsCar(res.data)
             })
     }, []);
 
-    console.log(mathRandom)
+    //1 - AGILE  (NO MATCH BOTH)
+    //3 - ASTRA (MATCH LOCALIZA)
+    //5 - CELTA (MATCH BOTH)
+    //9 - TORO (MATCH WEBMOTORS)
+
 
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])
@@ -45,7 +48,6 @@ const MatchScreen = () => {
     const [localizaYear, setLocalizaYear] = useState("")
     const [localizaVersion, setLocalizaVersion] = useState("")
     const [localizaId, setLocalizaId] = useState("")
-    const [localizaAccepted, setLocalizaAccepted] = useState(false)
 
     useEffect(() => {
         axios.get(`${url}Localiza`)
@@ -60,7 +62,6 @@ const MatchScreen = () => {
     const [movidaYear, setMovidaYear] = useState("")
     const [movidaVersion, setMovidaVersion] = useState("")
     const [movidaId, setMovidaId] = useState("")
-    const [movidaAccepted, setMovidaAccepted] = useState(false)
     useEffect(() => {
         axios.get(`${url}Movida`)
             .then(res => {
@@ -87,54 +88,52 @@ const MatchScreen = () => {
 
 
     const sendForm = () => {
-        if(movidaAccepted===true && localizaAccepted===true){
-            setLoading(true)
-            axios({
-                method: 'post',
-                url: "http://localhost:3001/match",
-                data: {
-                    operationId: `${mathRandom}`,
-                    createDate: `${Date.now()}`,
-                    updateDate: null,
-                    webmotors: {
-                        id: webmotorsCars.id,
-                        brand: webmotorsCars.brand,
-                        model: webmotorsCars.model,
-                        bodywork: webmotorsCars.carroceria,
-                        modelYear: webmotorsCars.modelYear,
-                        version: webmotorsCars.version
-                    },
-                    localiza: {
-                        id: localizaId,
-                        name: localizaName,
-                        year: localizaYear,
-                        version: localizaVersion
-                    },
-                    movida: {
-                        id: movidaId,
-                        name: movidaName,
-                        year: movidaYear,
-                        version: movidaVersion
-                    },
-                    user: {
-                        userId: 3213,
-                        name: "Alysson",
-                        email: "alysson@volanty.com"
-                    }
+        
+        setLoading(true)
+        axios({
+            method: 'post',
+            url: "http://localhost:3001/match",
+            data: {
+                operationId: `${mathRandom}`,
+                createDate: `${Date.now()}`,
+                updateDate: null,
+                webmotors: {
+                    id: webmotorsCars.id,
+                    brand: webmotorsCars.brand,
+                    model: webmotorsCars.model,
+                    bodywork: webmotorsCars.carroceria,
+                    modelYear: webmotorsCars.modelYear,
+                    version: webmotorsCars.version
+                },
+                localiza: {
+                    id: localizaId,
+                    name: localizaName,
+                    year: localizaYear,
+                    version: localizaVersion
+                },
+                movida: {
+                    id: movidaId,
+                    name: movidaName,
+                    year: movidaYear,
+                    version: movidaVersion
+                },
+                user: {
+                    userId: 3213,
+                    name: "Alysson",
+                    email: "alysson@volanty.com"
                 }
-            }).then(res =>{
-                console.log({message:"Enviado com sucesso"})
-                window.location.reload()
+            }
+        }).then(res =>{
+            console.log({message:"Enviado com sucesso"})
+            window.location.reload()
 
-                
-            }).catch(error=> {
-                setLoading(false)
-                console.log(error)
-                alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
-            })
-        }else{
-            alert("Preencha o todos os campos")
-        }
+            
+        }).catch(error=> {
+            setLoading(false)
+            console.log(error)
+            alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
+        })
+
     }
 
     return (
@@ -165,14 +164,12 @@ const MatchScreen = () => {
 
                     <OtherCards data={LocalizaCars}
                         webmotorsData={webmotorsCars}
-                        setLocalizaAccepted={setLocalizaAccepted}
                         setLocalizaId={setLocalizaId}
                         className="localiza"
                         origin="Localiza" />
 
                     <OtherCards data={MovidaCars}
                         webmotorsData={webmotorsCars}
-                        setMovidaAccepted={setMovidaAccepted}
                         setMovidaId={setMovidaId}
                         className="movida"
                         origin="Movida" />

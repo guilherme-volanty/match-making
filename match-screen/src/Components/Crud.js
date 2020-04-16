@@ -2,7 +2,6 @@ import React, {Fragment, useState, useEffect} from "react";
 import axios from "axios";
 import '../Style/Crud.css'
 import {Link} from 'react-router-dom'
-import Popup from 'reactjs-popup'
 import Modal from 'react-bootstrap/Modal'
 
 
@@ -14,7 +13,6 @@ const Crud = () => {
     const [data, setData] = useState([])
     const [refreshData, setRefreshData]=useState(false)
     const [openEdit, setOpenEdit] = useState(false);
-    const [idToOpen, setIdToOpen] = useState()
 
     useEffect(() => {
         axios.get("http://localhost:3001/match/all")
@@ -38,7 +36,6 @@ const Crud = () => {
 
     
     const deleteItem = (id) => {
-        setRefreshData(!refreshData)
         axios.delete(`http://localhost:3001/match/delete/${id}`)
             .then((res) =>{
                 const filtrado = data.filter(item => item.id !== id);
@@ -48,7 +45,6 @@ const Crud = () => {
 
     const setaEdit = (id) =>{
         setOpenEdit(!openEdit)
-        setIdToOpen(id)
     }
 
     //=========LOCALIZA==============
@@ -74,8 +70,7 @@ const Crud = () => {
     }, [movidaVersion,localizaVersion])
 
     const updateMatch = (id) => {
-        if(localizaName!=="" && localizaYear!=="" && localizaYear!==""
-        && movidaName!=="" && movidaYear!=="" && movidaVersion!==""){
+
         setRefreshData(!refreshData)
             axios({
                 method: 'put',
@@ -101,9 +96,6 @@ const Crud = () => {
             }).catch(error=> {
                 console.log(error)
             })
-        }else{
-            alert("Digite todos os campos")
-        }
     }
     useEffect(() => {
         localizaCars.filter(filter => filter.id===localizaId)
@@ -126,8 +118,25 @@ const Crud = () => {
     //Modal States
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false);
+    const [idEdit, setIdEdit] = useState()
+    const [idRemove, setIdRemove] = useState()
     const [showRemove, setShowRemove] = useState(false)
     const handleCloseRemove = () => setShowRemove(false);
+
+
+    const openEditCar = (id) =>{
+        setShow(true)
+        setIdEdit(id)
+    }
+
+
+    const openRemoveCar = (id)=>{
+        setShowRemove(true)
+        setIdRemove(id)
+    }
+
+
+
 
 
     const renderizaLinha = record => {
@@ -139,19 +148,21 @@ const Crud = () => {
                             <td>{record.movida.name} {record.movida.year} {record.movida.version}</td>
                             <td>{record.user.name}</td>
                         <td className="buttons"> 
-                        <button onClick={(e)=>setShow(true)} className="btn btn-outline-warning">  Editar </button>
-                        <button  onClick={(e)=>setShowRemove(true)} className="button" className="btn btn-outline-danger"> Remover </button>
+                        <button onClick={()=> openEditCar(record._id)} className="btn btn-outline-warning">  Editar </button>
+                        <button  onClick={()=>openRemoveCar(record._id)}  className="btn btn-outline-danger"> Remover </button>
+                        {record._id === idEdit?
                                 <Modal show={show} onHide={handleClose} animation={true}>
                                     <Modal.Header style={{ position: 'center' }} closeButton >
-                                    <Modal.Title  > EDITAR</Modal.Title>
+                                    <Modal.Title  > EDITAR </Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
+                                    
                                     <div className ="content">
                                         <div className="webmotors"> 
                                             <div className ="name">
                                                 <p>CARRO NA WEBMOTORS</p>
                                                     <span>
-                                                        {record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}
+                                                    {record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}
                                                     </span>
                                         </div>
                                     </div>
@@ -160,50 +171,65 @@ const Crud = () => {
                                             <h5 className="title">LOCALIZA</h5>
                                             <div className ="name">
                                                 <p>NOME</p>
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                                     <span>{record.webmotors.brand} {record.webmotors.model}</span>
+                                                    : <span> Não há esse carro na Localiza </span>}
                                             </div>
                                             <div className ="year">
                                                 <p>ANO</p> 
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                                 <span>{record.webmotors.modelYear}</span>
-                                                
+                                                :  <span> - </span>}
                                             </div>
                                             <div className ="version">
                                                 <p>VERSÃO</p>
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                                 <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
-                                                    <option value = "">Selecione</option>
+                                                    <option disabled>Selecione</option>
                                                     {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                                 </select>
+                                                :  <span> - </span>}
+
                                             </div>
                                         </div>
                                         <div className="movida"> 
                                         <h5 className="title">MOVIDA</h5>
                                         <div className ="name">
                                             <p>NOME</p>
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                             <span>{record.webmotors.brand} {record.webmotors.model}</span>
+                                            : <span> Não há esse carro na Movida </span>}
                                         </div>
                                         <div className ="year">
                                             <p>ANO</p>
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                             <span>{record.webmotors.modelYear}</span>
+                                            : <span> - </span>}
+
                                         </div>
                                         <div className ="version">
                                             <p>VERSÃO</p>
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
                                             <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
-                                                <option value = "">Selecione</option>
+                                                <option disabled >Selecione</option>
                                                 {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                             </select>
+                                            : <span> - </span>}
                                         </div>
                                     </div>
                                 </div> 
                                 <div className="modalButtons">
+
                                     <button type="button" className="btn btn-outline-secondary" onClick={handleClose}> Cancelar</button>
                                     <button type="button" className="btn btn-outline-primary" onClick={() => {updateMatch(record._id)}}> Salvar</button>
                                 </div>                            
-                                </div>  
+                                </div> 
                                     </Modal.Body>
-                                </Modal>
+                                </Modal>: <span></span> }
 
+                                {record._id === idRemove?                        
                                 <Modal show={showRemove} onHide={handleCloseRemove} animation={true}>
                                     <Modal.Header style={{ position: 'center' }} closeButton >
                                     <Modal.Title  > DESEJA REMOVER?</Modal.Title>
@@ -211,12 +237,12 @@ const Crud = () => {
                                     <Modal.Body>
                                         <div className='content'>
                                             <div className="modalButtons">
+                                                <button type="button" className="btn btn-outline-secondary" onClick={handleCloseRemove}> Cancelar</button>
                                                 <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
                                             </div>
                                         </div>
                                     </Modal.Body>
-                                </Modal>
-                                
+                                </Modal>: <span></span> }
                         </td>
                     </tr>
                     

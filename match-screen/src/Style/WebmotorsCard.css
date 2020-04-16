@@ -1,10 +1,15 @@
+body{
+    width: 100%;
+    margin: auto;
+}
+
+
 .card{
     -webkit-box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
     box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
+    width:100%;
 }
-
-
 
 .attributeName{
     margin:0;
@@ -28,6 +33,7 @@ span{
     justify-content:space-between;
     margin-bottom: 18%;
     margin-top: 7%;
+    flex-shrink: 1;
 }
 
 .attribute1{
@@ -35,6 +41,8 @@ span{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
 }
 
 .attribute3{
@@ -42,6 +50,8 @@ span{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
 }
 
 .attribute2{
@@ -49,6 +59,8 @@ span{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
 }
 
 .attribute4{
@@ -56,11 +68,15 @@ span{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
 }
 .attribute5{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
 }
 
 

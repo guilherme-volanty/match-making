@@ -10,7 +10,6 @@ body{
     justify-content: center;
 }
 
-
 .Cards{
     margin-top: 12%;
     display: flex;
@@ -24,5 +23,14 @@ body{
     justify-content: flex-end;
     margin-right: 10%;
 }
+
+.webmotors{
+    width: 100%;
+}
+
+
+
+
+
 
 

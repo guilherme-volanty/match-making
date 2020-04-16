@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import "../Style/OtherCards.css"
 import Ilustration from '../assets/undraw_towing_6yy4.png'
@@ -8,11 +8,9 @@ const OtherCards = (props) => {
     const onChangeVersion = (event) => {
         if(props.origin ==="Localiza"){
             props.setLocalizaId(event.target.value)
-            props.setLocalizaAccepted(true)
 
         }else {
             props.setMovidaId(event.target.value)
-            props.setMovidaAccepted(true)
 
         }
     }
@@ -50,8 +48,7 @@ const OtherCards = (props) => {
                                 <div className="select3 form-group">
                                     <label htmlFor="nome">Versão</label>
                                     <select className="form-control" placeholder="Selecione" onChange={onChangeVersion}>
-                                        <option disabled selected>Selecione</option>
-                                        <option value = "">Não há Match</option>
+                                        <option defaultValue value = "">Não há Match</option>
                                         {checkHasCar()
                                             .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                     </select>
@@ -61,7 +58,7 @@ const OtherCards = (props) => {
                     </div>
                 </div>
             </div>
-            : <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+            :<div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
                     <div className="card-body text-dark">
                         <div className="noMatch">
                             <h5 className="card-title title">{props.origin}</h5>
