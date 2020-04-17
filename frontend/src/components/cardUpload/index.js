@@ -6,6 +6,8 @@ import FormFileInput from 'react-bootstrap/FormFileInput';
 import FormFileLabel from 'react-bootstrap/FormFileLabel';
 
 
+
+
 const Carde = () => {
     const [fileUpload, setFileUpload] = useState('');
     const [fileName, setFileName] = useState('Procure sua Base');

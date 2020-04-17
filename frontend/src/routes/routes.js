@@ -3,14 +3,13 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    
   } from "react-router-dom";
-import SearchPage from '../pages/SearchPage';
 import UploadPage from '../pages/UploadPage';
 
 
 
-const Routess = () => {
+const Routtes = () => {
    return(
     <Router>
         <Switch>
@@ -22,4 +21,4 @@ const Routess = () => {
    )
 };
 
-export default Routess;
+export default Routtes;

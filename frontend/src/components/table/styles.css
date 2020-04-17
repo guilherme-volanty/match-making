@@ -4,7 +4,6 @@
     top: 350px;
     border: none;
     z-index: 2;
-    
 }
 .card-columns{
     display: flex;
@@ -12,18 +11,18 @@
     justify-content: space-around;
     align-content: center;
     align-self: center;
-    width: 1206px;
-    height: 300px;
-    left: 74px;
-    top: 224px;
+    width: 500px;
+    margin: 0 auto;
+    width: 55%;
+}
 
-}
-.card-body{
-    height: 425px;
-    
-}
-.container{
-    
+.card-columns.card {
+    display: inline-block;
+    width: 130%;
+    width: 1000px;
+    height: 480px;
+    margin-top: -80px;
+
 }
 
 .mb-3{
@@ -34,11 +33,6 @@
     -moz-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
     box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
 }
-
-.card-title{
-    font-size: 32px;
-}
-
 .card-options{
     display: flex;
     justify-content: space-between;
@@ -46,13 +40,10 @@
     padding: 5%;
 }
 
-.container{
-    display: grid;
-}
 
-.form1{
-    background-color: aliceblue;
-}
-.form2{
-    background-color: rgb(188, 189, 190);
-}
+
+
+
+
+
+

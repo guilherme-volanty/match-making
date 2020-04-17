@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import Routess from './routes/routes';
+import Routes from './routes/routes';
+import Table from './components/table/index';
+import Filter from './components/filter/index';
 
 function App(props) {
   return (
     <div className="App">
-       <Routess/>
+       <Filter/>
        
     </div>
   );

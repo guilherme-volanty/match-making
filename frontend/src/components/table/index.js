@@ -1,36 +1,51 @@
 import React from 'react';
-import './styles.css';
-import { Button, Form, FormFile } from 'react-bootstrap';
+import Api from '../../API';
+import {Table, Form} from 'react-bootstrap';
+import Filter from '../filter/index';
 
-const TableCRUD = () => {
 
-    return (
-        <section className="card-section">
-            <div className="card-columns">
-                <div className="card mb-3">
-                    <div className="card-body">
-                        
-                        <div>
-                        <div class="container">
-                            <div class="row1">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4"></div>
-                            </div>
-                            <div class="row2">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4"></div>
-                            </div>
-                            
-                            </div>
-                                
-                            
-                        </div>
-                    </div>
+const TableCRUD = ()=>{
+    
+
+return(
+    
+    <section className="tablecard-section">
+        <div className="tablecard-columns">
+            <div className="tablecard mb-3">
+                <div className="tablecard-body">
+                    <Form>
+                        <Table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Versão</th>
+                        <th scope="col">Origem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        </tr>
+                    </tbody>
+                    </Table>
+                    </Form>
                 </div>
             </div>
-        </section>
-    );
-}
+        </div>
+    </section>
 
+)
+};
 export default TableCRUD;
+
