@@ -11,11 +11,14 @@ import Ilustration from '../assets/undraw_fast_car_p4cu.png'
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const MatchScreen = () => {
+
     //==========WEBMOTORS==============
     const mathRandom = ((Math.random() * 10)+1).toFixed(0)
     const [webmotorsCars, setWebmotorsCar] = useState({})
     const [loading, setLoading] = useState(false)
 
+//Funçãoque faz uma busca mais elaborada na base de dados da webmotors
+// baseada na aleatoriedade
 
 //    useEffect(()=>{
 //        axios.get(`${url}Webmotors`)
@@ -30,7 +33,7 @@ const MatchScreen = () => {
 
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/${mathRandom}`)
+        axios.get(`${url}Webmotors/4`)
         .then(res => {
            setWebmotorsCar(res.data)
         })
@@ -75,7 +78,8 @@ const MatchScreen = () => {
             });  
     }, [])
   
-
+    //Função que muda o estado dos carros da localiza e movida
+    //De acordo com a mudança do que é setado id que vem do OtherCards 
     useEffect(() => {
         LocalizaCars.filter(filter => filter.id===localizaId)
             .map(car => setLocalizaName(car.name))
@@ -93,9 +97,8 @@ const MatchScreen = () => {
 
     }, [movidaId,localizaId])
 
-
-    const sendForm = () => {
-        
+    //Envia o match para a base de dados
+    const sendMatch = () => {
         setLoading(true)
         axios({
             method: 'post',
@@ -134,8 +137,6 @@ const MatchScreen = () => {
             console.log({message:"Enviado com sucesso"})
             window.location.reload()
             
-
-            
         }).catch(error=> {
             setLoading(false)
             console.log(error)
@@ -144,31 +145,17 @@ const MatchScreen = () => {
     }
 
     if(localizaNoMatch && movidaNoMatch){
-        window.location.reload()
     }
 
     return (
+        
         <div className="">
+            { /*Backround*/}
             <div className="wrap">
                 <img className ="car"src = "https://assets.volanty.com/images/3.0/volanty-car2.png" alt="carro"/>
                 <img className="logo"src= "https://assets.volanty.com/images/3.0/nova-logo.svg" alt="logo"/>
             </div>
             <div className="items">
-
-                <Modal show={loading} animation={true}>
-                    <Modal.Header style={{ position: 'center' }} >
-                    <Modal.Title  > CARREGANDO...</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <img alt="logo-volanty" style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
-                        width="60%"
-                        src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
-                        <img alt="ilustration"  width="100%"src ={Ilustration} />
-                        <p style={{ textAlign: 'center' }}>Enviando</p>
-
-                    </Modal.Body>
-                </Modal>
-                
                 <div className="Cards">
                     <WebmotorsCard data={webmotorsCars}
                         className="webmotors" />
@@ -186,9 +173,22 @@ const MatchScreen = () => {
                         setMovidaId={setMovidaId}
                         className="movida"
                         origin="Movida" />
+                { /*Animação que ocorre enquanto o match está sendo enviado*/}
+                <Modal show={loading} animation={true}>
+                    <Modal.Header style={{ position: 'center' }} >
+                    <Modal.Title  > CARREGANDO...</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <img alt="logo-volanty" style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
+                        width="60%"
+                        src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
+                        <img alt="ilustration"  width="100%"src ={Ilustration} />
+                        <p style={{ textAlign: 'center' }}>Enviando</p>
+                    </Modal.Body>
+                </Modal>
                 </div>
                 <div className="Button">
-                    <Button onClick={sendForm} type="submit" className="button" variant="primary">Enviar</Button>
+                    <Button onClick={sendMatch} type="submit" className="button" variant="primary">Enviar</Button>
                 </div>
             </div>
             </div>

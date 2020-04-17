@@ -11,12 +11,13 @@ const OtherCards = (props) => {
 
         }else {
             props.setMovidaId(event.target.value)
-
         }
     }
 
+    //Verificar se há um carro do mesmo modelo e ano
+    // na base de dados vigente
     const checkHasCar = () =>{
-        const regex = new RegExp(props.webmotorsData.model)
+        const regex = new RegExp("\\b"+props.webmotorsData.model+"\\b", "gi")
         var filter = props.data.filter(filter =>filter.year === props.webmotorsData.modelYear &&
             filter.name.match(regex))
         return filter
@@ -24,8 +25,10 @@ const OtherCards = (props) => {
 
     return (
         <div>
+            {/* Checa se o tamanho da lista de filtro é maior que zero*/}
             {checkHasCar().length >0 ?        
             <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+                {/*Atribuindo que há um match correspondente*/}
                 {props.origin==="Localiza"? props.setLocalizaNoMatch(false):props.setMovidaNoMatch(false)}
                 <div className="card-body text-dark">
                     <h5 className="card-title title">{props.origin}</h5>
@@ -60,6 +63,7 @@ const OtherCards = (props) => {
                 </div>
             </div>
             :<div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+                {/*Atribuindo que não há um match correspondente*/}
                 {props.data.length>0 ? props.origin==="Localiza" ? props.setLocalizaNoMatch(true):props.setMovidaNoMatch(true):<span></span>}
                     <div className="card-body text-dark">
                         <div className="noMatch">

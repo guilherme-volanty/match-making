@@ -171,22 +171,22 @@ const Crud = () => {
                                             <h5 className="title">LOCALIZA</h5>
                                             <div className ="name">
                                                 <p>NOME</p>
-                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                                     <span>{record.webmotors.brand} {record.webmotors.model}</span>
                                                     : <span> Não há esse carro na Localiza </span>}
                                             </div>
                                             <div className ="year">
                                                 <p>ANO</p> 
-                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                                 <span>{record.webmotors.modelYear}</span>
                                                 :  <span> - </span>}
                                             </div>
                                             <div className ="version">
                                                 <p>VERSÃO</p>
-                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                                {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                                 <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
                                                     <option disabled>Selecione</option>
-                                                    {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                    {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b"))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                                 </select>
                                                 :  <span> - </span>}
@@ -197,23 +197,23 @@ const Crud = () => {
                                         <h5 className="title">MOVIDA</h5>
                                         <div className ="name">
                                             <p>NOME</p>
-                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                             <span>{record.webmotors.brand} {record.webmotors.model}</span>
                                             : <span> Não há esse carro na Movida </span>}
                                         </div>
                                         <div className ="year">
                                             <p>ANO</p>
-                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                             <span>{record.webmotors.modelYear}</span>
                                             : <span> - </span>}
 
                                         </div>
                                         <div className ="version">
                                             <p>VERSÃO</p>
-                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model)).length>0?
+                                            {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                             <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
                                                 <option disabled >Selecione</option>
-                                                {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match(record.webmotors.model))
+                                                {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b"))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                             </select>
                                             : <span> - </span>}
