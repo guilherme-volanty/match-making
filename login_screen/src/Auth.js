@@ -16,19 +16,20 @@ function authenticate() {
     firebase.auth().signInWithPopup(provider).then(function (result) {
         const user = result.user;
         setCookies(result);
-
+console.log(result)
         // restringir o dominio volanty.
         if (!user.email.match(/.*@volanty.com$/)) {
             errorLogin = false;
             errorMessage  = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
             firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
-            Cookies.remove('idToken','user','email','photo');
+            Cookies.remove('idToken','user','email','photo','data');
             history.push("/login");
         } else {
+            insert(user);
             history.push("/home");
         }
 
-        insert(user.displayName,user.email)
+
 
     }).catch(function (error) {
         alert("Erro ao criar usuário :" + error);
@@ -40,19 +41,23 @@ function setCookies(authenticateResponse) {
     Cookies.set("email", authenticateResponse.user.email);
     Cookies.set("photo", authenticateResponse.user.photoURL);
     Cookies.set("idToken", authenticateResponse.credential.idToken);
+
 }
 //função para inserir dados no firebase
-function insert(user, email){
+function insert(user){
     const db = firebase.firestore();
     db.settings({
         timestampsInSnapshots: true
     });
 
     const userRef = db.collection('users').add({
-        user: user,
-        email: email
+        user: user.displayName,
+        email: user.email,
+        createdAt:  new Date(user.metadata.creationTime),
+        lastSignInTime: new Date(user.metadata.lastSignInTime)
+
     });
-    console.log("userRef");
+
     console.log(userRef);
 }
 
