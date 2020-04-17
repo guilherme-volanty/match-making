@@ -30,11 +30,13 @@ const MatchScreen = () => {
 
 
     useEffect(() => {
-        axios.get(`${url}Webmotors/5`)
-            .then(res => {
-               setWebmotorsCar(res.data)
-            })
+        axios.get(`${url}Webmotors/${mathRandom}`)
+        .then(res => {
+           setWebmotorsCar(res.data)
+        })
+        
     }, []);
+
 
     //1 - AGILE  (NO MATCH BOTH)
     //3 - ASTRA (MATCH LOCALIZA)
@@ -48,11 +50,13 @@ const MatchScreen = () => {
     const [localizaYear, setLocalizaYear] = useState("")
     const [localizaVersion, setLocalizaVersion] = useState("")
     const [localizaId, setLocalizaId] = useState("")
+    const [localizaNoMatch, setLocalizaNoMatch] = useState(false)
 
     useEffect(() => {
         axios.get(`${url}Localiza`)
             .then(res => {
                 setLocalizaCars(res.data)
+               
             });
     }, [])
 
@@ -62,12 +66,15 @@ const MatchScreen = () => {
     const [movidaYear, setMovidaYear] = useState("")
     const [movidaVersion, setMovidaVersion] = useState("")
     const [movidaId, setMovidaId] = useState("")
+    const [movidaNoMatch, setMovidaNoMatch]= useState(false)
+    
     useEffect(() => {
         axios.get(`${url}Movida`)
             .then(res => {
                 setMovidaCars(res.data)
-            });
+            });  
     }, [])
+  
 
     useEffect(() => {
         LocalizaCars.filter(filter => filter.id===localizaId)
@@ -126,6 +133,7 @@ const MatchScreen = () => {
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
             window.location.reload()
+            
 
             
         }).catch(error=> {
@@ -133,7 +141,10 @@ const MatchScreen = () => {
             console.log(error)
             alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
         })
+    }
 
+    if(localizaNoMatch && movidaNoMatch){
+        window.location.reload()
     }
 
     return (
@@ -164,12 +175,14 @@ const MatchScreen = () => {
 
                     <OtherCards data={LocalizaCars}
                         webmotorsData={webmotorsCars}
+                        setLocalizaNoMatch={setLocalizaNoMatch}
                         setLocalizaId={setLocalizaId}
                         className="localiza"
                         origin="Localiza" />
 
                     <OtherCards data={MovidaCars}
                         webmotorsData={webmotorsCars}
+                        setMovidaNoMatch={setMovidaNoMatch}
                         setMovidaId={setMovidaId}
                         className="movida"
                         origin="Movida" />

@@ -26,6 +26,7 @@ const OtherCards = (props) => {
         <div>
             {checkHasCar().length >0 ?        
             <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+                {props.origin==="Localiza"? props.setLocalizaNoMatch(false):props.setMovidaNoMatch(false)}
                 <div className="card-body text-dark">
                     <h5 className="card-title title">{props.origin}</h5>
                     <div className="card-text">
@@ -59,6 +60,7 @@ const OtherCards = (props) => {
                 </div>
             </div>
             :<div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+                {props.data.length>0 ? props.origin==="Localiza" ? props.setLocalizaNoMatch(true):props.setMovidaNoMatch(true):<span></span>}
                     <div className="card-body text-dark">
                         <div className="noMatch">
                             <h5 className="card-title title">{props.origin}</h5>
