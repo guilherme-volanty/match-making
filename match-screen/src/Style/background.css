@@ -1,9 +1,21 @@
 .wrap {
-  top: 50px;
-  width: 100vw;
+  width: 99vw;
   height: 15vh;
   position: relative;
+
 }
+
+.wrap .logo{
+  width: 40%;
+  margin-bottom: 5%;
+}
+
+.wrap .car{
+  right: 0;
+  
+}
+
+
 .wrap::before {
   content: "";
   background: url("https://assets.volanty.com/images/3.0/tech/graphic-orange.svg")

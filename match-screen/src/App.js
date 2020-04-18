@@ -7,14 +7,12 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import Header from './Components/header'
 import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
         <Switch>
           <Route className = "match-screen"path = "/match-screen" component= {MatchScreen}></Route>
           <Route path = "/match-table" component = {Crud}></Route>

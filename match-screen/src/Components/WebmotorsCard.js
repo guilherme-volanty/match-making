@@ -4,7 +4,7 @@ import "../Style/WebmotorsCard.css";
 
 const WebmotorsCard = (props) => {
     return (
-        <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+        <div className="card mb-3" >
             <div className="card-body text-dark">
                 <h5 className="card-title title ">Webmotors</h5>
                 <div className ="card-text ">

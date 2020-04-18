@@ -24,10 +24,10 @@ const OtherCards = (props) => {
     }
 
     return (
-        <div>
+        <>
             {/* Checa se o tamanho da lista de filtro é maior que zero*/}
             {checkHasCar().length >0 ?        
-            <div className="card mb-3" style={{height: "400px", marginTop: "10px", width: '350px'}}>
+            <div className="card mb-3">
                 {/*Atribuindo que há um match correspondente*/}
                 {props.origin==="Localiza"? props.setLocalizaNoMatch(false):props.setMovidaNoMatch(false)}
                 <div className="card-body text-dark">
@@ -74,7 +74,7 @@ const OtherCards = (props) => {
                     </div>
                 </div>
             }
-    </div>
+    </>
     )
 
 }
