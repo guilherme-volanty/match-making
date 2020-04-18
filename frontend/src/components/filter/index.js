@@ -78,7 +78,8 @@ return (
                                 <label htmlFor="nome">Versão</label>
                                 <select className="form-control" onChange={onChangeVersion}>
                                     <option value = "">Selecione</option>
-                                    {cars.filter(filter => filter.year===year).map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
+                                    {cars.filter(filter => filter.name===name&&filter.year===year)
+                                    .map(car => <option value= {car.version} key ={car.id}>{car.version}</option>)}
                                 </select>
                             </div>
                         </div>
@@ -86,7 +87,8 @@ return (
                                 <label htmlFor="nome">Origem</label>
                                 <select className="form-control" onChange={onChangeOrigin}>
                                     <option value = "">Selecione</option>
-                                    {cars.filter(filter => filter.version===version).map(car => <option value= {car.origin} key ={car.id}>{car.origin}</option>)}
+                                    {cars.filter(filter =>filter.name===name&&filter.year===year&&filter.version===version)
+                                    .map(car => <option value= {car.origin} key ={car.id}>{car.origin}</option>)}
                                 </select>
                             </div>
                     </div> 

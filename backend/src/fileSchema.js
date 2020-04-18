@@ -3,6 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 
+
 const fileSchema = new Schema({
     
     name: String,
@@ -10,7 +11,8 @@ const fileSchema = new Schema({
     year: Number,
     origin: String,
     href: String,
-    version: {type:String, unique:true}
+    version: {type:String, unique:true},
+    metadataID: ""
 
 });
 

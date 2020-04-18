@@ -26,9 +26,9 @@ routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.save
 
 routes.get('/file/get',cors(), Controller.getAllMatchFiles);
 
-routes.get('/file/:name ', Controller.getCarByName);
+routes.post('/file/delete', Controller.Delete);
 
-routes.delete('/file/delete', Controller.Delete);
+routes.delete('/file/remove', Controller.Remove);
 
 
 
