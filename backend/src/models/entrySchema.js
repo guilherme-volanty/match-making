@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const MetaData = require('./metadataSchema');
 
 const EntrySchema = new mongoose.Schema({
     fipePrice: Number,
@@ -11,7 +12,12 @@ const EntrySchema = new mongoose.Schema({
     modelYear: Number,
     bodyWork: String,
     versionId: String,
-    metadataId: String
+    metadataId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Metadata'
+    }
 });
 
-module.exports = mongoose.model("EntriesData", EntrySchema, "entry-data")
+module.exports = mongoose.model("EntriesData", EntrySchema, "2")
+
+//"entries-data"

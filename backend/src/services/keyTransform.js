@@ -1,22 +1,13 @@
 
-function keyTransform(csvObject) {
+function keyTransform(csvObject, metadata) {
     return {
-        createDate: new Date,
-        updateDate: null,
-        deletedDate: null, 
-        isDeleted: false,
-        csvObjects: {
-            fipePrice: csvObject.precoFipe,
-            minPrice: csvObject.precoMinimo,
-            averagePrice: csvObject.precoMedio,
-            maximumPrice: csvObject.precoMaximo,
-            brand: csvObject.brand,
-            model: csvObject.model,
-            version: csvObject.version,
-            modelYear: csvObject.modelYear,
-            bodyWork: csvObject.carroceria,
-            versionId: csvObject.versionId,
-        }
+        brand: csvObject.brand,
+        model: csvObject.model,
+        version: csvObject.version,
+        modelYear: csvObject.modelYear,
+        bodyWork: csvObject.carroceria,
+        versionId: csvObject.versionId,
+        metadataId: metadata,
     }
 };
 

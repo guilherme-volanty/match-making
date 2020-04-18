@@ -9,4 +9,6 @@ const MetaDataSchema = new mongoose.Schema({
     isActive: Boolean
 });
 
-module.exports = mongoose.model('MetaData', MetaDataSchema, "metadata")
+module.exports = mongoose.model('MetaData', MetaDataSchema, "1")
+
+// "metadata"

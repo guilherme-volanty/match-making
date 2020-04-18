@@ -6,29 +6,33 @@ const MetaData = require('../models/metadataSchema');
 const EntriesData = require('../models/entrySchema');
 const baseCSVController = require('../controller/baseCsvController');
 
-function jsonParser(fileName) {
+async function jsonParser(fileName) {
     let buffer = [];
     const startTime = new Date();
 
-    let strem = fs.createReadStream(path.resolve(__dirname, '..', 'tmp', 'uploads', fileName))
+    await baseCSVController.delete();
+    const mongoObject =  new MetaData({
+        fileName: fileName,
+        createDate: new Date,
+        updateDate: null,
+        deletedDate: null,
+        isDeleted: false,
+        isActive: true,
+    });
+    mongoObject.save(function (err, metadata) {
+        if (err) {
+            return console.error(err)
+        };
+        console.log(metadata.fileName + " Metadados salvos");
+    });
+    let stream = fs.createReadStream(path.resolve(__dirname, '..', 'tmp', 'uploads', fileName))
         .pipe(csv.parse({ headers: true }))
         .on('error', error => {
             console.log(error)
         })
-        .on('start', async fileName => {
-
-        })
         .on('data', async row => {
-            await baseCSVController.delete();
-            await MetaData.insertMany({
-                fileName: fileName,
-                createDate: new Date,
-                updateDate: null,
-                deletedDate: null,
-                isDeleted: false,
-                isActive: true,
-            });
-            let tey = keyTransform(row);
+            let tey = keyTransform(row, mongoObject.id);
+            
             try {
                 buffer.push(tey);
             } catch {
@@ -38,7 +42,6 @@ function jsonParser(fileName) {
             }
         })
         .on('end', async rowCounter => {
-            
             await EntriesData.insertMany(buffer);
             const endTime = new Date();
             const sec = Math.round((endTime - startTime) / 1000);
