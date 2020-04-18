@@ -4,16 +4,12 @@ import '../Style/Crud.css'
 import {Link} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 
-
-
-
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const Crud = () => {
     const [data, setData] = useState([])
-    const [refreshData, setRefreshData]=useState(false)
-    const [openEdit, setOpenEdit] = useState(false);
 
+    //Pega todos os Matchs vindos da API criada
     useEffect(() => {
         axios.get("http://localhost:3001/match/all")
             .then(res => {
@@ -22,6 +18,7 @@ const Crud = () => {
 
     },[data])
 
+    //Pegar dados da base completa da Movida e Localiza 
     useEffect(()=>{
         axios.get(`${url}Localiza`)
         .then(res => { 
@@ -32,20 +29,42 @@ const Crud = () => {
             setMovidaCars(res.data)
         })
     }, [])
-
-
     
-    const deleteItem = (id) => {
+    //Deleta um Match
+    const deleteMatch = (id) => {
         axios.delete(`http://localhost:3001/match/delete/${id}`)
             .then((res) =>{
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
             })
     }
-
-    const setaEdit = (id) =>{
-        setOpenEdit(!openEdit)
-    }
+    
+    //Atualiza Match
+    const updateMatch = (id) => {
+        axios({
+            method: 'put',
+            url: `http://localhost:3001/match/update/${id}`,
+            data: {
+                updateDate: `${Date.now()}`,
+                localiza: {
+                    id: localizaId,
+                    name: localizaName,
+                    year: localizaYear,
+                    version: localizaVersion
+                },
+                movida: {
+                    id: movidaId,
+                    name: movidaName,
+                    year: movidaYear,
+                    version: movidaVersion
+                }
+            }
+        }).then(res =>{
+            alert("Enviado com sucesso")
+        }).catch(error=> {
+            console.log(error)
+        })
+}
 
     //=========LOCALIZA==============
     const [localizaCars,setLocalizaCars] = useState([]);
@@ -62,6 +81,8 @@ const Crud = () => {
     const [movidaId, setMovidaId] = useState(0);
     const [movidaVersion, setMovidaVersion] = useState("");
 
+
+    //Seta o Id das bases de dado 
     useEffect(() => {
         localizaCars.filter(filter => filter.year===localizaYear && filter.name===localizaName && filter.version===localizaVersion)
             .map(car => setLocalizaId(car.id))
@@ -69,49 +90,17 @@ const Crud = () => {
             .map(car =>(setMovidaId(car.id)))
     }, [movidaVersion,localizaVersion])
 
-    const updateMatch = (id) => {
-
-        setRefreshData(!refreshData)
-            axios({
-                method: 'put',
-                url: `http://localhost:3001/match/update/${id}`,
-                data: {
-                    updateDate: `${Date.now()}`,
-                    localiza: {
-                        id: localizaId,
-                        name: localizaName,
-                        year: localizaYear,
-                        version: localizaVersion
-                    },
-                    movida: {
-                        id: movidaId,
-                        name: movidaName,
-                        year: movidaYear,
-                        version: movidaVersion
-                    }
-                }
-            }).then(res =>{
-                alert("Enviado com sucesso")
-                setaEdit(false)
-            }).catch(error=> {
-                console.log(error)
-            })
-    }
+    //Seto o modelo, ano e versao baseado no ID
     useEffect(() => {
         localizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaName(car.name))
-        localizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaYear(Number(car.year)))
-        localizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaVersion(car.version))
+            .map(car => {setLocalizaName(car.name);
+                setLocalizaYear(Number(car.year));
+                    setLocalizaVersion(car.version) });
 
         movidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaName(car.name))
-        movidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaYear(Number(car.year)))
-        movidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaVersion(car.version))
-
+            .map(car => {setMovidaName(car.name);
+                setMovidaYear(Number(car.year));
+                setMovidaVersion(car.version) })
     }, [movidaId,localizaId])
 
 
@@ -123,21 +112,15 @@ const Crud = () => {
     const [showRemove, setShowRemove] = useState(false)
     const handleCloseRemove = () => setShowRemove(false);
 
-
     const openEditCar = (id) =>{
         setShow(true)
         setIdEdit(id)
     }
 
-
     const openRemoveCar = (id)=>{
         setShowRemove(true)
         setIdRemove(id)
     }
-
-
-
-
 
     const renderizaLinha = record => {
             return(
@@ -150,7 +133,8 @@ const Crud = () => {
                         <td className="buttons"> 
                         <button onClick={()=> openEditCar(record._id)} className="btn btn-outline-warning">  Editar </button>
                         <button  onClick={()=>openRemoveCar(record._id)}  className="btn btn-outline-danger"> Remover </button>
-                        {record._id === idEdit?
+                        {record._id === idEdit? /* Verifica se está no ID que quero editar*/
+                            /*Modal de edição*/
                                 <Modal show={show} onHide={handleClose} animation={true}>
                                     <Modal.Header style={{ position: 'center' }} closeButton >
                                     <Modal.Title  > EDITAR </Modal.Title>
@@ -185,7 +169,7 @@ const Crud = () => {
                                                 <p>VERSÃO</p>
                                                 {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                                 <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
-                                                    <option disabled>Selecione</option>
+                                                    <option value="">Selecione</option>
                                                     {localizaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b"))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                                 </select>
@@ -212,7 +196,7 @@ const Crud = () => {
                                             <p>VERSÃO</p>
                                             {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b")).length>0?
                                             <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
-                                                <option disabled >Selecione</option>
+                                                <option value="" >Selecione</option>
                                                 {movidaCars.filter(filter => filter.year===record.webmotors.modelYear && filter.name.match("\\b"+record.webmotors.model+"\\b"))
                                                         .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
                                             </select>
@@ -229,7 +213,8 @@ const Crud = () => {
                                     </Modal.Body>
                                 </Modal>: <span></span> }
 
-                                {record._id === idRemove?                        
+                                {record._id === idRemove?/* Verifica se está no ID que quero remover*/
+                            /*Modal de confirmacao de remoção*/                        
                                 <Modal show={showRemove} onHide={handleCloseRemove} animation={true}>
                                     <Modal.Header style={{ position: 'center' }} closeButton >
                                     <Modal.Title  > DESEJA REMOVER?</Modal.Title>
@@ -238,7 +223,7 @@ const Crud = () => {
                                         <div className='content'>
                                             <div className="modalButtons">
                                                 <button type="button" className="btn btn-outline-secondary" onClick={handleCloseRemove}> Cancelar</button>
-                                                <button type="button" onClick={() => deleteItem(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
+                                                <button type="button" onClick={() => deleteMatch(record._id)} className="btn btn-outline-danger"> Confirmar </button>    
                                             </div>
                                         </div>
                                     </Modal.Body>

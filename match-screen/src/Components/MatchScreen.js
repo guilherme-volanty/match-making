@@ -10,7 +10,7 @@ import Ilustration from '../assets/undraw_fast_car_p4cu.png'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
-const MatchScreen = () => {
+const MatchScreen = (props) => {
 
     //==========WEBMOTORS==============
     const mathRandom = ((Math.random() * 10)+1).toFixed(0)
@@ -30,14 +30,21 @@ const MatchScreen = () => {
 //            })
 //    },[])
 
-
-
+    //Pegando dados de todas as bases 
     useEffect(() => {
         axios.get(`${url}Webmotors/4`)
         .then(res => {
            setWebmotorsCar(res.data)
-        })
-        
+        });
+        axios.get(`${url}Localiza`)
+            .then(res => {
+                setLocalizaCars(res.data)
+               
+            });
+        axios.get(`${url}Movida`)
+            .then(res => {
+                setMovidaCars(res.data)
+            });
     }, []);
 
 
@@ -45,7 +52,6 @@ const MatchScreen = () => {
     //3 - ASTRA (MATCH LOCALIZA)
     //5 - CELTA (MATCH BOTH)
     //9 - TORO (MATCH WEBMOTORS)
-
 
     //===========LOCALIZA===============
     const [LocalizaCars, setLocalizaCars] = useState([])
@@ -55,14 +61,6 @@ const MatchScreen = () => {
     const [localizaId, setLocalizaId] = useState("")
     const [localizaNoMatch, setLocalizaNoMatch] = useState(false)
 
-    useEffect(() => {
-        axios.get(`${url}Localiza`)
-            .then(res => {
-                setLocalizaCars(res.data)
-               
-            });
-    }, [])
-
     //===========MOVIDA===============
     const [MovidaCars, setMovidaCars] = useState([])
     const [movidaName, setMovidaName] = useState("")
@@ -71,31 +69,20 @@ const MatchScreen = () => {
     const [movidaId, setMovidaId] = useState("")
     const [movidaNoMatch, setMovidaNoMatch]= useState(false)
     
-    useEffect(() => {
-        axios.get(`${url}Movida`)
-            .then(res => {
-                setMovidaCars(res.data)
-            });  
-    }, [])
-  
+
     //Função que muda o estado dos carros da localiza e movida
     //De acordo com a mudança do que é setado id que vem do OtherCards 
     useEffect(() => {
         LocalizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaName(car.name))
-        LocalizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaYear(Number(car.year)))
-        LocalizaCars.filter(filter => filter.id===localizaId)
-            .map(car => setLocalizaVersion(car.version))
+            .map(car => {setLocalizaName(car.name); 
+                setLocalizaYear(Number(car.year));
+                setLocalizaVersion(car.version)});
 
         MovidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaName(car.name))
-        MovidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaYear(Number(car.year)))
-        MovidaCars.filter(filter => filter.id===movidaId)
-            .map(car => setMovidaVersion(car.version))
-
-    }, [movidaId,localizaId])
+            .map(car => {setMovidaName(car.name);
+                setMovidaYear(Number(car.year));
+                  setMovidaVersion(car.version)})
+       }, [movidaId,localizaId])
 
     //Envia o match para a base de dados
     const sendMatch = () => {
@@ -145,6 +132,7 @@ const MatchScreen = () => {
     }
 
     if(localizaNoMatch && movidaNoMatch){
+        //window.location.reload()
     }
 
     return (
