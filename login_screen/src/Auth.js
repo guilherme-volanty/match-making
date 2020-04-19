@@ -2,63 +2,110 @@ import * as firebase from "firebase";
 import 'firebase/auth';
 import Cookies from 'js-cookie';
 import {history} from "./history";
+
 let errorLogin = true;
-let errorMessage= '';
+let errorMessage = '';
+
+function setRoute(route) {
+    history.push(route);
+}
+
+function isVolantyEmailDomain(user) {
+    return !user.email.match(/.*@volanty.com$/);
+}
+
+function setErrorLoginMessage() {
+    errorLogin = false;
+    errorMessage = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
+}
+
 //Função de autenticação chamada no onclick do botão google authenticated.
 function authenticate() {
 
-    // Usando um pop-up
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
 
-    // função do firebase que faz a Autenticação
     firebase.auth().signInWithPopup(provider).then(function (result) {
         const user = result.user;
         setCookies(result);
-console.log(result)
+
         // restringir o dominio volanty.
-        if (!user.email.match(/.*@volanty.com$/)) {
-            errorLogin = false;
-            errorMessage  = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
-            firebase.auth().currentUser.delete().then(r => console.log("Usuário Deletado/Não autenticado"));
-            Cookies.remove('idToken','user','email','photo','data');
-            history.push("/login");
+        if (isVolantyEmailDomain(user)) {
+            setErrorLoginMessage();
+            firebase.auth().currentUser.delete().then(response => {});
+            setRoute("login");
         } else {
-            insert(user);
-            history.push("/home");
+            findUserByEmail(user.email).then(response => {
+                if (response.empty) {
+                    insert(user);
+                    setRoute("home");
+                } else {
+                    updateUser(response);
+                    setRoute("home");
+                }
+            }).catch(reason => {
+                console.log(reason);
+            })
         }
-
-
-
     }).catch(function (error) {
         alert("Erro ao criar usuário :" + error);
     });
 }
 
 function setCookies(authenticateResponse) {
+    console.log(authenticateResponse);
     Cookies.set("user", authenticateResponse.user.displayName);
     Cookies.set("email", authenticateResponse.user.email);
     Cookies.set("photo", authenticateResponse.user.photoURL);
     Cookies.set("idToken", authenticateResponse.credential.idToken);
 
 }
-//função para inserir dados no firebase
-function insert(user){
+
+async function findUserByEmail(email) {
+    const db = firebase.firestore();
+    db.settings({
+        timestampsInSnapshots: true
+    });
+    const database = db.collection('users').where('email', '==', email);
+
+    return await database.get().then(function (querySnapshot) {
+        return querySnapshot;
+    }).catch(error => {
+        return error
+    })
+}
+
+//função para inserir dados no firestore
+function insert(user) {
     const db = firebase.firestore();
     db.settings({
         timestampsInSnapshots: true
     });
 
-    const userRef = db.collection('users').add({
+    db.collection('users').add({
         user: user.displayName,
         email: user.email,
-        createdAt:  new Date(user.metadata.creationTime),
+        createdAt: new Date(user.metadata.creationTime),
         lastSignInTime: new Date(user.metadata.lastSignInTime)
+    }).then(response => {
+        console.log(response);
+        // setCookies(response);
 
+        console.log("Usuário Cadastrado", response.id)
+        }
+    ).catch(function (error) {
+        alert("Erro ao inserir :" + error);
     });
+}
 
-    console.log(userRef);
+function updateUser(user) {
+    const db = firebase.firestore();
+    const database = db.collection("users");
+
+    database.doc(user.docs[0].id).update({
+        lastSignInTime: new Date()
+    }).then(response => console.log(response))
 }
 
 
@@ -66,6 +113,7 @@ function insert(user){
 function isAuthenticated() {
     return Cookies.get("idToken") != null;
 }
+
 // faz logOut e apaga o id do cookie
 function singOut() {
     firebase.auth().signOut().then(function () {
@@ -77,4 +125,4 @@ function singOut() {
 
 }
 
-export {authenticate, singOut, isAuthenticated, errorLogin,errorMessage};
+export {authenticate, singOut, isAuthenticated, errorLogin, errorMessage};
