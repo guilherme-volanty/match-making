@@ -28,17 +28,18 @@ function authenticate() {
 
     firebase.auth().signInWithPopup(provider).then(function (result) {
         const user = result.user;
+        setCookies(result);
 
         // restringir o dominio volanty.
         if (!isVolantyEmailDomain(user)) {
             setErrorLoginMessage();
-            firebase.auth().currentUser.delete().then(() => {});
+            firebase.auth().currentUser.delete().then(() => {
+            });
             setRoute("login");
         } else {
             findUserByEmail(user.email).then(response => {
                 if (response.empty) {
                     insert(user);
-                    setCookies(result);
                     setRoute("home");
                 } else {
                     updateUser(response);
@@ -87,9 +88,8 @@ function insert(user) {
         createdAt: new Date(user.metadata.creationTime),
         lastSignInTime: new Date(user.metadata.lastSignInTime)
     }).then(response => {
-        console.log(response);
-        Cookies.set("documentUserId", response.id);
-        console.log("Usuário Cadastrado", response.id)
+            Cookies.set("documentUserId", response.id);
+            console.log("Usuário Cadastrado", response.id)
         }
     ).catch(function (error) {
         //    TODO mensagem de erro ao inserir
@@ -97,13 +97,16 @@ function insert(user) {
 }
 
 function updateUser(user) {
+    const userDocumentId = user.docs[0].id;
     const db = firebase.firestore();
     const database = db.collection("users");
 
-    database.doc(user.docs[0].id).update({
+    Cookies.set("documentUserId",userDocumentId );
+
+    database.doc(userDocumentId).update({
         lastSignInTime: new Date()
-    }).catch(reason => {
-    //    TODO mensagem de erro ao atualizar
+    }).then().catch(reason => {
+        console.log(reason)
     })
 }
 
@@ -116,7 +119,7 @@ function isAuthenticated() {
 // faz logOut e apaga o id do cookie
 function singOut() {
     firebase.auth().signOut().then(function () {
-        Cookies.remove('token');
+        Cookies.remove("token");
         history.push("/")
     }).catch(function (error) {
         // An error happened.

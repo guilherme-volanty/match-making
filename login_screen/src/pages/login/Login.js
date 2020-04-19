@@ -16,7 +16,7 @@ class Login extends Component {
                     <img className="car" src="https://assets.volanty.com/images/3.0/volanty-car2.png" alt="carro"/>
                     <img className="logo" src="https://assets.volanty.com/images/3.0/nova-logo.svg" alt="logo"/>
 
-                    <Container className="boxgoogle">
+                    <Container className="boxGoogle">
                         <Row className="justify-content-md-center">
                             <Card style={{width: '23m', height: '23m'}}>
                                 <Card.Header><h3>Acesso à plataforma</h3></Card.Header>
@@ -27,7 +27,7 @@ class Login extends Component {
                                             authenticate()
                                         }}/>
                                     </Card.Text>
-                                    <Card.Footer class="msgErro" hidden={errorLogin}><p>{errorMessage}</p></Card.Footer>
+                                    <Card.Footer class="msgErr" hidden={errorLogin}><p>{errorMessage}</p></Card.Footer>
                                 </Card.Body>
                             </Card>
                         </Row>

@@ -52,15 +52,13 @@ font-weight: bold;
 
 
 }
-.boxgoogle{
+.boxGoogle{
 
-
-  padding: 190px;
   position: relative;
   z-index: 30;
   text-align: center;
   align-content: center;
-  padding-bottom: 5cm;
+  padding: 190px 190px 5cm;
 
 }
 .button {
@@ -68,7 +66,7 @@ font-weight: bold;
   padding: 15px 20px;
 }
 
-.msgErro,p {
+.msgErr,p {
   max-width: 42ch ;
   color: red;
   font-weight: bold;
