@@ -54,12 +54,10 @@ function authenticate() {
 }
 
 function setCookies(authenticateResponse) {
-    console.log(authenticateResponse);
     Cookies.set("user", authenticateResponse.user.displayName);
     Cookies.set("email", authenticateResponse.user.email);
     Cookies.set("photo", authenticateResponse.user.photoURL);
     Cookies.set("token", authenticateResponse.credential.idToken);
-
 }
 
 async function findUserByEmail(email) {
