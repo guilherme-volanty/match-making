@@ -11,7 +11,7 @@ function setRoute(route) {
 }
 
 function isVolantyEmailDomain(user) {
-    return !user.email.match(/.*@volanty.com$/);
+    return user.email.match(/.*@volanty.com$/);
 }
 
 function setErrorLoginMessage() {
@@ -28,28 +28,28 @@ function authenticate() {
 
     firebase.auth().signInWithPopup(provider).then(function (result) {
         const user = result.user;
-        setCookies(result);
 
         // restringir o dominio volanty.
-        if (isVolantyEmailDomain(user)) {
+        if (!isVolantyEmailDomain(user)) {
             setErrorLoginMessage();
-            firebase.auth().currentUser.delete().then(response => {});
+            firebase.auth().currentUser.delete().then(() => {});
             setRoute("login");
         } else {
             findUserByEmail(user.email).then(response => {
                 if (response.empty) {
                     insert(user);
+                    setCookies(result);
                     setRoute("home");
                 } else {
                     updateUser(response);
                     setRoute("home");
                 }
             }).catch(reason => {
-                console.log(reason);
+                // TODO Erro exibir o motivo
             })
         }
     }).catch(function (error) {
-        alert("Erro ao criar usuário :" + error);
+        // TODO Erro ao criar usuário
     });
 }
 
@@ -58,7 +58,7 @@ function setCookies(authenticateResponse) {
     Cookies.set("user", authenticateResponse.user.displayName);
     Cookies.set("email", authenticateResponse.user.email);
     Cookies.set("photo", authenticateResponse.user.photoURL);
-    Cookies.set("idToken", authenticateResponse.credential.idToken);
+    Cookies.set("token", authenticateResponse.credential.idToken);
 
 }
 
@@ -90,12 +90,11 @@ function insert(user) {
         lastSignInTime: new Date(user.metadata.lastSignInTime)
     }).then(response => {
         console.log(response);
-        // setCookies(response);
-
+        Cookies.set("documentUserId", response.id);
         console.log("Usuário Cadastrado", response.id)
         }
     ).catch(function (error) {
-        alert("Erro ao inserir :" + error);
+        //    TODO mensagem de erro ao inserir
     });
 }
 
@@ -105,24 +104,25 @@ function updateUser(user) {
 
     database.doc(user.docs[0].id).update({
         lastSignInTime: new Date()
-    }).then(response => console.log(response))
+    }).catch(reason => {
+    //    TODO mensagem de erro ao atualizar
+    })
 }
 
 
-//verifica se existi o IdToken
+//verifica se existi o token
 function isAuthenticated() {
-    return Cookies.get("idToken") != null;
+    return Cookies.get("token") != null;
 }
 
 // faz logOut e apaga o id do cookie
 function singOut() {
     firebase.auth().signOut().then(function () {
-        Cookies.remove('idToken');
+        Cookies.remove('token');
         history.push("/")
     }).catch(function (error) {
         // An error happened.
     });
-
 }
 
 export {authenticate, singOut, isAuthenticated, errorLogin, errorMessage};
