@@ -9,6 +9,4 @@ const MetaDataSchema = new mongoose.Schema({
     isActive: Boolean
 });
 
-module.exports = mongoose.model('MetaData', MetaDataSchema, "1")
-
-// "metadata"
+module.exports = mongoose.model('MetaData', MetaDataSchema, "base-csv-metadata")

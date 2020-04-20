@@ -18,6 +18,4 @@ const EntrySchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("EntriesData", EntrySchema, "2")
-
-//"entries-data"
+module.exports = mongoose.model("EntriesData", EntrySchema, "base-entries-data")
