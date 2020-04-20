@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import "../Style/OtherCards.css"
-import Ilustration from '../assets/undraw_towing_6yy4.png'
+import "./OtherCards.css"
+import Ilustration from '../../assets/undraw_towing_6yy4.png'
 
 const OtherCards = (props) => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import MatchScreen from './Components/MatchScreen'
-import Crud from './Components/Crud'
+import MatchScreen from './Components/MatchScreen/MatchScreen'
+import Crud from './Components/Crud/Crud'
 import "./Style/background.css"
 import {
   BrowserRouter as Router, 

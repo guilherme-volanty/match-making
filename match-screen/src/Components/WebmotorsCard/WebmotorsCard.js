@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import "../Style/WebmotorsCard.css";
+import "./WebmotorsCard.css";
 
 const WebmotorsCard = (props) => {
     return (

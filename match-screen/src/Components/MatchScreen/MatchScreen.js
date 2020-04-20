@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import OtherCards from './OtherCards';
-import WebmotorsCard from './WebmotorsCard'
+import OtherCards from '../OtherCards/OtherCards';
+import WebmotorsCard from '../WebmotorsCard/WebmotorsCard'
 import { Button } from "react-bootstrap"
-import '../Style/MatchScreen.css'
-import '../Style/background.css'
+import './MatchScreen.css'
+import '../../Style/background.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
-import Ilustration from '../assets/undraw_fast_car_p4cu.png'
+import Ilustration from '../../assets/undraw_fast_car_p4cu.png'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -71,7 +71,7 @@ const MatchScreen = (props) => {
     
 
     //Função que muda o estado dos carros da localiza e movida
-    //De acordo com a mudança do que é setado id que vem do OtherCards 
+    //De acordo com a mudança do que é setado id vindo do OtherCards 
     useEffect(() => {
         LocalizaCars.filter(filter => filter.id===localizaId)
             .map(car => {setLocalizaName(car.name); 
@@ -132,7 +132,7 @@ const MatchScreen = (props) => {
     }
 
     if(localizaNoMatch && movidaNoMatch){
-        //window.location.reload()
+        window.location.reload()
     }
 
     return (
