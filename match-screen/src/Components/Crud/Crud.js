@@ -97,6 +97,8 @@ const Crud = () => {
                 setLocalizaName(car.name);
                 setLocalizaYear(Number(car.year));
                 setLocalizaVersion(car.version)
+                return null
+
             });
 
         movidaCars.filter(filter => filter.id === movidaId)
@@ -104,6 +106,8 @@ const Crud = () => {
                 setMovidaName(car.name);
                 setMovidaYear(Number(car.year));
                 setMovidaVersion(car.version)
+                return null
+
             })
     }, [movidaId, localizaId])
 
@@ -115,20 +119,25 @@ const Crud = () => {
     const [idRemove, setIdRemove] = useState()
     const [showRemove, setShowRemove] = useState(false)
     const handleCloseRemove = () => setShowRemove(false);
-
+    
+    //Abrir o modal exatamente do item que quero
     const openEditCar = (id) => {
         setShow(true)
         setIdEdit(id)
     }
 
+    //Abrir o modal exatamente do item que quero
     const openRemoveCar = (id) => {
         setShowRemove(true)
         setIdRemove(id)
     }
 
     const renderizaLinha = record => {
+
         return (
             <Fragment key={record._id}>
+                {/*Lógica para mostrar apenas os matchs daquele usuário*/}
+                {record.user.userId===3313?
                 <tr className='table' key={record._id}>
                     <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                     <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
@@ -234,6 +243,7 @@ const Crud = () => {
                             </Modal> : <span></span>}
                     </td>
                 </tr>
+                :null}
 
             </Fragment>
         );

@@ -76,12 +76,17 @@ const MatchScreen = (props) => {
         LocalizaCars.filter(filter => filter.id===localizaId)
             .map(car => {setLocalizaName(car.name); 
                 setLocalizaYear(Number(car.year));
-                setLocalizaVersion(car.version)});
+                setLocalizaVersion(car.version)
+                return null
+            });
 
         MovidaCars.filter(filter => filter.id===movidaId)
             .map(car => {setMovidaName(car.name);
                 setMovidaYear(Number(car.year));
-                  setMovidaVersion(car.version)})
+                setMovidaVersion(car.version)
+                return null
+
+            })
        }, [movidaId,localizaId])
 
     //Envia o match para a base de dados
@@ -115,7 +120,7 @@ const MatchScreen = (props) => {
                     version: movidaVersion
                 },
                 user: {
-                    userId: 3213,
+                    userId: 3313,
                     name: "Alysson",
                     email: "alysson@volanty.com"
                 }
