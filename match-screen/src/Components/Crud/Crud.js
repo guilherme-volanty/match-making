@@ -3,6 +3,7 @@ import axios from "axios";
 import './Crud.css'
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
+import { set } from "mongoose";
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -82,33 +83,34 @@ const Crud = () => {
     const [movidaVersion, setMovidaVersion] = useState("");
 
 
+    const setId = (base, name,year,version, setaId) => {
+        base.filter(filter => filter.year === year && filter.name === name && filter.version === version)
+            .map(car => setaId(car.id))
+    }
+
     //Seta o Id das bases de dado 
     useEffect(() => {
-        localizaCars.filter(filter => filter.year === localizaYear && filter.name === localizaName && filter.version === localizaVersion)
-            .map(car => setLocalizaId(car.id))
-        movidaCars.filter(filter => filter.year === movidaYear && filter.name === movidaName && filter.version === movidaVersion)
-            .map(car => (setMovidaId(car.id)))
+        setId(localizaCars,localizaName,localizaYear,localizaVersion,setLocalizaId);
+        setId(movidaCars,movidaName,movidaYear,movidaVersion,setMovidaId); 
     }, [movidaVersion, localizaVersion])
+
+    //Função que muda o estado dos carros da localiza e movida
+    //De acordo com a mudança do que é setado id vindo do OtherCards 
+    const setNameYearVersion= (base, id, setName,setYear,setVersion) => {
+        base.filter(filter => filter.id === id)
+            .map(car => {
+                setName(car.name);
+                setYear(Number(car.year));
+                setVersion(car.version)
+                return null
+            })
+    }
 
     //Seto o modelo, ano e versao baseado no ID
     useEffect(() => {
-        localizaCars.filter(filter => filter.id === localizaId)
-            .map(car => {
-                setLocalizaName(car.name);
-                setLocalizaYear(Number(car.year));
-                setLocalizaVersion(car.version)
-                return null
+        setNameYearVersion(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
+        setNameYearVersion(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
 
-            });
-
-        movidaCars.filter(filter => filter.id === movidaId)
-            .map(car => {
-                setMovidaName(car.name);
-                setMovidaYear(Number(car.year));
-                setMovidaVersion(car.version)
-                return null
-
-            })
     }, [movidaId, localizaId])
 
 

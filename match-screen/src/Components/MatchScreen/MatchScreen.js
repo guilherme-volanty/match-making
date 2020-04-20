@@ -54,7 +54,7 @@ const MatchScreen = (props) => {
     //9 - TORO (MATCH WEBMOTORS)
 
     //===========LOCALIZA===============
-    const [LocalizaCars, setLocalizaCars] = useState([])
+    const [localizaCars, setLocalizaCars] = useState([])
     const [localizaName, setLocalizaName] = useState("")
     const [localizaYear, setLocalizaYear] = useState("")
     const [localizaVersion, setLocalizaVersion] = useState("")
@@ -62,7 +62,7 @@ const MatchScreen = (props) => {
     const [localizaNoMatch, setLocalizaNoMatch] = useState(false)
 
     //===========MOVIDA===============
-    const [MovidaCars, setMovidaCars] = useState([])
+    const [movidaCars, setMovidaCars] = useState([])
     const [movidaName, setMovidaName] = useState("")
     const [movidaYear, setMovidaYear] = useState("")
     const [movidaVersion, setMovidaVersion] = useState("")
@@ -72,22 +72,22 @@ const MatchScreen = (props) => {
 
     //Função que muda o estado dos carros da localiza e movida
     //De acordo com a mudança do que é setado id vindo do OtherCards 
-    useEffect(() => {
-        LocalizaCars.filter(filter => filter.id===localizaId)
-            .map(car => {setLocalizaName(car.name); 
-                setLocalizaYear(Number(car.year));
-                setLocalizaVersion(car.version)
+    const setCar= (base, id, setName,setYear,setVersion) => {
+        base.filter(filter => filter.id === id)
+            .map(car => {
+                setName(car.name);
+                setYear(Number(car.year));
+                setVersion(car.version)
                 return null
-            });
-
-        MovidaCars.filter(filter => filter.id===movidaId)
-            .map(car => {setMovidaName(car.name);
-                setMovidaYear(Number(car.year));
-                setMovidaVersion(car.version)
-                return null
-
             })
-       }, [movidaId,localizaId])
+    }
+
+    //Seto o modelo, ano e versao baseado no ID
+    useEffect(() => {
+        setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
+        setCar(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
+
+    }, [movidaId, localizaId])
 
     //Envia o match para a base de dados
     const sendMatch = () => {
@@ -153,14 +153,14 @@ const MatchScreen = (props) => {
                     <WebmotorsCard data={webmotorsCars}
                         className="webmotors" />
 
-                    <OtherCards data={LocalizaCars}
+                    <OtherCards data={localizaCars}
                         webmotorsData={webmotorsCars}
                         setLocalizaNoMatch={setLocalizaNoMatch}
                         setLocalizaId={setLocalizaId}
                         className="localiza"
                         origin="Localiza" />
 
-                    <OtherCards data={MovidaCars}
+                    <OtherCards data={movidaCars}
                         webmotorsData={webmotorsCars}
                         setMovidaNoMatch={setMovidaNoMatch}
                         setMovidaId={setMovidaId}
