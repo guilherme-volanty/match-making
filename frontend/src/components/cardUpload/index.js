@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './styles.css';
-import uploadApi from '../../services/uploadApi';
+import Api from '../../services/uploadApi';
 import { Button, Form, FormLabel, FormControl } from 'react-bootstrap';
 import FormFileInput from 'react-bootstrap/FormFileInput';
 import FormFileLabel from 'react-bootstrap/FormFileLabel';
@@ -22,7 +22,7 @@ const UploadCard = () => {
         formData.append('file', fileUpload);
 
         try{
-            await uploadApi.post('/base-csv', formData, {
+            await Api.uploadApi.post('/base-csv', formData, {
                 headers: {
                     'Content-Type': 'multipart/form'
                 }

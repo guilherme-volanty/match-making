@@ -35,7 +35,8 @@ const Api ={
     getModels,
     getYear,
     getBodyWork,
-    getVersion
+    getVersion,
+    uploadApi
 }
 
 export default Api;
