@@ -4,7 +4,7 @@
 .menu-nav {
     width: 100%;
     height: 80px;
-    background-color: #fff;
+    background-color: #BBBBBB!important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,29 +39,92 @@
     display: flex;
 }
 
-.menu-nav .entry p{
+.menu-nav .entry .menu-item{
     color: #001E61;
     margin: 5%;
     font-size: 2em;
     vertical-align: bottom;
+}
 
+.navbar-dark .navbar-nav .nav-link{
+    color: #001E61;
 }
 
 
+.menu-nav .entry .menu-item:hover{
+    color: #FF5100;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    color: #FF5100;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus{
+    color: #FF5100;
+}
+
+/* Bootstap NavBar */
+
+.dropdown-toggle .nav-link{
+    color: #001E61;
+}
+
+.navbar-nav{
+    margin: 0;
+}
+
+.mr-auto .entry {
+    margin: 0;
+}
+
+.items-container{
+    display: flex;
+    flex-direction: row;
+}
 
 
+#responsive-navbar-nav{
+    margin: 0;
+    width: 10%!important;
+}
 @media only screen and (max-width: 380px){
-    .menu-nav .entry p{
+    .menu-nav .entry .menu-item{
        display: none;
     }
 }
 
+@media only screen and (max-width: 1024px){
+    .items-container{
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        border-radius: 10px;
+    }
+    .dropdown-menu.show{
+        border: none;
+    }
+}
 
+@media only screen and (max-width: 920px){
+    .items-container{
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        border-radius: 10px;
+    }
 
+    .navbar-dark .navbar-toggler{
+        border-color: #FF5100;
+    }
 
-
-
-
+    .dropdown-menu.show{
+        border: none;
+    }
+}
 
 
 
