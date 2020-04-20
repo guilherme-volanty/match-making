@@ -5,7 +5,9 @@ const multerConfigs = require('../config/multer');
 const jsonParser = require('../services/jsonParser');
 const baseCsvController = require('../controller/baseCsvController')
 
-routes.get('/base-csv', baseCsvController.index);
+routes.get('/base-csv', baseCsvController.indexMetadata);
+routes.get('/base-cars', baseCsvController.indexCarEntries);
+routes.get('/base-cars-list/', baseCsvController.indexCarList);
 
 
 routes.post('/base-csv', multer(multerConfigs).single('file'), (request, response) =>{
