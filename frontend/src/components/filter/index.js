@@ -12,6 +12,7 @@ const Filter = (props) => {
     const [version, setVersion] = useState("");
     const [origin, setOrigin] = useState("");
 
+    
     useEffect(() => {
         Api.get('/file/get')
             .then(res => {
@@ -21,8 +22,24 @@ const Filter = (props) => {
                 console.log(err)
             })
     }, [])
-
-        
+    
+    const result = [];
+    const map = new Map();
+    for (const item of cars) {
+        if(!map.has(item.id)){
+            map.set(item.id, true);    // set any value to Map
+            result.push({
+                id: item.id,
+                name: item.name
+            });
+        }
+    }
+    console.log(cars);
+    console.log(result)
+    
+    
+    
+    
 
     const onChangeName = (event) => {
         setName(event.target.value)
@@ -113,8 +130,27 @@ return (
                         </tr>
                     </thead>
                     <tbody>
-                    
-                    {cars.filter(filter =>filter.name===name&&filter.year===year&&filter.version===version&&filter.origin===origin)
+                        {cars.filter(filter =>filter.name===name)
+                        .map(car=>
+                        <>
+                        <tr>
+                            <td>{car.name}</td>
+                            <td>{car.year}</td>
+                            <td>{car.version}</td>
+                            <td>{car.origin}</td>
+                        </tr>
+                        </>)}
+                        {cars.filter(filter =>filter.name===name&&filter.year===year)
+                        .map(car=>
+                        <>
+                        <tr>
+                            <td>{car.name}</td>
+                            <td>{car.year}</td>
+                            <td>{car.version}</td>
+                            <td>{car.origin}</td>
+                        </tr>
+                        </>)}
+                        {cars.filter(filter =>filter.name===name&&filter.year===year&&filter.version===version)
                         .map(car=>
                         <>
                         <tr>

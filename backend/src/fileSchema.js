@@ -11,13 +11,18 @@ const fileSchema = new Schema({
     year: Number,
     origin: String,
     href: String,
-    version: {type:String, unique:true},
+    version: String,
+    // version: {type:String, unique:true},
     metadataID: ""
 
 });
 
 
-fileSchema.plugin(uniqueValidator);
+// fileSchema.plugin(uniqueValidator);
 
 
-module.exports = mongoose.model('matchFile', fileSchema)
+module.exports = mongoose.model('matchFile', fileSchema, 'matchfiles')
+
+// var database = mongoose.model('matchfiles');
+
+// database.find({}, function(err, data) { console.log(data); });

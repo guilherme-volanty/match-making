@@ -26,6 +26,14 @@ routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.save
 
 routes.get('/file/get',cors(), Controller.getAllMatchFiles);
 
+routes.get('/names',cors(), Controller.listNames);
+
+routes.get('/names/:name/years',cors(), Controller.listYears);
+
+routes.get('/names/:name/years/:year/versions',cors(), Controller.listVersions);
+
+routes.get('/names/:name/years/:year/versions/:version/origins',cors(), Controller.listOrigins);
+
 routes.post('/file/delete', Controller.Delete);
 
 routes.delete('/file/remove', Controller.Remove);

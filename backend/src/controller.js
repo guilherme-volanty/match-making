@@ -40,58 +40,89 @@ function saveDataFromUpload(request, response) {
                 err => {
                     return err;
                 }
-            }
+			}
 			
 		})
 		.on('end', ()=>{
 			
-			matchFile.create(buffer)
+			matchFile.insertMany(buffer)
 			.then(function() {
 				response.status(200).send("Arquivos salvos com sucesso.");
 			  })
 			.catch(function(err) {
-				response.status(500).send({ message: "Ops! Ocorreu um erro" });
+				console.log(err);
 			  });
-
 			
 		})
 		
+};
+
+async function listNames(request, response){
+	try {
+		const names = await matchFile.distinct("name");
+		return response.json(names);     
+	} catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
 }
 
+async function listYears(request, response){
+	try {
+		
+		const item = await matchFile.find({name: request.params.name}).distinct("year");
+		return response.json(item);
 
+	}catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
+}
 
-function getCarByName(request, response) {
+async function listVersions(request, response){
+	try {
+		
+		console.log(request.params.name);
+		console.log(request.params.year);
+		const item = await matchFile.find({name: request.params.name, year: request.params.year}).distinct("version");
+		return response.json(item);
+
+	}catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
+}
+
+async function listOrigins(request, response){
+	try {
+		
+		console.log(request.params.name);
+		console.log(request.params.year);
+		console.log(request.params.version)
+		const item = await matchFile.find({name: request.params.name, year: request.params.year, version: request.params.version})
+		.distinct("origin");
+		return response.json(item);
+
+	}catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
+}
+		
+function getAllCars(request, response) {
 	
-	matchFile.find({name:request.params.name})
-	  .then(function(files) {
-		response.status(201).send(files);
-	  })
-	  .catch(function(err) {
-		response.status(500).send({ message: "Ops! Ocorreu um erro" });
-	  });
-  }
+	matchFile.find({})
+	.then(function(files) {
+	  return files;
+	})
+	.catch(function(err) {
+	  console.error(err);
+	  response
+		.status(500)
+		.send({ message: "Ops! Ocorreu um erro" });
+	});
+}
 
-function getCarByYear(request, response) {
-	
-	matchFile.find({year:request.params.name})
-	  .then(function(files) {
-		response.status(201).send(files);
-	  })
-	  .catch(function(err) {
-		response.status(500).send({ message: "Ops! Ocorreu um erro" });
-	  });
-  }
-
-function getCarByOrigin(request, response) {
-	
-	matchFile.find({origin:request.params.name})
-	  .then(function(files) {
-		response.status(201).send(files);
-	  })
-	  .catch(function(err) {
-		response.status(500).send({ message: "Ops! Ocorreu um erro" });
-	  });
-  }
 
 
 function getAllMatchFiles(request, response) {
@@ -129,10 +160,12 @@ function getAllMatchFiles(request, response) {
 	  });
  }
 
-  module.exports = { getCarByName : getCarByName,
-					 getCarByYear : getCarByYear,
-					 getCarByOrigin : getCarByOrigin,
+  module.exports = { 
 					 getAllMatchFiles: getAllMatchFiles,
 					 saveDataFromUpload: saveDataFromUpload,
 					 Delete : Delete,
-					 Remove : Remove }
+					 Remove : Remove,
+					 listNames : listNames,
+					 listYears : listYears,
+					 listVersions : listVersions,
+					 listOrigins : listOrigins }
