@@ -5,6 +5,7 @@ import GoogleButton from "react-google-button";
 import { Card, Container, Row } from "react-bootstrap";
 import { authenticate, errorLogin, errorMessage } from "./auth";
 import "./background.css";
+import "./styles.css";
 
 class Login extends Component {
   render() {
@@ -22,8 +23,8 @@ class Login extends Component {
             alt="logo"
           />
 
-          <Container className="boxGoogle">
-            <Row className="justify-content-md-center">
+          <div className="boxGoogle">
+            <Row className="justify-content-center">
               <Card style={{ width: "23m", height: "23m" }}>
                 <Card.Header>
                   <h3>Acesso à plataforma</h3>
@@ -45,7 +46,7 @@ class Login extends Component {
                 </Card.Body>
               </Card>
             </Row>
-          </Container>
+          </div>
         </div>
       </>
     );
