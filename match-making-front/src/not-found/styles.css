@@ -1,0 +1,20 @@
+.notfound {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.number {
+  font-family: Arial;
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.msg {
+  font-family: Arial, serif;
+  font-size: 60px;
+}
+
+.imgCarErro {
+  width: 30%;
+  height: 30%;
+}

@@ -12,7 +12,11 @@
     "react-scripts": "3.4.1",
     "firebase": "^7.13.2",
     "react-google-button": "^0.7.1",
-    "@firebase/firestore": "latest"
+    "@firebase/firestore": "latest",
+    "bootstrap": "^4.4.1",
+    "history": "^4.10.1",
+    "js-cookie": "^2.2.1",
+    "react-bootstrap": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
