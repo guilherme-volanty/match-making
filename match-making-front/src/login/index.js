@@ -32,14 +32,14 @@ class Login extends Component {
                   <Card.Subtitle className="mb-2 text-muted">
                     Autenticar usando sua conta :
                   </Card.Subtitle>
-                  <Card.Text class="button">
+                  <Card.Text className="button">
                     <GoogleButton
                       onClick={() => {
                         authenticate();
                       }}
                     />
                   </Card.Text>
-                  <Card.Footer class="msgErr" hidden={errorLogin}>
+                  <Card.Footer className="msgErr" hidden={errorLogin}>
                     <p>{errorMessage}</p>
                   </Card.Footer>
                 </Card.Body>
