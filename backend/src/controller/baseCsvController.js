@@ -10,16 +10,51 @@ module.exports = {
 
     async indexCarEntries(request, response){
         allVersions = await EntriesData.find();
-        console.log(allVersions);
         return response.json(allVersions)
     },
 
-    async indexCarList(request, response){
+    async listBrands(request, response){
         try {
-            const ListFilter = await EntriesData.distinct((request.query.key).toString());
-            return response.json(ListFilter)
+            const brands = await EntriesData.distinct("brand");
+            console.log(brands);
+            return response.json(brands);     
         } catch(err){
             console.log(err);
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+
+    async listModels(brand, response){
+        try {
+            const brandId = brand.params.brandsId
+            console.log(brandId)
+            const models = await EntriesData.find({brand: brandId}).distinct("model");
+            return response.json(models);
+        } catch(error){
+            console.log(err);
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+    
+    async listModelYear(request, response){
+        try{
+            const brandsId = request.params.brandsId;
+            console.log(brandsId);
+            const modely = request.params.models;
+            console.log(modely);
+            const years = await EntriesData.find({brand: brandsId, model: modely}).distinct("modelYear")
+            return response.json(years);
+        }catch(error){
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+
+    async listVersions(request, response){
+        try{
+            const {brandsId, models, year} = request.params;
+            const version = await EntriesData.find({brand: brandsId, model: models, modelYear: year}).distinct("version")
+            return response.json(version)
+        }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
         }
     },

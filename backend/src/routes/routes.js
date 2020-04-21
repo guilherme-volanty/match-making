@@ -7,7 +7,11 @@ const baseCsvController = require('../controller/baseCsvController')
 
 routes.get('/base-csv', baseCsvController.indexMetadata);
 routes.get('/base-cars', baseCsvController.indexCarEntries);
-routes.get('/base-cars-list/', baseCsvController.indexCarList);
+routes.get('/base-cars-list/brands', baseCsvController.listBrands);
+routes.get(`/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);
+routes.get('/base-cars-list/brands/:brandsId/models/:models/years', baseCsvController.listModelYear);
+routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version', baseCsvController.listVersions);
+// routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', baseCsvController);
 
 
 routes.post('/base-csv', multer(multerConfigs).single('file'), (request, response) =>{
