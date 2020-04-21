@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./login";
-import history from "./navigation/history";
+import { history } from "./navigation/history";
 import PrivateRoute from "./navigation/private-route";
 import NotFound from "./not-found";
 
