@@ -25,7 +25,7 @@ async function jsonParser(fileName) {
         };
         console.log(metadata.fileName + " Metadados salvos");
     });
-    let stream = fs.createReadStream(path.resolve(__dirname, '..', 'tmp', 'uploads', fileName))
+    fs.createReadStream(path.resolve(__dirname, '..', 'tmp', 'uploads', fileName))
         .pipe(csv.parse({ headers: true }))
         .on('error', error => {
             console.log(error)
