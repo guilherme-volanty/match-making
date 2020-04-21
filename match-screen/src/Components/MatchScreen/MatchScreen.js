@@ -94,7 +94,7 @@ const MatchScreen = (props) => {
         setLoading(true)
         axios({
             method: 'post',
-            url: "http://localhost:3001/match",
+            url: "https://rest-api-match.herokuapp.com/match",
             data: {
                 operationId: `${mathRandom}`,
                 createDate: `${Date.now()}`,

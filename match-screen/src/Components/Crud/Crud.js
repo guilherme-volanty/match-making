@@ -3,7 +3,6 @@ import axios from "axios";
 import './Crud.css'
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
-import { set } from "mongoose";
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
@@ -12,7 +11,7 @@ const Crud = () => {
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("http://localhost:3001/match/all")
+        axios.get("https://rest-api-match.herokuapp.com/match/all")
             .then(res => {
                 setData(res.data)
             })
@@ -33,7 +32,7 @@ const Crud = () => {
 
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`http://localhost:3001/match/delete/${id}`)
+        axios.delete(`https://rest-api-match.herokuapp.com/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -44,7 +43,7 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `http://localhost:3001/match/update/${id}`,
+            url: `https://rest-api-match.herokuapp.com/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {
