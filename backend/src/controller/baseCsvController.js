@@ -16,7 +16,6 @@ module.exports = {
     async listBrands(request, response){
         try {
             const brands = await EntriesData.distinct("brand");
-            console.log(brands);
             return response.json(brands);     
         } catch(err){
             console.log(err);
@@ -26,8 +25,7 @@ module.exports = {
 
     async listModels(brand, response){
         try {
-            const brandId = brand.params.brandsId
-            console.log(brandId)
+            const brandId = brand.params.brandsId;
             const models = await EntriesData.find({brand: brandId}).distinct("model");
             return response.json(models);
         } catch(error){
@@ -39,9 +37,7 @@ module.exports = {
     async listModelYear(request, response){
         try{
             const brandsId = request.params.brandsId;
-            console.log(brandsId);
             const modely = request.params.models;
-            console.log(modely);
             const years = await EntriesData.find({brand: brandsId, model: modely}).distinct("modelYear")
             return response.json(years);
         }catch(error){

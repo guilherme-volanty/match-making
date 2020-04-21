@@ -11,7 +11,6 @@ routes.get('/base-cars-list/brands', baseCsvController.listBrands);
 routes.get(`/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);
 routes.get('/base-cars-list/brands/:brandsId/models/:models/years', baseCsvController.listModelYear);
 routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version', baseCsvController.listVersions);
-// routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', baseCsvController);
 
 
 routes.post('/base-csv', multer(multerConfigs).single('file'), (request, response) =>{
