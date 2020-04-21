@@ -5,36 +5,36 @@ const uploadApi = axios.create({
     baseURL: 'http://localhost:4002'
 });
 
+const getAllCars = async () =>{
+    const response = await uploadApi.get('/base-cars')
+    return response
+}
+
 const getBrands = async () =>{
-    const response = await uploadApi.get('/base-cars-list/?key=brand') ;
+    const response = await uploadApi.get('/base-cars-list/brands') ;
     return response 
 };
 
-const getModels = async () =>{
-    const response = await uploadApi.get('/base-cars-list/?key=model');
+const getModels = async (brandsId) =>{
+    const response = await uploadApi.get(`/base-cars-list/brands/${brandsId}/models`);
     return response
 };
 
-const getYear = async () =>{
-    const response = await uploadApi.get('/base-cars-list?key=modelYear');
+const getModelYear = async (brandsId, models) =>{
+    const response = await uploadApi.get(`/base-cars-list/brands/${brandsId}/models/${models}/years`);
     return response
 };
 
-const getBodyWork = async () =>{
-    const response = await uploadApi.get('/base-cars-list/?key=bodyWork');
-    return response
-};
-
-const getVersion = async () =>{
-    const response = await uploadApi.get('/base-cars-list/?key=version');
+const getVersion = async (brandsId, models, year) =>{
+    const response = await uploadApi.get(`/base-cars-list/brands/${brandsId}/models/${models}/years/${year}/version`);
     return response
 };
 
 const Api ={
+    getAllCars,
     getBrands,
     getModels,
-    getYear,
-    getBodyWork,
+    getModelYear,
     getVersion,
     uploadApi
 }
