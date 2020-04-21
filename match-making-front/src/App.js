@@ -1,20 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./login";
+import history from "./navigation/history";
+import PrivateRoute from "./navigation/private-route";
+import NotFound from "./not-found";
 
 export default function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/login" component={Login} />
+        <PrivateRoute exact path="/home" component={Home} />
+        <PrivateRoute component={NotFound} />
       </Switch>
     </Router>
   );
