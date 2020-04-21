@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { singOut } from "../../Auth";
+import { singOut } from "./auth";
 import Cookie from "js-cookie";
 
 class Home extends Component {

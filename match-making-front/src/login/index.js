@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import GoogleButton from "react-google-button";
 import { Card, Container, Row } from "react-bootstrap";
-import { authenticate, errorLogin, errorMessage } from "../../Auth";
+import { authenticate, errorLogin, errorMessage } from "./auth";
 import "./background.css";
 
 class Login extends Component {
