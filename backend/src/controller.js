@@ -33,19 +33,8 @@ function saveDataFromUpload(request, response) {
 		.on('data',(row)=>{
 			
 			let matchObject = jsonTransform(row,metaObject.id);
-			
-			try {
-                buffer.push(matchObject);
-            } catch {
-                err => {
-                    return err;
-                }
-			}
-			
-		})
-		.on('end', ()=>{
-			
-			matchFile.insertMany(buffer)
+
+			matchFile.create(matchObject)
 			.then(function() {
 				response.status(200).send("Arquivos salvos com sucesso.");
 			  })
@@ -53,7 +42,9 @@ function saveDataFromUpload(request, response) {
 				console.log(err);
 			  });
 			
+			
 		})
+		
 		
 };
 
@@ -82,8 +73,6 @@ async function listYears(request, response){
 async function listVersions(request, response){
 	try {
 		
-		console.log(request.params.name);
-		console.log(request.params.year);
 		const item = await matchFile.find({name: request.params.name, year: request.params.year}).distinct("version");
 		return response.json(item);
 
@@ -96,9 +85,6 @@ async function listVersions(request, response){
 async function listOrigins(request, response){
 	try {
 		
-		console.log(request.params.name);
-		console.log(request.params.year);
-		console.log(request.params.version)
 		const item = await matchFile.find({name: request.params.name, year: request.params.year, version: request.params.version})
 		.distinct("origin");
 		return response.json(item);
@@ -109,21 +95,6 @@ async function listOrigins(request, response){
 	}
 }
 		
-function getAllCars(request, response) {
-	
-	matchFile.find({})
-	.then(function(files) {
-	  return files;
-	})
-	.catch(function(err) {
-	  console.error(err);
-	  response
-		.status(500)
-		.send({ message: "Ops! Ocorreu um erro" });
-	});
-}
-
-
 
 function getAllMatchFiles(request, response) {
 	

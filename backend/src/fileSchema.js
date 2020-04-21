@@ -12,17 +12,15 @@ const fileSchema = new Schema({
     origin: String,
     href: String,
     version: String,
-    // version: {type:String, unique:true},
+    version: {type:String, unique:true},
     metadataID: ""
 
 });
 
 
-// fileSchema.plugin(uniqueValidator);
+fileSchema.plugin(uniqueValidator);
 
 
-module.exports = mongoose.model('matchFile', fileSchema, 'matchfiles')
+module.exports = mongoose.model('matchFile', fileSchema)
 
-// var database = mongoose.model('matchfiles');
 
-// database.find({}, function(err, data) { console.log(data); });

@@ -7,49 +7,41 @@ import {Table, Form} from 'react-bootstrap';
 const Filter = (props) => {
 
     const [cars, setCars] = useState([]);
-    const [name, setName] = useState("");
-    const [year, setYear] = useState(0);
+    const [name, setName] = useState([]);
+    const [year, setYear] = useState([]);
     const [version, setVersion] = useState("");
     const [origin, setOrigin] = useState("");
 
     
     useEffect(() => {
-        Api.get('/file/get')
+        Api.get('/names')
             .then(res => {
-                setCars(res.data)
+                setName(res.data)
             })
             .catch(err =>{
                 console.log(err)
             })
     }, [])
     
-    const result = [];
-    const map = new Map();
-    for (const item of cars) {
-        if(!map.has(item.id)){
-            map.set(item.id, true);    // set any value to Map
-            result.push({
-                id: item.id,
-                name: item.name
-            });
-        }
-    }
-    console.log(cars);
-    console.log(result)
     
-    
-    
-    
-
-    const onChangeName = (event) => {
-        setName(event.target.value)
-    
-    }    
-
     const onChangeYear = (event) => {
-        setYear(Number(event.target.value))
+
+        let nameSelected = event.target.value;
+        setName([nameSelected])
+        Api.get(`/names/${nameSelected}/years`)
+            .then(res=>{
+                setYear(res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    
+        };    
+
+    // const onChangeYear = (event) => {
+    //     setYear(Number(event.target.value))
         
-    }
+    // }
 
     const onChangeVersion = (event) => {
         setVersion(event.target.value)
@@ -58,9 +50,6 @@ const Filter = (props) => {
     const onChangeOrigin = (event) => {
         setOrigin(event.target.value)
     
-    }
-    const getCars = () =>{
-        return cars
     }
     
     
@@ -76,17 +65,18 @@ return (
                         <div className="row-selects">
                             <div className="select1 form-group">
                                 <label htmlFor="nome">Nome</label>
-                                <select className="form-control" onChange={onChangeName}>
-                                        <option value = "">Selecione</option>
-                                        {cars.map(car => <option value= {car.name} key ={car.id}> {car.name}</option>)}
+                                <select className="form-control" onChange={onChangeYear}>
+                                    <option value = "">Selecione</option>
+                                    {name?(name.map((name,i) => (
+                                    <option key ={i} value= {name}>{name}</option>))):(<div>Sem Carros</div>)}
                                 </select>
                             </div>
                             <div className="select2 form-group">
                                 <label htmlFor="nome">Ano</label>
                                 <select className="form-control" onChange={onChangeYear}>
                                     <option value = "">-</option>
-                                        {cars.filter(filter =>filter.name===name)
-                                            .map(car => <option value= {car.year}key ={car.id}>{car.year}</option>)}
+                                    {year.map((year,i) => (
+                                    <option key ={i} value= {year}>{year}</option>))}
                                 </select>
                             </div>
                         </div>

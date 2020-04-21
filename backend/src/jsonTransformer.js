@@ -5,8 +5,8 @@ function jsonTransform(csvObject, metadata) {
         year: csvObject.year,
         origin: csvObject.origin,
         href: csvObject.href,
-        version: csvObject.version,
-        metadataID: metadata,
+        version: csvObject.version ,unique:true,
+        metadataID: metadata
     }
 };
 
