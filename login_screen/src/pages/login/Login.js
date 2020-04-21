@@ -22,19 +22,19 @@ class Login extends Component {
                                 <Card.Header><h3>Acesso à plataforma</h3></Card.Header>
                                 <Card.Body>
                                     <Card.Subtitle className="mb-2 text-muted">Autenticar usando sua conta :</Card.Subtitle>
-                                    <Card.Text class="button">
+                                    <Card.Text className="button">
                                         <GoogleButton onClick={() => {
                                             authenticate()
                                         }}/>
                                     </Card.Text>
-                                    <Card.Footer class="msgErr" hidden={errorLogin}><p>{errorMessage}</p></Card.Footer>
+                                    <Card.Footer className="msgErr" hidden={errorLogin}><p>{errorMessage}</p></Card.Footer>
                                 </Card.Body>
                             </Card>
                         </Row>
 
                     </Container>
                 </div>
-                </>
+            </>
         );
     }
 }
