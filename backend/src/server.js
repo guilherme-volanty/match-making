@@ -11,12 +11,8 @@ var cors = require('cors');
 
 app.use(cors());
 app.use(routes);
-app.use(express.static('public/index.html'));
-
-
-
-
 connectToMongo();
+app.use(express.static('public/index.html'));
 
 routes.get('/status', (request, response) => {
     return response.status(200).send('Rota tá ok!')  
