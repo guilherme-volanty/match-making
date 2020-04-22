@@ -5,13 +5,12 @@ var express = require('express')
 	, routes = require('express').Router()
 	, connectToMongo = require('./mongo')
 	, Controller = require('./controller')
-	, bodyParser= require('body-parser')
+	
 var cors = require('cors');
 	
 
 
 app.use(express.static('public/index.html'));
-app.use(bodyParser.json());
 app.use(routes);
 app.use(cors());
 
