@@ -23,7 +23,7 @@ routes.get('/status', (request, response) => {
 
 routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
 
-routes.get('/file/get',cors(), Controller.getAllMatchFiles);
+routes.get('/file/getter',cors(), Controller.getAllMatchFiles);
 
 routes.get('/names',cors(), Controller.listNames);
 
@@ -33,7 +33,7 @@ routes.get('/names/:name/years/:year/versions',cors(), Controller.listVersions);
 
 routes.get('/names/:name/years/:year/versions/:version/origins',cors(), Controller.listOrigins);
 
-routes.post('/file/delete',cors() ,Controller.Delete);
+routes.post('/file/deleter',cors() ,Controller.Delete);
 
 routes.delete('/file/remove', Controller.Remove);
 
