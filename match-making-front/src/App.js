@@ -12,8 +12,8 @@ export default function App() {
     <Router history={history}>
       <Switch>
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/match" component={MatchScreen} />
-        <PrivateRoute path="/table" component={Table} />
+        <Route path="/match" component={MatchScreen} />
+        <Route path="/table" component={Table} />
         <PrivateRoute exact path="/home" component={Home} />
         <PrivateRoute component={NotFound} />
       </Switch>

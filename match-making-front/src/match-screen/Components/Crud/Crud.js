@@ -245,6 +245,7 @@ const Crud = () => {
                     </td>
                 </tr>
                 :null}
+                
 
             </Fragment>
         );
@@ -265,9 +266,11 @@ const Crud = () => {
                         <th></th>
                     </tr>
                 </thead>
+                {data?
                 <tbody>
                     {data.map(renderizaLinha)}
                 </tbody>
+                :<span>CARREGANDO...</span>}
             </table>
         </div>
     )
