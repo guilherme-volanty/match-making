@@ -11,4 +11,4 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(useRoutes);
 
-app.listen(4002);
+app.listen(process.env.PORT || 4002);
