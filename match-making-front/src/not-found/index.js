@@ -1,36 +1,33 @@
 import React, { Component } from "react";
 import "./styles.css";
 import CarErro from "../assets/CarErro.png";
-import { history } from "../navigation/history";
+import { useHistory } from "react-router-dom";
 
-class NotFound extends Component {
-  render() {
-    return (
-      <div className="notfound">
-        <div className=" ">
-          <h1 className="number">404</h1>
-          <h1 className="msg">Página não encontrada</h1>
-          <div>
-            <img
-              className="imgCarErro"
-              src={CarErro}
-              alt="Imagem para Erro 404"
-            />
-          </div>
+function NotFound() {
+  let history = useHistory();
+  return (
+    <div className="notfound">
+      <div className=" ">
+        <h1 className="number">404</h1>
+        <h1 className="msg">Página não encontrada</h1>
+        <div>
+          <img
+            className="imgCarErro"
+            src={CarErro}
+            alt="Imagem para Erro 404"
+          />
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            redirect();
-          }}
-        >
-          Página inicial
-        </button>
       </div>
-    );
-  }
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        Página inicial
+      </button>
+    </div>
+  );
 }
-function redirect() {
-  history.push("/Home");
-}
+
 export default NotFound;

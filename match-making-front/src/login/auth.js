@@ -1,14 +1,9 @@
 import * as firebase from "firebase";
 import "firebase/auth";
 import Cookies from "js-cookie";
-import { history } from "../navigation/history";
 
 let errorLogin = true;
 let errorMessage = "";
-
-function setRoute(route) {
-  history.push(route);
-}
 
 function isVolantyEmailDomain(user) {
   return user.email.match(/.*@volanty.com$/);
@@ -21,7 +16,8 @@ function setErrorLoginMessage() {
 }
 
 //Função de autenticação chamada no onclick do botão google authenticated.
-function authenticate() {
+function authenticate(redirect) {
+  //TODO: colocar umm redirect de sucesso, outro de erro
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope("profile");
   provider.addScope("email");
@@ -40,16 +36,18 @@ function authenticate() {
           .auth()
           .currentUser.delete()
           .then(() => {});
-        setRoute("login");
+        // setRoute("login");
       } else {
         findUserByEmail(user.email)
           .then((response) => {
             if (response.empty) {
               insert(user);
-              setRoute("home");
+              redirect();
+              // setRoute("home");
             } else {
+              redirect();
               updateUser(response);
-              setRoute("home");
+              // setRoute("home");
             }
           })
           .catch((reason) => {
@@ -139,7 +137,6 @@ function singOut() {
     .signOut()
     .then(function () {
       Cookies.remove("token");
-      history.push("/");
     })
     .catch(function (error) {
       // An error happened.

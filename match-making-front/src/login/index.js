@@ -6,51 +6,54 @@ import { Card, Container, Row } from "react-bootstrap";
 import { authenticate, errorLogin, errorMessage } from "./auth";
 import "./background.css";
 import "./styles.css";
+import { useHistory } from "react-router-dom";
 
-class Login extends Component {
-  render() {
-    return (
-      <>
-        <div className="wrap">
-          <img
-            className="car"
-            src="https://assets.volanty.com/images/3.0/volanty-car2.png"
-            alt="carro"
-          />
-          <img
-            className="logo"
-            src="https://assets.volanty.com/images/3.0/nova-logo.svg"
-            alt="logo"
-          />
+function Login() {
+  let history = useHistory();
 
-          <div className="boxGoogle">
-            <Row className="justify-content-center">
-              <Card style={{ width: "23m", height: "23m" }}>
-                <Card.Header>
-                  <h3>Acesso à plataforma</h3>
-                </Card.Header>
-                <Card.Body>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    Autenticar usando sua conta :
-                  </Card.Subtitle>
-                  <Card.Text className="button">
-                    <GoogleButton
-                      onClick={() => {
-                        authenticate();
-                      }}
-                    />
-                  </Card.Text>
-                  <Card.Footer className="msgErr" hidden={errorLogin}>
-                    <p>{errorMessage}</p>
-                  </Card.Footer>
-                </Card.Body>
-              </Card>
-            </Row>
-          </div>
+  return (
+    <>
+      <div className="wrap">
+        <img
+          className="car"
+          src="https://assets.volanty.com/images/3.0/volanty-car2.png"
+          alt="carro"
+        />
+        <img
+          className="logo"
+          src="https://assets.volanty.com/images/3.0/nova-logo.svg"
+          alt="logo"
+        />
+
+        <div className="boxGoogle">
+          <Row className="justify-content-center">
+            <Card style={{ width: "23m", height: "23m" }}>
+              <Card.Header>
+                <h3>Acesso à plataforma</h3>
+              </Card.Header>
+              <Card.Body>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Autenticar usando sua conta :
+                </Card.Subtitle>
+                <Card.Text className="button">
+                  <GoogleButton
+                    onClick={() => {
+                      authenticate(() => {
+                        history.push("/home");
+                      });
+                    }}
+                  />
+                </Card.Text>
+                <Card.Footer className="msgErr" hidden={errorLogin}>
+                  <p>{errorMessage}</p>
+                </Card.Footer>
+              </Card.Body>
+            </Card>
+          </Row>
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
 
 export default Login;

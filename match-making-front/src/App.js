@@ -1,15 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./login";
-import MatchScreen from './match-screen/Components/match-screen/MatchScreen';
-import Table from './match-screen/Components/Crud/Crud';
-import { history } from "./navigation/history";
+import MatchScreen from "./match-screen/Components/match-screen/MatchScreen";
+import Table from "./match-screen/Components/Crud/Crud";
 import PrivateRoute from "./navigation/private-route";
 import NotFound from "./not-found";
 
 export default function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/match" component={MatchScreen} />
