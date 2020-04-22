@@ -7,18 +7,18 @@
     border: none;
     z-index: 2;
 }
-.column-card{
+.column-card-upload{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: center;
     align-self: center;
-    width: 500px;
+    width: 60%;
     margin: 0 auto;
 }
 
-.mb-3{
-    width: 540px;
+.mb-3-upload{
+    width: 100%;
     border: none;
     border-radius: 20px;
     -webkit-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
@@ -60,7 +60,7 @@
     top: 65px;
     width: 50%;
     margin: 0 auto;
-
+    display: flex;
 }
 
 label{
