@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 // mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority
+// mongodb://localhost:27017/techtop
 
 function connectToMongo() {
   mongoose
-    .connect('mongodb://localhost:27017/techtop',
+    .connect('mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
