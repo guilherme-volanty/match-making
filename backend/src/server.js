@@ -40,4 +40,4 @@ routes.delete('/file/remove', Controller.Remove);
 
 
 
-app.listen(process.env.PORT||4000);
+app.listen(process.env.PORT);
