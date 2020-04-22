@@ -33,6 +33,8 @@ routes.get('/names/:name/years/:year/versions', Controller.listVersions);
 
 routes.get('/names/:name/years/:year/versions/:version/origins', Controller.listOrigins);
 
+routes.get('/origins/:origin/files', Controller.filterByOrigin);
+
 routes.post('/file/deleter',Controller.Delete);
 
 routes.delete('/file/remove', Controller.Remove);

@@ -71,6 +71,18 @@ async function listYears(request, response){
 		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
 	}
 }
+async function filterByOrigin(request, response){
+	try {
+		
+		const item = await matchFile.find({origin: request.params.origin});
+		return response.json(item);
+
+	}catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
+}
+
 
 async function listVersions(request, response){
 	try {
@@ -141,4 +153,5 @@ function getAllMatchFiles(request, response) {
 					 listNames : listNames,
 					 listYears : listYears,
 					 listVersions : listVersions,
-					 listOrigins : listOrigins }
+					 listOrigins : listOrigins,
+					 filterByOrigin : filterByOrigin }
