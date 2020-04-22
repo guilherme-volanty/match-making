@@ -1,7 +1,9 @@
 
 
 { "engines": {
-  "node": "13.11.x"},
+  "node": "13.11.x",
+  "npm" : "6.13.x"
+},
   
   "name": "upload-arquivo",
   "version": "1.0.0",
