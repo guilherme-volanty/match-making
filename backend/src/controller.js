@@ -7,7 +7,6 @@ const jsonTransform = require('./jsonTransformer');
 
 function saveDataFromUpload(request, response) {
 
-	let buffer = [];
 	
 	const metaObject = new metaData({
 				fileName: request.file.filename,
@@ -40,6 +39,7 @@ function saveDataFromUpload(request, response) {
 			  })
 			.catch(function(err) {
 				console.log(err);
+				response.status(500).send("Arquivo duplicado, essa base ja existe no banco.")
 			  });
 			
 			
