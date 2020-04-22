@@ -35,7 +35,7 @@ routes.get('/names/:name/years/:year/versions/:version/origins', cors(),Controll
 
 routes.get('/origins/:origin/files', cors(), Controller.filterByOrigin);
 
-routes.post('/file/deleter', cors(),Controller.Delete);
+routes.post('/file/deleter', Controller.Delete);
 
 routes.delete('/file/remove', Controller.Remove);
 
