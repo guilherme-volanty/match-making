@@ -5,7 +5,8 @@ import Ilustration from '../../assets/undraw_towing_6yy4.png'
 
 const OtherCards = (props) => {
 
-    const onChangeVersion = (event) => {
+    const onChangeId = (event) => {
+        console.log("on")
         if(props.origin ==="Localiza"){
             props.setLocalizaId(event.target.value)
 
@@ -13,6 +14,7 @@ const OtherCards = (props) => {
             props.setMovidaId(event.target.value)
         }
     }
+
 
     //Verificar se há um carro do mesmo modelo e ano
     // na base de dados vigente
@@ -51,10 +53,10 @@ const OtherCards = (props) => {
                             <div>
                                 <div className="select3 form-group">
                                     <label htmlFor="nome">Versão</label>
-                                    <select className="form-control" placeholder="Selecione" onChange={onChangeVersion}>
+                                    <select className="form-control" placeholder="Selecione" onChange={onChangeId}>
                                         <option defaultValue value = "">Não há Match</option>
                                         {checkHasCar()
-                                            .map(car => <option value= {car.id} key ={car.id}>{car.version}</option>)}
+                                            .map(car => <option value= {car._id} key ={car._id}>{car.version}</option>)}
                                     </select>
                                 </div>
                             </div>

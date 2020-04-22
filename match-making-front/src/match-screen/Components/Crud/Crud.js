@@ -12,7 +12,7 @@ const Crud = () => {
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("https://rest-api-match.herokuapp.com/match/all")
+        axios.get("https://match-api-rest.herokuapp.com/match/all")
             .then(res => {
                 setData(res.data)
             });
@@ -21,11 +21,11 @@ const Crud = () => {
 
     //Pegar dados da base completa da Movida e Localiza 
     useEffect(() => {
-        axios.get(`${url}Localiza`)
+        axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
             })
-        axios.get(`${url}Movida`)
+        axios.get(`https://upload-match-csvs.herokuapp.com/origins/MOVIDA/files`)
             .then(res => {
                 setMovidaCars(res.data)
             })
@@ -33,7 +33,7 @@ const Crud = () => {
 
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`https://rest-api-match.herokuapp.com/match/delete/${id}`)
+        axios.delete(`https://match-api-rest.herokuapp.com/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -44,7 +44,7 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `https://rest-api-match.herokuapp.com/match/update/${id}`,
+            url: `https://match-api-rest.herokuapp.com/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {
@@ -139,7 +139,7 @@ const Crud = () => {
         return (
             <Fragment key={record._id}>
                 {/*Lógica para mostrar apenas os matchs daquele usuário*/}
-                {record.user.userId===3313?
+                {record.user.userId===String(Cookie.getJSON("documentUserId"))?
                 <tr className='table' key={record._id}>
                     <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                     <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
