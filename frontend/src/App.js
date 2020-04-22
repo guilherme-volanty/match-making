@@ -7,7 +7,7 @@ import Card from './components/cardUpload'
 function App(props) {
   return (
     <div className="App">
-       <Card/>
+       <Filtertable/>
        
     </div>
   );

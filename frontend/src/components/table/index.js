@@ -15,7 +15,7 @@ const FilterTableCRUD = () => {
     useEffect(() => {
         const loadAllCars = async () =>{
             
-            Api.get('/file/get')
+            Api.get('/file/getter')
             .then(res => {
                 setCars(res.data)
             })
@@ -41,7 +41,7 @@ const FilterTableCRUD = () => {
 
     function deleteAction(){
         
-        Api.post('/file/delete')
+        Api.post('/file/deleter')
             .then(res => {
                 console.log("BASE DELETADA")
             })

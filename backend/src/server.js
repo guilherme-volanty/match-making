@@ -9,10 +9,10 @@ var express = require('express')
 var cors = require('cors');
 	
 
-
+app.use(cors());
 app.use(express.static('public/index.html'));
 app.use(routes);
-app.use(cors());
+
 
 
 connectToMongo();
@@ -23,17 +23,17 @@ routes.get('/status', (request, response) => {
 
 routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
 
-routes.get('/file/getter', cors(), Controller.getAllMatchFiles);
+routes.get('/file/getter', Controller.getAllMatchFiles);
 
-routes.get('/names',cors(), Controller.listNames);
+routes.get('/names', Controller.listNames);
 
-routes.get('/names/:name/years', cors(), Controller.listYears);
+routes.get('/names/:name/years', Controller.listYears);
 
-routes.get('/names/:name/years/:year/versions', cors(),Controller.listVersions);
+routes.get('/names/:name/years/:year/versions', Controller.listVersions);
 
-routes.get('/names/:name/years/:year/versions/:version/origins', cors(),Controller.listOrigins);
+routes.get('/names/:name/years/:year/versions/:version/origins', Controller.listOrigins);
 
-routes.get('/origins/:origin/files', cors(), Controller.filterByOrigin);
+routes.get('/origins/:origin/files', Controller.filterByOrigin);
 
 routes.post('/file/deleter', Controller.Delete);
 
