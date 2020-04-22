@@ -26,7 +26,7 @@ const WebmotorsCard = (props) => {
                             </div>
                             <div className="attribute4">
                                 <span className="attributeName"> Carroceria </span>
-                                <span> {props.data.carroceria}</span>
+                                <span> {props.data.bodyWork}</span>
                             </div>
                         </div>
                         <div className="attribute5">

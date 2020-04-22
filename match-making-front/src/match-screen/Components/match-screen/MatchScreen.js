@@ -32,9 +32,9 @@ const MatchScreen = (props) => {
 
     //Pegando dados de todas as bases 
     useEffect(() => {
-        axios.get(`${url}Webmotors/4`)
+        axios.get(`https://upload-base-csvs.herokuapp.com/base-cars`)
         .then(res => {
-           setWebmotorsCar(res.data)
+           setWebmotorsCar(res.data[14])
         });
         axios.get(`${url}Localiza`)
             .then(res => {
@@ -46,12 +46,6 @@ const MatchScreen = (props) => {
                 setMovidaCars(res.data)
             });
     }, []);
-
-
-    //1 - AGILE  (NO MATCH BOTH)
-    //3 - ASTRA (MATCH LOCALIZA)
-    //5 - CELTA (MATCH BOTH)
-    //9 - TORO (MATCH WEBMOTORS)
 
 
     //===========LOCALIZA===============
@@ -121,9 +115,9 @@ const MatchScreen = (props) => {
                     version: movidaVersion
                 },
                 user: {
-                    userId: 3313,
-                    name: "Alysson",
-                    email: "alysson@volanty.com"
+                    userId: Cookie.getJSON("documentUserId"),
+                    name: Cookie.getJSON("name"),
+                    email: Cookie.getJSON("email")
                 }
             }
         }).then(res =>{
@@ -138,7 +132,6 @@ const MatchScreen = (props) => {
     }
 
     if(localizaNoMatch && movidaNoMatch){
-        window.location.reload()
     }
 
     return (

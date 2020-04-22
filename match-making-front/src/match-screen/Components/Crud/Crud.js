@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import './Crud.css'
 import { Link } from 'react-router-dom'
+import Cookie from 'js-cookie'
 import Modal from 'react-bootstrap/Modal'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -14,7 +15,7 @@ const Crud = () => {
         axios.get("https://rest-api-match.herokuapp.com/match/all")
             .then(res => {
                 setData(res.data)
-            })
+            });
 
     }, [data])
 
