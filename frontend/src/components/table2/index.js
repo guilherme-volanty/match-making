@@ -37,12 +37,17 @@ const FilterTableCRUD = () => {
         {name: 'origin', displayName: "Origem", inputFilterable: true, exactFilterable: true, sortable: true }
     ]
 
-    async function deleteMetadata(){
-        await Api.deletMetadata()
-    }
+    
 
-    function delteAction(){
-        deleteMetadata();
+    function deleteAction(){
+        
+        Api.post('/file/delete')
+            .then(res => {
+                console.log("BASE DELETADA")
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         handleClose();
     }
 return (
@@ -62,7 +67,7 @@ return (
                                     <Button variant="secondary" onClick={handleClose}>
                                         Sair
                                     </Button>
-                                    <Button variant="danger" onClick={delteAction}>
+                                    <Button variant="danger" onClick={deleteAction}>
                                         Deletar Base
                                     </Button>
                                 </Modal.Footer>

@@ -104,7 +104,7 @@ label{
 }
 
 .filter-table{
-    max-height: 2730px;
+    max-height: 8100px;
 }
 
 .filterable-table-container .header-row {
@@ -137,8 +137,9 @@ label{
   }
   .filterable-table-container .clear-filter {
     position: absolute;
-    right: 5px;
-    top: 1px;
+    right: 10px;
+    top: -3px;
+    cursor: pointer;
   }
   .filterable-table-container span.sortable,
   .filterable-table-container span.filterable {
@@ -158,14 +159,16 @@ label{
     color: #999;
   }
   .filterable-table-container .filter-item {
-    border: 1px solid #ccc;
-    border-radius: 1px;
+    color: #fff;
+    background-color: #FF5100;
+    border: 1px solid #FF5100;
+    border-radius: 10px;
     display: inline-block;
     margin-right: 15px;
   }
   .filterable-table-container .filter-item .filter-item-title {
-    background-color: #2f6e9b;
-    border-radius: 1px;
+    background-color: #001E61;
+    border-radius: 10px 0px 0px 10px;
     color: #fff;
   }
   .filterable-table-container .filter-item .filter-item-title .filter-item-remove {
@@ -174,9 +177,56 @@ label{
     user-select: none;
     padding-right: 10px;
     cursor: pointer;
+    background-image: url('../../Assets/cancel-icon.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .filterable-table-container .filter-item .filter-item-title,
   .filterable-table-container .filter-item .filter-item-value {
     padding: 5px 10px;
     display: inline-block;
+  }
+  .filter-item-remove{
+    width: 100%;
+  }
+  .fa-times{
+    width: 100%;
+  }
+  .pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    font-size: 25px;
+}
+
+
+  @media only screen and (max-width: 768px){
+    .mb-3{
+      max-height: 8100px;   
+    }
+  }
+
+  @media only screen and (max-width: 420px){
+    .btn.btn-danger {
+    width: 80px;
+    height: 60px;
+    }
+    .mb-3{
+      max-height: 8100px;
+      width: 90%;   
+    }
+  }
+
+  @media only screen and (max-width: 320px){
+    .btn.btn-danger {
+      width: 65px;
+      height: 45px;
+      font-size: 11px;
+    }
+
+    .Filter{
+      display: none;
+    }
   }
