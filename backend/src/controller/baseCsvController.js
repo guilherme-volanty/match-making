@@ -55,6 +55,17 @@ module.exports = {
         }
     },
 
+    async listUniqueCar(request, response){
+        try{
+            const {brandsId, models, year, versionId} = request.params;
+            const uniqueCar = await EntriesData.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
+            console.log(uniqueCar);
+            return response.json(uniqueCar)
+        }catch(error){
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+
     async delete(request, response){
         await MetaData.collection.updateMany({ isDeleted: false, isActive: true, deletedDate: Date },{ $set: {isDeleted: true, isActive: false, deletedDate: new Date}});
         console.log("Dados deletados com sucesso!")
