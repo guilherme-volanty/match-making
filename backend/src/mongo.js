@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority
-// mongodb://localhost:27017/techtop
+// mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority
+// // mongodb://localhost:27017/techtop
 
 function connectToMongo() {
   mongoose

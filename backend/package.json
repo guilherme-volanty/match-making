@@ -5,8 +5,7 @@
   "name": "upload-arquivo",
   "version": "1.0.0",
   "engines":{
-    "node": "13.11.0",
-    "npm": "6.13.7"
+    "node": "13.11.0"
   },
   "description": "",
   "main": "server.js",
