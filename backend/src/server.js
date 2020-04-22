@@ -10,8 +10,9 @@ var cors = require('cors');
 	
 
 app.use(cors());
-app.use(express.static('public/index.html'));
 app.use(routes);
+app.use(express.static('public/index.html'));
+
 
 
 
