@@ -30,13 +30,18 @@ const getVersion = async (brandsId, models, year) =>{
     return response
 };
 
+const deletMetadata = async () =>{
+    return await uploadApi.delete('/base-csv')
+}
+
 const Api ={
     getAllCars,
     getBrands,
     getModels,
     getModelYear,
     getVersion,
-    uploadApi
+    uploadApi,
+    deletMetadata
 }
 
 export default Api;
