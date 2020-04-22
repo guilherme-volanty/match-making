@@ -12,7 +12,11 @@ const UploadCard = () => {
     const [fileName, setFileName] = useState('Procure sua Base');
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setFileUpload([]);
+        setFileName('Procure sua Base');
+    };
     const handleShow = () => setShow(true);
 
     function onChange(e){
