@@ -15,10 +15,11 @@ body{
 }
 
 .Cards{
-    margin-top: 12%;
+    margin-top: -33%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 3;
 }
 
 .Button{
@@ -26,6 +27,7 @@ body{
     display: flex;
     justify-content: flex-end;
     margin-right: 10%;
+    z-index: 3;
 }
 
 
