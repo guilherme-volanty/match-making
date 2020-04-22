@@ -6,7 +6,7 @@ const BlankHome = () => {
     return (
         <>
          <Menu />
-         <Background />   
+         <Background />
         </>
     )
 }
