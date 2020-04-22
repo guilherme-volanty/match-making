@@ -34,7 +34,7 @@ routes.get('/names/:name/years/:year/versions',cors(), Controller.listVersions);
 
 routes.get('/names/:name/years/:year/versions/:version/origins',cors(), Controller.listOrigins);
 
-routes.post('/file/delete', Controller.Delete);
+routes.post('/file/delete',cors() ,Controller.Delete);
 
 routes.delete('/file/remove', Controller.Remove);
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import Routes from './routes/routes';
-import Table from './components/table/index';
-import Filtertable from './components/table2'
+import Filtertable from './components/table'
+import Card from './components/cardUpload'
 
 function App(props) {
   return (
     <div className="App">
-       <Filtertable/>
+       <Card/>
        
     </div>
   );
