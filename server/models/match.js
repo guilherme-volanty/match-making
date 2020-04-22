@@ -6,7 +6,7 @@ const MatchSchema = new mongoose.Schema({
     updateDate: Date,
     mockId:Number,
     webmotors: {
-        id: Number,
+        id: String,
         brand: String,
         model:String,
         bodywork: String,
@@ -14,19 +14,19 @@ const MatchSchema = new mongoose.Schema({
         version:String
     },
     localiza: {
-        id:Number,
+        id:String,
         name:String,
         year: Number,
         version: String
     },
     movida: {
-        id:Number,
+        id:String,
         name:String,
         year: Number,
         version: String
     },
     user:{
-        userId: Number,
+        userId: String,
         name:String,
         email:String
     }
