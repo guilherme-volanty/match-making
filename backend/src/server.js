@@ -41,4 +41,4 @@ routes.delete('/file/remove', Controller.Remove);
 
 
 
-app.listen(4000, () => console.log('App na porta 4000'));
+app.listen(process.env.PORT||4000);
