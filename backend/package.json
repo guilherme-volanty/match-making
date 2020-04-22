@@ -2,7 +2,7 @@
   "name": "upload-parse-csv",
   "version": "0.0.1",
   "description": "Feature de upload e CRUD do CSV Base",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": "https://github.com/guilherme-volanty/match-making.git",
   "author": "moraesjeremias <moraesjeremias@gmail.com>",
   "license": "MIT",
