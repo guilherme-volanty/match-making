@@ -3,11 +3,13 @@ import Api from '../../services/uploadApi';
 import './styles.css';
 import {Button, Modal} from 'react-bootstrap';
 import FilterTable from 'react-filterable-table';
+import LoadingComponent from '../loading/index'
 
 
 const Filter = () => {
     const [cars, setCars] = useState([]);
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -16,13 +18,12 @@ const Filter = () => {
         const loadAllCars = async () =>{
             const cars = await Api.getAllCars();
             setCars(cars.data);
+            setLoading(true);
         };
 
         loadAllCars();
     }, [])
     
-    const dataCar = cars;
-
     const fields = [
         {name: 'brand', displayName: "Marca", inputFilterable: true, exactFilterable: true, sortable: true },
         {name: 'model', displayName: "Modelo", inputFilterable: true, exactFilterable: true, sortable: true },
@@ -62,15 +63,19 @@ return (
                             </Modal>
                 </div>
                 <div className="Filter">
+                    {loading ? 
                     <FilterTable
                         className="filter-table" 
                         namespace="Base Principal Volanty"
                         initialSort="brand"
-                        data={dataCar}
+                        data={cars}
                         fields={fields}
                         noRecordsMessage="Carregando Carros"
                         noFilteredRecordsMessage="Nenhum carro encontrado!"
                     />
+                    :
+                    <LoadingComponent />
+                    }
                 </div>   
             </div>
         </div>
