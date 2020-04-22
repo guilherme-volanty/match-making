@@ -31,10 +31,10 @@ async function jsonParser(fileName) {
             console.log(error)
         })
         .on('data', async row => {
-            let tey = keyTransform(row, mongoObject.id);
+            let data = keyTransform(row, mongoObject.id);
             
             try {
-                buffer.push(tey);
+                buffer.push(data);
             } catch {
                 err => {
                     return err;
