@@ -15,3 +15,5 @@ Para buscar somente os modelos: /base-cars-list/brands/:brandsId/models
 Para buscar somente os anos: /base-cars-list/brands/:brandsId/models/:models/years
 
 Para buscar somente as versões dos carros: /base-cars-list/brands/:brandsId/models/:models/years/:year/version
+
+Para buscar um modelo único: /base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId
