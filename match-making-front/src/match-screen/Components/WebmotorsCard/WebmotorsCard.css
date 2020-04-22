@@ -1,0 +1,100 @@
+body{
+    width: 100%;
+    margin: auto;
+}
+
+.card{
+    -webkit-box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
+    box-shadow: 5px 3px 23px -5px rgba(0,0,0,0.75);
+    width: 26%;
+    height: 370px;
+    margin-top: 10px;   
+}
+
+/*Título dos cards*/
+.title{
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+/*Nome de cada campo (Marca, modelo, ano...)*/
+.attributeName{
+    margin:0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/*Valor de cada campo */ 
+span{
+    font-weight: 200 ;
+    font-size: 15px;
+}
+
+/* União entre o nome e o valor dos campos*/
+.row-attributes{
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 18%;
+    margin-top: 7%;
+}
+/*============= CAMPOS INDIVIDUAIS =========== */
+.attribute1{
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.attribute3{
+    margin-left: 7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.attribute2{
+    margin-right: 7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.attribute4{
+    margin-right: 2.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.attribute5{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*===============MEDIAS QUERIES============ */
+
+/*TABLETS*/
+@media (max-width: 992px){
+    .card{
+        width: 40%;
+        height: 370px;
+        margin-top: 10px;
+    }
+}
+/*CELULARES*/
+@media (max-width: 536px){
+    .card{
+        width: 80%;
+        height: 370px;
+        margin-top: 10px;
+    }
+}
+
+
+
+
+
