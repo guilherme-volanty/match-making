@@ -113,8 +113,8 @@ const MatchScreen = (props) => {
                 },
                 user: {
                     userId:String(Cookie.getJSON("documentUserId")),
-                    name: Cookie.getJSON("name"),
-                    email: Cookie.getJSON("email")
+                    name: String(Cookie.getJSON("user")),
+                    email: String(Cookie.getJSON("email"))
                 }
             }
         }).then(res =>{
@@ -127,6 +127,11 @@ const MatchScreen = (props) => {
             alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
         })
     }
+
+    console.log(Cookie.get())
+    
+
+
 
     if(localizaNoMatch && movidaNoMatch){
     }
