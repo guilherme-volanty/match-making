@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route
   } from "react-router-dom";
@@ -16,7 +16,7 @@ import NotFound from "../pages/NotFound";
 
 const Routes = () => {
    return(
-    <Router>
+    <Router basename='/'>
         <Switch>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/" component={Login}/>

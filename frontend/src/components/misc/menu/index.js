@@ -25,16 +25,16 @@ const Menu = () => {
                 <Nav className="mr-auto entry">
                     <div className="items-container">
                         <NavDropdown title="Bases" className="menu-item" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="/upload-database">Upload Base Principal</NavDropdown.Item>
-                            <NavDropdown.Item href="/search-database">Consulta Base Principal</NavDropdown.Item>
+                            <NavDropdown.Item href="#/upload-database">Upload Base Principal</NavDropdown.Item>
+                            <NavDropdown.Item href="#/search-database">Consulta Base Principal</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/upload-match">Upload Base Match</NavDropdown.Item>
-                            <NavDropdown.Item href="/search-match">Consulta Base Match</NavDropdown.Item>
+                            <NavDropdown.Item href="#/upload-match">Upload Base Match</NavDropdown.Item>
+                            <NavDropdown.Item href="#/search-match">Consulta Base Match</NavDropdown.Item>
                         </NavDropdown>
 
                         <NavDropdown title="Match" className="menu-item" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="/match-screen">Faça Match</NavDropdown.Item>
-                            <NavDropdown.Item href="/match-table">Tabela de Matches</NavDropdown.Item>
+                            <NavDropdown.Item href="#/match-screen">Faça Match</NavDropdown.Item>
+                            <NavDropdown.Item href="#/match-table">Tabela de Matches</NavDropdown.Item>
                         </NavDropdown>
                     </div>
                 </Nav>
