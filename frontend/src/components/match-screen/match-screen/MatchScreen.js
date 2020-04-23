@@ -8,8 +8,6 @@ import Modal from 'react-bootstrap/Modal'
 import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
-const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
-
 const MatchScreen = (props) => {
 
     //==========WEBMOTORS==============
@@ -33,7 +31,6 @@ const MatchScreen = (props) => {
                 setMovidaCars(res.data)
             });
     }, []);
-
 
 
     //===========LOCALIZA===============
@@ -64,23 +61,13 @@ const MatchScreen = (props) => {
                 return null
             })
     }
-    //"https://rest-api-match.herokuapp.com/match"
+    
     //Seto o modelo, ano e versao baseado no ID
     useEffect(() => {
         setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
         setCar(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
-
     }, [movidaId, localizaId])
     
-    console.log(movidaId)
-    console.log(movidaName)
-    console.log(movidaVersion)
-
-
-    //console.log(String(Cookie.getJSON("documentUserId")))
-    //Cookie.getJSON("name")
-    //Cookie.getJSON("email")
-
     //Envia o match para a base de dados
     const sendMatch = () => {
         setLoading(true)
@@ -113,7 +100,7 @@ const MatchScreen = (props) => {
                 },
                 user: {
                     userId:String(Cookie.getJSON("documentUserId")),
-                    name: String(Cookie.getJSON("name")),
+                    name: String(Cookie.getJSON("user")),
                     email: String(Cookie.getJSON("email"))
                 }
             }
@@ -130,14 +117,6 @@ const MatchScreen = (props) => {
 
     if(localizaNoMatch && movidaNoMatch){
     }
-    
-    console.log(webmotorsCars)
-    console.log(webmotorsCars.brand)
-    console.log(webmotorsCars.model)
-    console.log(webmotorsCars.carroceria)
-    console.log(webmotorsCars.modelYear)
-    console.log(webmotorsCars.version)
-
 
     return (
         

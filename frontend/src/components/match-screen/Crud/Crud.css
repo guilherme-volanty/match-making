@@ -16,8 +16,12 @@
         width: 150px;
         margin-bottom: 10px;
     }
-
-
+    .btn.btn-outline-warning{
+        margin-top: 0;
+    }
+    .btn.btn-outline-danger{ 
+        margin-top: 0;
+    }
 
 /*============ MODAL ================*/
 /*Nome do Campo*/

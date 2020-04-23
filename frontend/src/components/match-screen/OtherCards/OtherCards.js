@@ -5,7 +5,6 @@ import Ilustration from '../../../assets/undraw_towing_6yy4.png'
 const OtherCards = (props) => {
 
     const onChangeId = (event) => {
-        console.log("on")
         if(props.origin ==="Localiza"){
             props.setLocalizaId(event.target.value)
 
