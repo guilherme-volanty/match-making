@@ -19,6 +19,7 @@ const Routes = () => {
     <Router>
         <Switch>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/" component={Login}/>
             <PrivateRoute path="/upload-database" component={UploadBasePage}/>
             <PrivateRoute path="/search-database" component={SearchBasePage}/>
             <PrivateRoute path="/upload-match" component={UploadMatchPage}/>
