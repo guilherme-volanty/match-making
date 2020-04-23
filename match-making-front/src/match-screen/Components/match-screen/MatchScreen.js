@@ -72,11 +72,6 @@ const MatchScreen = (props) => {
 
     }, [movidaId, localizaId])
     
-    console.log(movidaId)
-    console.log(movidaName)
-    console.log(movidaVersion)
-
-
     //console.log(String(Cookie.getJSON("documentUserId")))
     //Cookie.getJSON("name")
     //Cookie.getJSON("email")
