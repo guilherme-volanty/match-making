@@ -123,21 +123,9 @@ const MatchScreen = (props) => {
         })
     }
 
-    console.log(Cookie.get())
-    
-
-
 
     if(localizaNoMatch && movidaNoMatch){
     }
-    
-    console.log(webmotorsCars)
-    console.log(webmotorsCars.brand)
-    console.log(webmotorsCars.model)
-    console.log(webmotorsCars.carroceria)
-    console.log(webmotorsCars.modelYear)
-    console.log(webmotorsCars.version)
-
 
     return (
         
