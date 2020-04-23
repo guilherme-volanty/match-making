@@ -1,0 +1,40 @@
+.titulo1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.titulo2 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.boxGoogle {
+  z-index: 20;
+  position: absolute;
+  top: 300px;
+  width: 30%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wrap-login{
+  display: flex;
+  justify-content: center;
+}
+
+.button.card-text{
+  display: flex;
+  justify-content: center;
+}
+.card-header{
+  border-radius: 20px;
+}
+.card-login{
+  width: 100%;
+  border-radius: 20px;
+  -webkit-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+    box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
+}

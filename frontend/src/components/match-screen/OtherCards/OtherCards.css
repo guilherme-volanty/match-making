@@ -1,0 +1,70 @@
+body{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+.card.mb-3-match-screen{
+    width: 26%;
+    height: 370px;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+/*Título dos cards*/
+.title{
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+/*Nome de cada campo (Marca, modelo, ano...)*/ 
+label{
+    font-weight: bold;
+    font-size: 18px;
+}
+/*Valor de cada campo */ 
+span{
+    font-weight: 500 ;
+}
+
+/* União entre o nome e o valor dos campos*/
+.row-selects{
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 10%;
+    margin-top: 7%;
+}
+/*============= CAMPOS INDIVIDUAIS =========== */
+.row-selects .select1{
+    width: 50%;
+}
+
+.row-selects .select2{
+    width: 27%;
+}
+
+.select3{
+    margin-top: 15%;
+    width: 100%;
+}
+
+/*===============MEDIAS QUERIES============ */
+
+/*TABLETS*/
+@media (max-width: 992px){
+    .card.mb-3-match-screen{
+        width: 40%;
+        height: 370px;
+        margin-top: 10px;
+    }
+}
+
+/*CELULARES*/
+@media (max-width: 536px){
+    .card.mb-3-match-screen{
+        width: 80%;
+        height: 370px;
+        margin-top: 10px;
+    }
+    .select3{
+        margin-top: 30%;
+    }
+}

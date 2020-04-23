@@ -1,0 +1,80 @@
+body{
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+
+
+.items-match-screen{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 0;
+    z-index: 4;
+}
+
+.Cards-match-screen{
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 3;
+    margin-top: 220px;
+}
+
+.Button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10%;
+    z-index: 3;
+}
+
+.button-match-screen{
+    background-color: #FF1500;
+    font-weight: 700;
+    width: 140px;
+    height: 50px;
+    font-size: 25px;
+    border: none;
+}
+.button-match-screen:hover{
+    background-color: #FF1500;
+}
+
+
+/*MEDIAS QUERIES */
+
+/*TABLETS*/
+@media (max-width: 992px){
+    .Cards-match-screen{
+        margin-top: 12%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+/*CELULARES*/
+@media (max-width: 536px){
+    .Cards-match-screen{
+        margin-top: 12%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+
+
+
+
+
+
+
+
