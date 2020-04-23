@@ -38,3 +38,8 @@
     -moz-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
     box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
 }
+
+.msgErr.card-footer{
+  background-color: #ffffff;
+  border: none;
+}
