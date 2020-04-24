@@ -34,7 +34,7 @@ function saveDataFromUpload(request, response) {
 			
 			let matchObject = jsonTransform(row,metaObject.id);
 
-			matchFile.create(matchObject)
+			matchFile.insertMany(matchObject)
 			.then(function() {
 				response.status(200).send("Arquivos salvos com sucesso.");
 			  })
