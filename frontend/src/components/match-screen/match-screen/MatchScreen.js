@@ -12,6 +12,8 @@ const MatchScreen = (props) => {
 
     //==========WEBMOTORS==============
     const mathRandom = ((Math.random() * 10)+1).toFixed(0)
+    const positionArray = [9,24,44,99,271,272,274,488,618,655]
+    const positionOfCar = positionArray[mathRandom]
     const [webmotorsCars, setWebmotorsCar] = useState({})
     const [loading, setLoading] = useState(false)
 
@@ -19,7 +21,7 @@ const MatchScreen = (props) => {
     useEffect(() => {
         axios.get(`https://upload-base-csvs.herokuapp.com/base-cars`)
         .then(res => {
-           setWebmotorsCar(res.data[99])
+           setWebmotorsCar(res.data[positionOfCar])
         });
         axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
             .then(res => {
