@@ -1,8 +1,7 @@
 import React from 'react';
 import "./WebmotorsCard.css";
 
-const WebmotorsCard = (props) => {
-    console.log(props.data)    
+const WebmotorsCard = (props) => {    
     return (
         <div className="card mb-3-match-screen" >
             <div className="card-body text-dark">
