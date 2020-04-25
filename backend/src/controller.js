@@ -86,10 +86,21 @@ async function listYears(request, response){
 		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
 	}
 }
-async function filterByOrigin(request, response){
+async function filterByOriginMovida(request, response){
 	try {
 		
-		const item = await matchFile.find({origin: request.params.origin});
+		const item = await matchMovida.find({});
+		return response.json(item);
+
+	}catch(err){
+		console.log(err);
+		return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+	}
+}
+async function filterByOriginLocaliza(request, response){
+	try {
+		
+		const item = await matchLocaliza.find({});
 		return response.json(item);
 
 	}catch(err){
@@ -169,4 +180,5 @@ function getAllMatchFiles(request, response) {
 					 listYears : listYears,
 					 listVersions : listVersions,
 					 listOrigins : listOrigins,
-					 filterByOrigin : filterByOrigin }
+					 filterByOriginMovida : filterByOriginMovida,
+					 filterByOriginLocaliza : filterByOriginLocaliza }

@@ -30,7 +30,9 @@ routes.get('/names/:name/years/:year/versions', Controller.listVersions);
 
 routes.get('/names/:name/years/:year/versions/:version/origins', Controller.listOrigins);
 
-routes.get('/origins/:origin/files', Controller.filterByOrigin);
+routes.get('/origins/MOVIDA/files', Controller.filterByOriginMovida);
+
+routes.get('/origins/LOCALIZA/files', Controller.filterByOriginLocaliza);
 
 routes.post('/file/deleter', Controller.Delete);
 
