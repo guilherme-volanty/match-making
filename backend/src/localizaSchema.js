@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 
@@ -10,13 +11,13 @@ const fileSchema = new Schema({
     year: Number,
     origin: String,
     href: String,
-    version: String,
-    version: {type:String},
+    version: {type:String, unique:true},
     metadataID: ""
 
 });
 
 
-module.exports = mongoose.model('matchFile', fileSchema)
+fileSchema.plugin(uniqueValidator);
 
 
+module.exports = mongoose.model('matchLocaliza', fileSchema)

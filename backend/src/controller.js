@@ -1,4 +1,5 @@
-const matchFile = require("./fileSchema");
+const matchMovida = require("./movidaSchema");
+const matchLocaliza = require("./localizaSchema");
 const metaData = require("./metaSchema");
 const fs = require('fs');
 const path = require('path');
@@ -6,8 +7,6 @@ const csv = require('fast-csv');
 const jsonTransform = require('./jsonTransformer');
 
 function saveDataFromUpload(request, response) {
-
-	
 
 	const metaObject = new metaData({
 				fileName: request.file.filename,
@@ -34,7 +33,9 @@ function saveDataFromUpload(request, response) {
 			
 			let matchObject = jsonTransform(row,metaObject.id);
 
-			matchFile.insertMany(matchObject)
+			if(matchObject.origin==='MOVIDA'){
+
+			matchMovida.insertMany(matchObject)
 			.then(function() {
 				response.status(200).send("Arquivos salvos com sucesso.");
 			  })
@@ -42,6 +43,20 @@ function saveDataFromUpload(request, response) {
 				console.log(err);
 				response.status(500).send("Arquivo duplicado, essa base ja existe no banco.")
 			  });
+			
+			}
+			if(matchObject.origin==='LOCALIZA'){
+
+				matchLocaliza.insertMany(matchObject)
+				.then(function() {
+					response.status(200).send("Arquivos salvos com sucesso.");
+				  })
+				.catch(function(err) {
+					console.log(err);
+					response.status(500).send("Arquivo duplicado, essa base ja existe no banco.")
+				  });
+				
+				}
 			
 			
 		})

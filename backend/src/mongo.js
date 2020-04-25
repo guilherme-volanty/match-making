@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 function connectToMongo() {
   mongoose
-    .connect('mongodb+srv://car-match:car-match@cluster0-tnam3.mongodb.net/test?retryWrites=true&w=majority',
+    .connect('mongodb://localhost:27017/techtop',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
