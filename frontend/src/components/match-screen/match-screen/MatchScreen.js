@@ -117,6 +117,8 @@ const MatchScreen = (props) => {
         })
     }
 
+
+
     if(localizaNoMatch && movidaNoMatch){
     }
 
