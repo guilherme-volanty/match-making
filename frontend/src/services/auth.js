@@ -2,77 +2,92 @@ import * as firebase from "firebase";
 import "firebase/auth";
 import Cookies from "js-cookie";
 
-let errorLogin = true;
-let errorMessage = "";
+let errorLogin;
+let errorMessage;
 
 function isVolantyEmailDomain(user) {
     return user.email.match(/.*@volanty.com$/);
 }
 
+// TODO Acertar retorno de erro do login
 function setErrorLoginMessage() {
     errorLogin = false;
-    errorMessage =
-        "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
+    errorMessage = "Não é possivel acessar a plataforma com emails que não sejam do domínio @volanty";
 }
 
-//Função de autenticação chamada no onclick do botão google authenticated.
-function authenticate(redirect) {
-    //TODO: colocar umm redirect de sucesso, outro de erro
+function loginMatch(redirect) {
+    authenticate().then(auth => {
+            !isVolantyEmailDomain(auth.user)
+                ? deleteAuthUser()
+                : insertOrUpdate(auth.user).then(value => {
+                    value === true ? redirect() : setErrorLoginMessage()
+                })
+        }
+    ).catch(reason => {
+            console.log(reason)
+        }
+    )
+}
+
+async function authenticate() {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope("profile");
     provider.addScope("email");
 
+    return await firebase
+        .auth()
+        .signInWithPopup(provider).then(resultAuth => {
+                return resultAuth;
+            }
+        ).catch(reason => {
+                return reason
+            }
+        )
+}
+
+async function insertOrUpdate(user) {
+    let responseInsertOrUpdate;
+    return await findUserByEmail(user.email).then((findUserByEmailResponse) => {
+        if (findUserByEmailResponse.empty) {
+            insert(user).then(insertResponse => {
+                    Cookies.set("documentUserId", insertResponse.id);
+                    setCookies(user);
+                    responseInsertOrUpdate = true
+                }
+            ).catch(reason => {
+                console.log("Cannot Insert User : %s", reason)
+                responseInsertOrUpdate = false
+            });
+        } else {
+            setCookies(user);
+            updateUser(findUserByEmailResponse);
+            responseInsertOrUpdate = true
+        }
+        return responseInsertOrUpdate;
+    }).catch(reason => {
+        return responseInsertOrUpdate = false;
+    }).finally(() => {
+        return responseInsertOrUpdate;
+    });
+}
+
+function deleteAuthUser() {
     firebase
         .auth()
-        .signInWithPopup(provider)
-        .then(function (result) {
-            const user = result.user;
-
-            // restringir o dominio volanty.
-            if (!isVolantyEmailDomain(user)) {
-                setErrorLoginMessage();
-                firebase
-                    .auth()
-                    .currentUser.delete()
-                    .then(() => {
-                    });
-
-            } else {
-                findUserByEmail(user.email).then((response) => {
-                        if (response.empty) {
-                            insert(user);
-                            setCookies(result);
-                            redirect();
-
-                        } else {
-                            setCookies(result);
-                            redirect();
-                            updateUser(response);
-
-                        }
-                    })
-                    .catch((reason) => {
-                        // TODO Erro exibir o motivo
-                    });
-            }
-        })
-        .catch(function (error) {
-            // TODO Erro ao criar usuário
+        .currentUser.delete()
+        .then(() => {
         });
 }
 
-function setCookies(authenticateResponse) {
-    Cookies.set("user", authenticateResponse.user.displayName);
-    Cookies.set("email", authenticateResponse.user.email);
-    Cookies.set("photo", authenticateResponse.user.photoURL);
-    Cookies.set("token", authenticateResponse.credential.idToken);
+function setCookies(user) {
+    Cookies.set("user", user.displayName);
+    Cookies.set("email", user.email);
+    Cookies.set("photo", user.photoURL);
+    Cookies.set("token", "tokenIDMock");
 }
 
 async function findUserByEmail(email) {
     const db = firebase.firestore();
-    db.settings({
-        timestampsInSnapshots: true,
-    });
     const database = db.collection("users").where("email", "==", email);
 
     return await database
@@ -86,13 +101,9 @@ async function findUserByEmail(email) {
 }
 
 //função para inserir dados no firestore
-function insert(user) {
+async function insert(user) {
     const db = firebase.firestore();
-    db.settings({
-        timestampsInSnapshots: true,
-    });
-
-    db.collection("users")
+    return await db.collection("users")
         .add({
             user: user.displayName,
             email: user.email,
@@ -100,11 +111,10 @@ function insert(user) {
             lastSignInTime: new Date(user.metadata.lastSignInTime),
         })
         .then((response) => {
-            Cookies.set("documentUserId", response.id);
-            console.log("Usuário Cadastrado", response.id);
+            return response
         })
         .catch(function (error) {
-            //    TODO mensagem de erro ao inserir
+            return error
         });
 }
 
@@ -112,18 +122,13 @@ function updateUser(user) {
     const userDocumentId = user.docs[0].id;
     const db = firebase.firestore();
     const database = db.collection("users");
-
     Cookies.set("documentUserId", userDocumentId);
-
     database
         .doc(userDocumentId)
         .update({
             lastSignInTime: new Date(),
-        })
-        .then()
-        .catch((reason) => {
-            console.log(reason);
-        });
+        }).then().finally(() => console.log("Updated User")
+    )
 }
 
 //verifica se existi o token
@@ -140,4 +145,4 @@ function singOut() {
     });
 }
 
-export {authenticate, singOut, isAuthenticated, errorLogin, errorMessage};
+export {authenticate, singOut, isAuthenticated, errorLogin, errorMessage, loginMatch};

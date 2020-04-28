@@ -38,3 +38,12 @@
     -moz-box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
     box-shadow: -1px 7px 29px -8px rgba(0,0,0,0.75);
 }
+
+.msgErr,p {
+  max-width: 42ch ;
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
+  word-break: break-all;
+}
