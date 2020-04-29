@@ -6,18 +6,20 @@ import FilterTable from 'react-filterable-table';
 
 
 const FilterTableCRUD = () => {
-    const [cars, setCars] = useState([]);
+
+    const [movida, setMovida] = useState([]);
+    const [localiza, setLocaliza] = useState([]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     
     useEffect(() => {
-        const loadAllCars = async () =>{
+        const loadMovida = async () =>{
             
-            Api.get('/file/getter')
+            Api.get('/origins/MOVIDA/files')
             .then(res => {
-                setCars(res.data)
+                setMovida(res.data)
             })
             .catch(err =>{
                 console.log(err)
@@ -25,10 +27,33 @@ const FilterTableCRUD = () => {
             
         };
 
-        loadAllCars();
+        loadMovida();
     }, [])
+
+    useEffect(() => {
+        const loadLocaliza = async () =>{
+            
+            Api.get('/origins/LOCALIZA/files')
+            .then(res => {
+                setLocaliza(res.data)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+            
+        };
+
+        loadLocaliza();
+    }, [])
+
     
-    const dataCar = cars;
+    const dataCar=[];
+
+    const dataCar1=movida;
+    const dataCar2=localiza;
+
+    dataCar1.map(car=>dataCar.push(car));
+    dataCar2.map(car=>dataCar.push(car));
 
     const fields = [
         {name: 'name', displayName: "Nome", inputFilterable: true, exactFilterable: true, sortable: true },
