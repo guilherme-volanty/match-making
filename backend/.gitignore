@@ -109,3 +109,7 @@ dist
 #Tmp upload folder
 src/tmp/uploads/*
 !src/tmp/uploads/.gitkeep
+
+# Docker
+DOCKERFILE
+.dockerignore
