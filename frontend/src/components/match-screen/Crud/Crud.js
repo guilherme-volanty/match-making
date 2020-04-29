@@ -10,7 +10,7 @@ const Crud = () => {
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("https://match-api-rest.herokuapp.com/match/all")
+        axios.get("http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/all")
             .then(res => {
                 setData(res.data)
             });
@@ -31,7 +31,7 @@ const Crud = () => {
 
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`https://match-api-rest.herokuapp.com/match/delete/${id}`)
+        axios.delete(`http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -42,7 +42,7 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `https://match-api-rest.herokuapp.com/match/update/${id}`,
+            url: `http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {

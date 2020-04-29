@@ -8,27 +8,29 @@ import Modal from 'react-bootstrap/Modal'
 import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
-const MatchScreen = (props) => {
+const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
+const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
 
+
+const MatchScreen = (props) => {
     //==========WEBMOTORS==============
-    const mathRandom = ((Math.random() * 10)+1).toFixed(0)
-    const positionArray = [9,24,44,99,271,272,274,488,618,655]
-    const positionOfCar = positionArray[mathRandom]
     const [webmotorsCars, setWebmotorsCar] = useState({})
     const [loading, setLoading] = useState(false)
 
+
     //Pegando dados de todas as bases 
     useEffect(() => {
-        axios.get(`https://upload-base-csvs.herokuapp.com/base-cars`)
+        axios.get(urlBase)
         .then(res => {
-           setWebmotorsCar(res.data[positionOfCar])
+           const car = res.data 
+           setWebmotorsCar(car[Math.floor(Math.random()*car.length)])
         });
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
+        axios.get(`${urlOther}LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
                
             });
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/MOVIDA/files`)
+        axios.get(`${urlOther}MOVIDA/files`)
             .then(res => {
                 setMovidaCars(res.data)
             });
@@ -75,9 +77,8 @@ const MatchScreen = (props) => {
         setLoading(true)
         axios({
             method: 'post',
-            url: "https://match-api-rest.herokuapp.com/match" ,
+            url: "http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match" ,
             data: {
-                operationId: `${mathRandom}`,
                 createDate: `${Date.now()}`,
                 updateDate: null,
                 webmotors: {

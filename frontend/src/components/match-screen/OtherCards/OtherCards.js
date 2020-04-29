@@ -13,7 +13,6 @@ const OtherCards = (props) => {
         }
     }
 
-
     //Verificar se há um carro do mesmo modelo e ano
     // na base de dados vigente
     const checkHasCar = () =>{
