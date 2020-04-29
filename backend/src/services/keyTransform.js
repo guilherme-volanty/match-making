@@ -1,4 +1,3 @@
-
 function keyTransform(csvObject, metadata) {
     return {
         brand: csvObject.brand,
