@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
+import * as firebase from "firebase";
 import './Crud.css'
 import { Link } from 'react-router-dom'
 import Cookie from 'js-cookie'
@@ -28,6 +29,16 @@ const Crud = () => {
                 setMovidaCars(res.data)
             })
     }, [])
+
+    //AUTH
+    const [authId, setAuthId] = useState()
+
+    var user = firebase.auth().currentUser;
+    useEffect(() => {
+        if(user!=null){
+                setAuthId(user.uid)        
+            }
+    }, [user])
 
     //Deleta um Match
     const deleteMatch = (id) => {
@@ -137,7 +148,7 @@ const Crud = () => {
         return (
             <Fragment key={record._id}>
                 {/*Lógica para mostrar apenas os matchs daquele usuário*/}
-                {record.user.userId===String(Cookie.getJSON("documentUserId"))?
+                {record.user.userId===authId?
                 <tr className='table' key={record._id}>
                     <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                     <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>

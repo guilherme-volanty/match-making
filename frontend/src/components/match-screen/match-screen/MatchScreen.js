@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
+import * as firebase from "firebase";
+
+
 import OtherCards from '../OtherCards/OtherCards';
 import WebmotorsCard from '../WebmotorsCard/WebmotorsCard'
 import { Button } from "react-bootstrap"
@@ -7,6 +11,9 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
+
+
+
 
 const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
 const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
@@ -17,13 +24,14 @@ const MatchScreen = (props) => {
     const [webmotorsCars, setWebmotorsCar] = useState({})
     const [loading, setLoading] = useState(false)
 
+    //Math.floor(Math.random()*car.length)
 
     //Pegando dados de todas as bases 
     useEffect(() => {
         axios.get(urlBase)
         .then(res => {
            const car = res.data 
-           setWebmotorsCar(car[Math.floor(Math.random()*car.length)])
+           setWebmotorsCar(car[2])
         });
         axios.get(`${urlOther}LOCALIZA/files`)
             .then(res => {
@@ -71,6 +79,21 @@ const MatchScreen = (props) => {
         setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
         setCar(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
     }, [movidaId, localizaId])
+
+
+    //AUTH
+    const [name, setName] = useState()
+    const [id, setId] = useState()
+    const [email, setEmail] = useState()
+
+    var user = firebase.auth().currentUser;
+    useEffect(() => {
+        if(user!=null){
+                setId(user.uid)   
+                setName(user.displayName)    
+                setEmail(user.email)       
+            }
+    }, [user])
     
     //Envia o match para a base de dados
     const sendMatch = () => {
@@ -102,9 +125,9 @@ const MatchScreen = (props) => {
                     version: movidaVersion
                 },
                 user: {
-                    userId:String(Cookie.getJSON("documentUserId")),
-                    name: String(Cookie.getJSON("user")),
-                    email: String(Cookie.getJSON("email"))
+                    userId:String(id),
+                    name: String(name),
+                    email: String(email)
                 }
             }
         }).then(res =>{
@@ -117,8 +140,6 @@ const MatchScreen = (props) => {
             alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
         })
     }
-
-
 
     if(localizaNoMatch && movidaNoMatch){
     }

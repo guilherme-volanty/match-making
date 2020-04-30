@@ -128,8 +128,6 @@ function updateUser(user) {
 
 function isAuthenticated() {
     const sessionKey = sessionStorage.getItem("firebase:authUser:" + firebaseConfig.apiKey + ":[DEFAULT]")
-    console.log(sessionKey);
-    console.log(sessionKey.email);
     const token = sessionStorage.getItem("isAuthenticated")
     return token != null;
 }
