@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import './Crud.css'
 import { Link } from 'react-router-dom'
-import Cookie from 'js-cookie'
+//import Cookie from 'js-cookie'
 import Modal from 'react-bootstrap/Modal'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -139,7 +139,7 @@ const Crud = () => {
         return (
             <Fragment key={record._id}>
                 {/*Lógica para mostrar apenas os matchs daquele usuário*/}
-                {record.user.userId===String(Cookie.getJSON("documentUserId"))?
+                {/*{record.user.userId===String(Cookie.getJSON("documentUserId"))?*/}
                 <tr className='table' key={record._id}>
                     <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                     <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>

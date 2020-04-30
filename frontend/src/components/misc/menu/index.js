@@ -1,6 +1,6 @@
 import React from 'react';
 import { singOut } from "../../../services/auth";
-import Cookie from "js-cookie";
+// import Cookie from "js-cookie";
 import './styles.css';
 import volantyLogo from '../../../assets/volanty-logo.png';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import { useHistory } from 'react-router';
 
 const Menu = () => {
     let history = useHistory();
-    const userName=Cookie.getJSON("user");
+    //const userName=Cookie.getJSON("user");
 
     const onClick = () => {
       singOut();
@@ -40,7 +40,7 @@ const Menu = () => {
                 </Nav>
                 <div className="navbar-nav ml-auto">
             <div className="navbar-brand justify-content-between">
-              {userName}
+              {/*{userName}*/}
             </div>
             <button
               className="btn btn-primary menu"

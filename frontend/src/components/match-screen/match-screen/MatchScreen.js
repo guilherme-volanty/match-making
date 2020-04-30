@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap"
 import './MatchScreen.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
-import Cookie from 'js-cookie'
+// import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
 const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
@@ -111,11 +111,11 @@ const MatchScreen = (props) => {
                     year: movidaYear,
                     version: movidaVersion
                 },
-                user: {
-                    userId:String(Cookie.getJSON("documentUserId")),
-                    name: String(Cookie.getJSON("name")),
-                    email: String(Cookie.getJSON("email"))
-                }
+                // user: {
+                //     userId:String(Cookie.getJSON("documentUserId")),
+                //     name: String(Cookie.getJSON("name")),
+                //     email: String(Cookie.getJSON("email"))
+                // }
             }
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
