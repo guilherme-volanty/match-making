@@ -1,11 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/app"
+import * as firebase from "firebase";
 import "firebase/auth";
-import "firebase/database";
-import "firebase/storage";
-import "firebase/firestore";
-
-import Cookies from "js-cookie";
+import firebaseConfig from "./firebase.config";
 
 let errorLogin;
 let errorMessage;
@@ -22,6 +17,7 @@ function setErrorLoginMessage() {
 
 function loginMatch(redirect) {
     authenticate().then(auth => {
+            sessionStorage.setItem("isAuthenticated", auth.credential.idToken)
             !isVolantyEmailDomain(auth.user)
                 ? deleteAuthUser()
                 : insertOrUpdate(auth.user).then(value => {
@@ -34,20 +30,23 @@ function loginMatch(redirect) {
     )
 }
 
-async function authenticate() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope("profile");
-    provider.addScope("email");
+function setFirebaseSessionPersistence() {
+    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(function () {
+            const provider = new firebase.auth.GoogleAuthProvider()
+            return firebase.auth().signInWithPopup(provider)
+        });
+}
 
-    return await firebase
-        .auth()
-        .signInWithPopup(provider).then(resultAuth => {
-                return resultAuth;
-            }
-        ).catch(reason => {
-                return reason
-            }
-        )
+async function authenticate() {
+    const authPromise = setFirebaseSessionPersistence()
+    return await authPromise.then(resultAuth => {
+            return resultAuth;
+        }
+    ).catch(reason => {
+            return reason
+        }
+    )
 }
 
 async function insertOrUpdate(user) {
@@ -55,8 +54,6 @@ async function insertOrUpdate(user) {
     return await findUserByEmail(user.email).then((findUserByEmailResponse) => {
         if (findUserByEmailResponse.empty) {
             insert(user).then(insertResponse => {
-                    Cookies.set("documentUserId", insertResponse.id);
-                    setCookies(user);
                     responseInsertOrUpdate = true
                 }
             ).catch(reason => {
@@ -64,7 +61,6 @@ async function insertOrUpdate(user) {
                 responseInsertOrUpdate = false
             });
         } else {
-            setCookies(user);
             updateUser(findUserByEmailResponse);
             responseInsertOrUpdate = true
         }
@@ -77,18 +73,12 @@ async function insertOrUpdate(user) {
 }
 
 function deleteAuthUser() {
+    setErrorLoginMessage()
     firebase
         .auth()
         .currentUser.delete()
         .then(() => {
         });
-}
-
-function setCookies(user) {
-    Cookies.set("user", user.displayName);
-    Cookies.set("email", user.email);
-    Cookies.set("photo", user.photoURL);
-    Cookies.set("token", "tokenIDMock");
 }
 
 async function findUserByEmail(email) {
@@ -127,7 +117,6 @@ function updateUser(user) {
     const userDocumentId = user.docs[0].id;
     const db = firebase.firestore();
     const database = db.collection("users");
-    Cookies.set("documentUserId", userDocumentId);
     database
         .doc(userDocumentId)
         .update({
@@ -136,15 +125,18 @@ function updateUser(user) {
     )
 }
 
-//verifica se existi o token
+
 function isAuthenticated() {
-    return Cookies.get("token") != null;
+    const sessionKey = sessionStorage.getItem("firebase:authUser:" + firebaseConfig.apiKey + ":[DEFAULT]")
+    console.log(sessionKey);
+    console.log(sessionKey.email);
+    const token = sessionStorage.getItem("isAuthenticated")
+    return token != null;
 }
 
-// faz logOut e apaga o id do cookie
+
 function singOut() {
     firebase.auth().signOut().then(function () {
-        Cookies.remove("token");
     }).catch(function (error) {
         // An error happened.
     });
