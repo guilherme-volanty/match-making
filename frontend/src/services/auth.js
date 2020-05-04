@@ -54,7 +54,7 @@ async function insertOrUpdate(user) {
     return await findUserByEmail(user.email).then((findUserByEmailResponse) => {
         if (findUserByEmailResponse.empty) {
             insert(user).then(insertResponse => {
-                 responseInsertOrUpdate = true
+                    responseInsertOrUpdate = true
                 }
             ).catch(reason => {
                 console.log("Cannot Insert User : %s", reason)
@@ -117,7 +117,7 @@ function updateUser(user) {
     const userDocumentId = user.docs[0].id;
     const db = firebase.firestore();
     const database = db.collection("users");
-        database
+    database
         .doc(userDocumentId)
         .update({
             lastSignInTime: new Date(),
@@ -125,16 +125,14 @@ function updateUser(user) {
     )
 }
 
-//verifica se existi o token
+
 function isAuthenticated() {
     const sessionKey = sessionStorage.getItem("firebase:authUser:" + firebaseConfig.apiKey + ":[DEFAULT]")
-    console.log(sessionKey);
-    console.log(sessionKey.email);
     const token = sessionStorage.getItem("isAuthenticated")
     return token != null;
 }
 
-// faz logOut e apaga o id do cookie
+
 function singOut() {
     firebase.auth().signOut().then(function () {
     }).catch(function (error) {

@@ -5,7 +5,6 @@ import Ilustration from '../../../assets/undraw_towing_6yy4.png'
 const OtherCards = (props) => {
 
     const onChangeId = (event) => {
-        console.log("on")
         if(props.origin ==="Localiza"){
             props.setLocalizaId(event.target.value)
 
@@ -13,7 +12,6 @@ const OtherCards = (props) => {
             props.setMovidaId(event.target.value)
         }
     }
-
 
     //Verificar se há um carro do mesmo modelo e ano
     // na base de dados vigente

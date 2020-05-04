@@ -1,18 +1,17 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
+import * as firebase from "firebase";
 import './Crud.css'
 import { Link } from 'react-router-dom'
-//import Cookie from 'js-cookie'
+import Cookie from 'js-cookie'
 import Modal from 'react-bootstrap/Modal'
-
-const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
 
 const Crud = () => {
     const [data, setData] = useState([])
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("https://match-api-rest.herokuapp.com/match/all")
+        axios.get("http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/all")
             .then(res => {
                 setData(res.data)
             });
@@ -31,9 +30,19 @@ const Crud = () => {
             })
     }, [])
 
+    //AUTH
+    const [authId, setAuthId] = useState()
+
+    var user = firebase.auth().currentUser;
+    useEffect(() => {
+        if(user!=null){
+                setAuthId(user.uid)        
+            }
+    }, [user])
+
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`https://match-api-rest.herokuapp.com/match/delete/${id}`)
+        axios.delete(`http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -44,17 +53,17 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `https://match-api-rest.herokuapp.com/match/update/${id}`,
+            url: `http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {
-                    id: localizaId,
+                    id: String(localizaId),
                     name: localizaName,
                     year: localizaYear,
                     version: localizaVersion
                 },
                 movida: {
-                    id: movidaId,
+                    id: String(movidaId),
                     name: movidaName,
                     year: movidaYear,
                     version: movidaVersion
@@ -85,7 +94,7 @@ const Crud = () => {
 
     const setId = (base, name,year,version, setaId) => {
         base.filter(filter => filter.year === year && filter.name === name && filter.version === version)
-            .map(car => setaId(car.id))
+            .map(car => setaId(car._id))
     }
 
     //Seta o Id das bases de dado 
@@ -97,7 +106,7 @@ const Crud = () => {
     //Função que muda o estado dos carros da localiza e movida
     //De acordo com a mudança do que é setado id vindo do OtherCards 
     const setNameYearVersion= (base, id, setName,setYear,setVersion) => {
-        base.filter(filter => filter.id === id)
+        base.filter(filter => filter._id === id)
             .map(car => {
                 setName(car.name);
                 setYear(Number(car.year));
@@ -139,7 +148,7 @@ const Crud = () => {
         return (
             <Fragment key={record._id}>
                 {/*Lógica para mostrar apenas os matchs daquele usuário*/}
-                {/*{record.user.userId===String(Cookie.getJSON("documentUserId"))?*/}
+                {record.user.userId===authId?
                 <tr className='table' key={record._id}>
                     <th >{record.webmotors.brand} {record.webmotors.model} {record.webmotors.modelYear} {record.webmotors.version} {record.webmotors.bodywork}</th>
                     <td>{record.localiza.name} {record.localiza.year} {record.localiza.version}</td>
@@ -183,10 +192,10 @@ const Crud = () => {
                                                 <div className="version">
                                                     <p>VERSÃO</p>
                                                     {localizaCars.filter(filter => filter.year === record.webmotors.modelYear && filter.name.match("\\b" + record.webmotors.model + "\\b")).length > 0 ?
-                                                        <select className="form-control" onChange={(e) => setLocalizaId(e.target.value)} >
+                                                        <select className="form-control" onChange={(e) => setLocalizaId(String(e.target.value))} >
                                                             <option value="">Selecione</option>
                                                             {localizaCars.filter(filter => filter.year === record.webmotors.modelYear && filter.name.match("\\b" + record.webmotors.model + "\\b"))
-                                                                .map(car => <option value={car.id} key={car.id}>{car.version}</option>)}
+                                                                .map(car => <option value={car._id} key={car._id}>{car.version}</option>)}
                                                         </select>
                                                         : <span> - </span>}
 
@@ -210,10 +219,10 @@ const Crud = () => {
                                                 <div className="version">
                                                     <p>VERSÃO</p>
                                                     {movidaCars.filter(filter => filter.year === record.webmotors.modelYear && filter.name.match("\\b" + record.webmotors.model + "\\b")).length > 0 ?
-                                                        <select className="form-control" onChange={(e) => setMovidaId(e.target.value)}>
+                                                        <select className="form-control" onChange={(e) => setMovidaId(String(e.target.value))}>
                                                             <option value="" >Selecione</option>
                                                             {movidaCars.filter(filter => filter.year === record.webmotors.modelYear && filter.name.match("\\b" + record.webmotors.model + "\\b"))
-                                                                .map(car => <option value={car.id} key={car.id}>{car.version}</option>)}
+                                                                .map(car => <option value={car._id} key={car._id}>{car.version}</option>)}
                                                         </select>
                                                         : <span> - </span>}
                                                 </div>

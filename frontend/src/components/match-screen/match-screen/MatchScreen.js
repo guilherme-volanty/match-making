@@ -1,39 +1,48 @@
 import React, { useState, useEffect } from 'react';
+
+import * as firebase from "firebase";
+
+
 import OtherCards from '../OtherCards/OtherCards';
 import WebmotorsCard from '../WebmotorsCard/WebmotorsCard'
 import { Button } from "react-bootstrap"
 import './MatchScreen.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
-// import Cookie from 'js-cookie'
+import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
-const url = "https://5e8e241022d8cd0016a79f79.mockapi.io/matchTop/v1/"
+
+
+
+const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
+const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
+
 
 const MatchScreen = (props) => {
-
     //==========WEBMOTORS==============
-    const mathRandom = ((Math.random() * 10)+1).toFixed(0)
     const [webmotorsCars, setWebmotorsCar] = useState({})
     const [loading, setLoading] = useState(false)
 
+    //Math.floor(Math.random()*car.length)
+
     //Pegando dados de todas as bases 
     useEffect(() => {
-        axios.get(`https://upload-base-csvs.herokuapp.com/base-cars`)
+        axios.get(urlBase)
         .then(res => {
-           setWebmotorsCar(res.data[99])
+           const car = res.data 
+           setWebmotorsCar(car[2])
         });
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
+        axios.get(`${urlOther}LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
                
             });
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/MOVIDA/files`)
+        axios.get(`${urlOther}MOVIDA/files`)
             .then(res => {
                 setMovidaCars(res.data)
             });
     }, []);
-
 
 
     //===========LOCALIZA===============
@@ -64,31 +73,35 @@ const MatchScreen = (props) => {
                 return null
             })
     }
-    //"https://rest-api-match.herokuapp.com/match"
+    
     //Seto o modelo, ano e versao baseado no ID
     useEffect(() => {
         setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
         setCar(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
-
     }, [movidaId, localizaId])
+
+
+    //AUTH
+    const [name, setName] = useState()
+    const [id, setId] = useState()
+    const [email, setEmail] = useState()
+
+    var user = firebase.auth().currentUser;
+    useEffect(() => {
+        if(user!=null){
+                setId(user.uid)   
+                setName(user.displayName)    
+                setEmail(user.email)       
+            }
+    }, [user])
     
-    console.log(movidaId)
-    console.log(movidaName)
-    console.log(movidaVersion)
-
-
-    //console.log(String(Cookie.getJSON("documentUserId")))
-    //Cookie.getJSON("name")
-    //Cookie.getJSON("email")
-
     //Envia o match para a base de dados
     const sendMatch = () => {
         setLoading(true)
         axios({
             method: 'post',
-            url: "https://match-api-rest.herokuapp.com/match" ,
+            url: "http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match" ,
             data: {
-                operationId: `${mathRandom}`,
                 createDate: `${Date.now()}`,
                 updateDate: null,
                 webmotors: {
@@ -111,11 +124,11 @@ const MatchScreen = (props) => {
                     year: movidaYear,
                     version: movidaVersion
                 },
-                // user: {
-                //     userId:String(Cookie.getJSON("documentUserId")),
-                //     name: String(Cookie.getJSON("name")),
-                //     email: String(Cookie.getJSON("email"))
-                // }
+                user: {
+                    userId:String(id),
+                    name: String(name),
+                    email: String(email)
+                }
             }
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
@@ -130,14 +143,6 @@ const MatchScreen = (props) => {
 
     if(localizaNoMatch && movidaNoMatch){
     }
-    
-    console.log(webmotorsCars)
-    console.log(webmotorsCars.brand)
-    console.log(webmotorsCars.model)
-    console.log(webmotorsCars.carroceria)
-    console.log(webmotorsCars.modelYear)
-    console.log(webmotorsCars.version)
-
 
     return (
         

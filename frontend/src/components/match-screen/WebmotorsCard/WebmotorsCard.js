@@ -1,12 +1,13 @@
 import React from 'react';
 import "./WebmotorsCard.css";
 
-const WebmotorsCard = (props) => {
+const WebmotorsCard = (props) => {    
     return (
         <div className="card mb-3-match-screen" >
             <div className="card-body text-dark">
                 <h5 className="card-title title ">Webmotors</h5>
                 <div className ="card-text ">
+                    {props.data._id?
                     <div className="attributes">
                         <div className="row-attributes">
                             <div className="attribute1">
@@ -32,11 +33,12 @@ const WebmotorsCard = (props) => {
                             <span className="attributeName"> Versão </span>
                             <span> {props.data.version} </span>
                         </div>
-                    </div>
+                    </div>:<h2>CARREGANDO...</h2>}
                 </div>
             </div>
         </div>
     )
+
 
 }
 
