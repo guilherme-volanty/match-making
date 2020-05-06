@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const uploadApi = axios.create({
-    baseURL: 'http://ec2-34-206-3-99.compute-1.amazonaws.com:3000/'
+    baseURL: 'http://localhost:4002'
 });
 
 const getAllCars = async () =>{
@@ -30,16 +30,22 @@ const getVersion = async (brandsId, models, year) =>{
     return response
 };
 
+const getClassfier = async() => {
+    const response = await uploadApi.get('/classfier-data');
+    return response
+}
+
 const deletMetadata = async () =>{
     return await uploadApi.delete('/base-csv')
 }
 
-const Api ={
+const Api = {
     getAllCars,
     getBrands,
     getModels,
     getModelYear,
     getVersion,
+    getClassfier,
     uploadApi,
     deletMetadata
 }
