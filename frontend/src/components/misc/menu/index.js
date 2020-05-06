@@ -35,6 +35,9 @@ const Menu = () => {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#/upload-match">Upload Base Match</NavDropdown.Item>
                             <NavDropdown.Item href="#/search-match">Consulta Base Match</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#/upload-classfier">Upload Classificador</NavDropdown.Item>
+                            <NavDropdown.Item href="#/search-classfier">Consulta Classificador</NavDropdown.Item>
                         </NavDropdown>
 
                         <NavDropdown title="Match" className="menu-item" id="collasible-nav-dropdown">
