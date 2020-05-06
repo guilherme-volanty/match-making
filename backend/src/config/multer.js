@@ -12,7 +12,7 @@ module.exports = {
         }
     }),
     limits: {
-        fileSize: 50*1024*1024,
+        fileSize: 200*1024*1024,
     },
     fileFilter: (request, file, cb) => {
         const allowedFormat = 'text/csv';
