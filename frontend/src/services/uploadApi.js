@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const uploadApi = axios.create({
-    baseURL: 'http://localhost:4002'
+    baseURL: 'http://ec2-34-206-3-99.compute-1.amazonaws.com:3000/'
 });
 
 const getAllCars = async () =>{
