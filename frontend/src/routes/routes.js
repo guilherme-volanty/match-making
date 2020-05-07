@@ -10,6 +10,8 @@ import SearchBasePage from '../pages/SearchBasePage';
 import UploadBasePage from '../pages/UploadBasePage';
 import SearchMatchPage from '../pages/SearchMatchPage';
 import UploadMatchPage from '../pages/UploadMatchPage';
+import UploadClassfierPage from '../pages/UploadClassifierPage';
+import SearchClassfierPage from '../pages/SearchClassifierPage';
 import Match from '../pages/Match';
 import MatchTable from '../pages/MatchTable';
 import NotFound from "../pages/NotFound";
@@ -24,6 +26,8 @@ const Routes = () => {
             <PrivateRoute path="/search-database" component={SearchBasePage}/>
             <PrivateRoute path="/upload-match" component={UploadMatchPage}/>
             <PrivateRoute path="/search-match" component={SearchMatchPage}/>
+            <PrivateRoute path="/upload-classfier" component={UploadClassfierPage}/>
+            <PrivateRoute path="/search-classfier" component={SearchClassfierPage}/>
             <PrivateRoute exact path="/match-screen" component={Match}/>
             <PrivateRoute path="/match-table" component={MatchTable}/>
             <Route component={NotFound} />
