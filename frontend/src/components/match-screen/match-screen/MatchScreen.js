@@ -26,17 +26,17 @@ const MatchScreen = (props) => {
 
     //Math.floor(Math.random()*car.length)
 
-    //Pegando dados de todas as bases 
+    //Pegando dados de todas as bases
     useEffect(() => {
         axios.get(urlBase)
-        .then(res => {
-           const car = res.data 
-           setWebmotorsCar(car[2])
-        });
+            .then(res => {
+                const car = res.data
+                setWebmotorsCar(car[2])
+            });
         axios.get(`${urlOther}LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
-               
+
             });
         axios.get(`${urlOther}MOVIDA/files`)
             .then(res => {
@@ -60,10 +60,10 @@ const MatchScreen = (props) => {
     const [movidaVersion, setMovidaVersion] = useState("")
     const [movidaId, setMovidaId] = useState("")
     const [movidaNoMatch, setMovidaNoMatch]= useState(false)
-    
+
 
     //Função que muda o estado dos carros da localiza e movida
-    //De acordo com a mudança do que é setado id vindo do OtherCards 
+    //De acordo com a mudança do que é setado id vindo do OtherCards
     const setCar= (base, id, setName,setYear,setVersion) => {
         base.filter(filter => filter._id === id)
             .map(car => {
@@ -73,7 +73,7 @@ const MatchScreen = (props) => {
                 return null
             })
     }
-    
+
     //Seto o modelo, ano e versao baseado no ID
     useEffect(() => {
         setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
@@ -89,12 +89,12 @@ const MatchScreen = (props) => {
     var user = firebase.auth().currentUser;
     useEffect(() => {
         if(user!=null){
-                setId(user.uid)   
-                setName(user.displayName)    
-                setEmail(user.email)       
-            }
+            setId(user.uid)
+            setName(user.displayName)
+            setEmail(user.email)
+        }
     }, [user])
-    
+
     //Envia o match para a base de dados
     const sendMatch = () => {
         setLoading(true)
@@ -133,7 +133,7 @@ const MatchScreen = (props) => {
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
             window.location.reload()
-            
+
         }).catch(error=> {
             setLoading(false)
             console.log(error)
@@ -145,47 +145,47 @@ const MatchScreen = (props) => {
     }
 
     return (
-        
+
         <div className="">
             { /*Backround*/}
             <div className="items-match-screen">
                 <div className="Cards-match-screen">
                     <WebmotorsCard data={webmotorsCars}
-                        className="webmotors" />
+                                   className="webmotors" />
 
                     <OtherCards data={localizaCars}
-                        webmotorsData={webmotorsCars}
-                        setLocalizaNoMatch={setLocalizaNoMatch}
-                        setLocalizaId={setLocalizaId}
-                        className="localiza"
-                        origin="Localiza" />
+                                webmotorsData={webmotorsCars}
+                                setLocalizaNoMatch={setLocalizaNoMatch}
+                                setLocalizaId={setLocalizaId}
+                                className="localiza"
+                                origin="Localiza" />
 
                     <OtherCards data={movidaCars}
-                        webmotorsData={webmotorsCars}
-                        setMovidaNoMatch={setMovidaNoMatch}
-                        setMovidaId={setMovidaId}
-                        className="movida"
-                        origin="Movida" />
-                { /*Animação que ocorre enquanto o match está sendo enviado*/}
-                <Modal show={loading} animation={true}>
-                    <Modal.Header style={{ position: 'center' }} >
-                    <Modal.Title  > CARREGANDO...</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <img alt="logo-volanty" style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
-                        width="60%"
-                        src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
-                        <img alt="ilustration"  width="100%"src ={Ilustration} />
-                        <p style={{ textAlign: 'center' }}>Enviando</p>
-                    </Modal.Body>
-                </Modal>
+                                webmotorsData={webmotorsCars}
+                                setMovidaNoMatch={setMovidaNoMatch}
+                                setMovidaId={setMovidaId}
+                                className="movida"
+                                origin="Movida" />
+                    { /*Animação que ocorre enquanto o match está sendo enviado*/}
+                    <Modal show={loading} animation={true}>
+                        <Modal.Header style={{ position: 'center' }} >
+                            <Modal.Title  > CARREGANDO...</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <img alt="logo-volanty" style={{ display: "block", marginLeft: "auto", marginRight: "auto", width: "50%"}}
+                                 width="60%"
+                                 src="https://assets.volanty.com/images/3.0/nova-logo.svg" />
+                            <img alt="ilustration"  width="100%"src ={Ilustration} />
+                            <p style={{ textAlign: 'center' }}>Enviando</p>
+                        </Modal.Body>
+                    </Modal>
                 </div>
                 <div className="Button">
                     <Button onClick={sendMatch} type="submit" className="button-match-screen" variant="primary">Enviar</Button>
                 </div>
             </div>
-            </div>
-        )
-    }
+        </div>
+    )
+}
 
-    export default MatchScreen;
+export default MatchScreen;
