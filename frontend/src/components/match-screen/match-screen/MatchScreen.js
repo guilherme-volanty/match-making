@@ -11,9 +11,6 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
-
-
-
 const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
 const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
 
