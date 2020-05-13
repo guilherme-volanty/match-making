@@ -9,7 +9,6 @@ import { Button } from "react-bootstrap"
 import './MatchScreen.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
-import Cookie from 'js-cookie'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 
 

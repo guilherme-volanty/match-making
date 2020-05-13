@@ -3,7 +3,6 @@ import axios from "axios";
 import * as firebase from "firebase";
 import './Crud.css'
 import { Link } from 'react-router-dom'
-import Cookie from 'js-cookie'
 import Modal from 'react-bootstrap/Modal'
 
 const Crud = () => {
