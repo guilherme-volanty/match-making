@@ -10,9 +10,35 @@ import './MatchScreen.css'
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
+import Api from "../../../services/uploadApi";
 
 const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
 const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
+
+
+function returnDuplicatedValuesWithEqualFipeID(filteredFipeId) {
+    const duplicatedFipeId = filteredFipeId.reduce((previousValue, currentValue) => {
+        previousValue[currentValue.fipeId] = ++previousValue[currentValue.fipeId] || 0;
+        return previousValue
+    }, {});
+    return filteredFipeId.filter(value => duplicatedFipeId[value.fipeId || value.fipeId !== ""])
+}
+
+function returnDuplicatedValuesWithEqualWebMotorsId(filteredWebMotorsId) {
+    const duplicatedWebMotorsId = filteredWebMotorsId.reduce((previousValue, currentValue) => {
+        previousValue[currentValue.webmotorsId] = ++previousValue[currentValue.webmotorsId] || 0;
+        return previousValue
+    }, {});
+    return filteredWebMotorsId.filter(value => duplicatedWebMotorsId[value.webmotorsId || value.webmotorsId !== ""])
+}
+
+function returnDuplicatedValuesWithEqualLocalizaId(filteredLocalizaId) {
+    const duplicatedLocalizaId = filteredLocalizaId.reduce((previousValue, currentValue) => {
+        previousValue[currentValue.localizaId] = ++previousValue[currentValue.localizaId] || 0;
+        return previousValue
+    }, {});
+    return filteredLocalizaId.filter(value => duplicatedLocalizaId[value.localizaId] && value.localizaId !== "")
+}
 
 
 const MatchScreen = (props) => {
@@ -24,20 +50,44 @@ const MatchScreen = (props) => {
 
     //Pegando dados de todas as bases
     useEffect(() => {
-        axios.get(urlBase)
-            .then(res => {
-                const car = res.data
-                setWebmotorsCar(car[2])
-            });
-        axios.get(`${urlOther}LOCALIZA/files`)
-            .then(res => {
-                setLocalizaCars(res.data)
+        const loadAllCars = async () => {
+            const cars = await Api.getClassfier();
 
-            });
-        axios.get(`${urlOther}MOVIDA/files`)
-            .then(res => {
-                setMovidaCars(res.data)
-            });
+            // Filtro para WebMotorsId
+            var filteredWebMotorsId = cars.data.filter(value => value.webmotorsId !== "");
+            const duplicatedWebMotorsId = returnDuplicatedValuesWithEqualWebMotorsId(filteredWebMotorsId)
+            setWebmotorsCar(duplicatedWebMotorsId[1])
+            console.log(duplicatedWebMotorsId[1]);
+            console.log(duplicatedWebMotorsId);
+
+            //filtro para FipeId
+            const filteredFipeId = cars.data.filter(value => value.fipeId !== "");
+            const duplicatedFipeId = returnDuplicatedValuesWithEqualFipeID(filteredFipeId)
+            setMovidaCars(duplicatedFipeId)
+            console.log(duplicatedFipeId);
+
+
+            //Filtro para LocalizaId
+            var filteredLocalizaId = cars.data.filter(value => value.localizaId !== "");
+            const duplicatedLocalizaId = returnDuplicatedValuesWithEqualLocalizaId(filteredLocalizaId)
+            setLocalizaCars(duplicatedLocalizaId)
+            console.log(duplicatedLocalizaId);
+
+        }
+
+
+        // axios.get(`${urlOther}LOCALIZA/files`)
+        //     .then(res => {
+        //         setLocalizaCars(res.data)
+        //
+        //     });
+        //
+        // axios.get(`${urlOther}MOVIDA/files`)
+        //     .then(res => {
+        //         setMovidaCars(res.data)
+        //     });
+
+        loadAllCars()
     }, []);
 
 
@@ -60,11 +110,11 @@ const MatchScreen = (props) => {
 
     //Função que muda o estado dos carros da localiza e movida
     //De acordo com a mudança do que é setado id vindo do OtherCards
-    const setCar= (base, id, setName,setYear,setVersion) => {
+    const setCar = (base, id, setName,setYear,setVersion) => {
         base.filter(filter => filter._id === id)
             .map(car => {
                 setName(car.name);
-                setYear(Number(car.year));
+                setYear(Number(car.modelYear));
                 setVersion(car.version)
                 return null
             })
@@ -104,20 +154,20 @@ const MatchScreen = (props) => {
                     id: String(webmotorsCars.id),
                     brand: webmotorsCars.brand,
                     model: webmotorsCars.model,
-                    bodywork: webmotorsCars.bodyWork,
+                    bodywork: webmotorsCars.factoryYear,
                     modelYear: webmotorsCars.modelYear,
                     version: webmotorsCars.version
                 },
                 localiza: {
                     id: String(localizaId),
                     name: localizaName,
-                    year: localizaYear,
+                    modelYear: localizaYear,
                     version: localizaVersion
                 },
                 movida: {
                     id: String(movidaId),
                     name: movidaName,
-                    year: movidaYear,
+                    modelYear: movidaYear,
                     version: movidaVersion
                 },
                 user: {
