@@ -1,0 +1,13 @@
+FROM node:alpine
+
+COPY . /app/match-server
+
+WORKDIR /app/match-server
+
+ENV PORT=3001
+
+EXPOSE 8080
+
+RUN ["npm", "install"]
+
+CMD ["npm", "start"]
