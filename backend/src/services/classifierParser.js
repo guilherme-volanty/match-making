@@ -13,7 +13,7 @@ async function classifierParser(fileName) {
             console.log(error)
         })
         .on('data', async row => {
-            const { marca, modelo, ano_fabricacao, ano_modelo, versao_fipe,	versao_webmotors, versao_localiza } = row;
+            const { marca, modelo, ano_fabricacao, ano_modelo, versao_fipe,	versao_webmotors, versao_localiza, id_fipe, id_webmotors, id_localiza  } = row;
 
             let data = {
                 brand: marca,
@@ -23,6 +23,9 @@ async function classifierParser(fileName) {
                 versionFipe: versao_fipe,
                 versionWebMotors: versao_webmotors,
                 versionLocaliza: versao_localiza,
+                fipeId: id_fipe,
+                webmotorsId: id_webmotors,
+                localizaId: id_localiza
             };
             
             try {
