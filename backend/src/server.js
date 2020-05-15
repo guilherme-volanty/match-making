@@ -14,29 +14,29 @@ app.use(routes);
 connectToMongo();
 app.use(express.static('public/index.html'));
 
-routes.get('/status', (request, response) => {
+routes.get('/databases/status', (request, response) => {
     return response.status(200).send('Rota tá ok!')  
   });
 
-routes.post('/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
+routes.post('/databases/file/upload', multer(multerConfigs).single('file'),Controller.saveDataFromUpload);
 
-routes.get('/file/getter', Controller.getAllMatchFiles);
+routes.get('/databases/file/getter', Controller.getAllMatchFiles);
 
-routes.get('/names', Controller.listNames);
+routes.get('/databases/names', Controller.listNames);
 
-routes.get('/names/:name/years', Controller.listYears);
+routes.get('/databases/names/:name/years', Controller.listYears);
 
-routes.get('/names/:name/years/:year/versions', Controller.listVersions);
+routes.get('/databases/names/:name/years/:year/versions', Controller.listVersions);
 
-routes.get('/names/:name/years/:year/versions/:version/origins', Controller.listOrigins);
+routes.get('/databases/names/:name/years/:year/versions/:version/origins', Controller.listOrigins);
 
-routes.get('/origins/MOVIDA/files', Controller.filterByOriginMovida);
+routes.get('/databases/origins/MOVIDA/files', Controller.filterByOriginMovida);
 
-routes.get('/origins/LOCALIZA/files', Controller.filterByOriginLocaliza);
+routes.get('/databases/origins/LOCALIZA/files', Controller.filterByOriginLocaliza);
 
-routes.post('/file/deleter', Controller.Delete);
+routes.post('/databases/file/deleter', Controller.Delete);
 
-routes.delete('/file/remove', Controller.Remove);
+routes.delete('/databases/file/remove', Controller.Remove);
 
 
 
