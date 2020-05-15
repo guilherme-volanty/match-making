@@ -5,14 +5,14 @@ const multerConfigs = require('../config/multer');
 const classifierParser = require('../services/classifierParser');
 const baseCsvController = require('../controller/baseCsvController')
 
-routes.get('/base-csv', baseCsvController.indexMetadata);
-routes.get('/base-cars', baseCsvController.indexCarEntries);
-routes.get('/classfier-data', baseCsvController.classfierData);
-routes.get('/base-cars-list/brands', baseCsvController.listBrands);
-routes.get(`/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);
-routes.get('/base-cars-list/brands/:brandsId/models/:models/years', baseCsvController.listModelYear);
-routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version', baseCsvController.listVersions);
-routes.get('/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', baseCsvController.listUniqueCar);
+routes.get('/classifier/base-csv', baseCsvController.indexMetadata);
+routes.get('/classifier/base-cars', baseCsvController.indexCarEntries);
+routes.get('/classifier/classfier-data', baseCsvController.classfierData);
+routes.get('/classifier/base-cars-list/brands', baseCsvController.listBrands);
+routes.get(`/classifier/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years', baseCsvController.listModelYear);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version', baseCsvController.listVersions);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', baseCsvController.listUniqueCar);
 
 
 routes.post('/base-csv', multer(multerConfigs).single('file'), (request, response) =>{
