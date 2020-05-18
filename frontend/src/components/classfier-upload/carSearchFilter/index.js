@@ -6,30 +6,6 @@ import FilterTable from 'react-filterable-table';
 import LoadingComponent from '../../misc/loading/index'
 
 
-function returnDuplicatedValuesWithEqualFipeID(filteredFipeId) {
-    const duplicatedFipeId = filteredFipeId.reduce((previousValue, currentValue) => {
-        previousValue[currentValue.fipeId] = ++previousValue[currentValue.fipeId] || 0;
-        return previousValue
-    }, {});
-    return filteredFipeId.filter(value => duplicatedFipeId[value.fipeId || value.fipeId !== ""])
-
-}
-
-function returnDuplicatedValuesWithEqualWebMotorsId(filteredWebMotorsId) {
-    const duplicatedWebMotorsId = filteredWebMotorsId.reduce((previousValue, currentValue) => {
-        previousValue[currentValue.webmotorsId] = ++previousValue[currentValue.webmotorsId] || 0;
-        return previousValue
-    }, {});
-    return filteredWebMotorsId.filter(value => duplicatedWebMotorsId[value.webmotorsId || value.webmotorsId !== ""])
-}
-
-function returnDuplicatedValuesWithEqualLocalizaId(filteredLocalizaId) {
-    const duplicatedLocalizaId = filteredLocalizaId.reduce((previousValue, currentValue) => {
-        previousValue[currentValue.localizaId] = ++previousValue[currentValue.localizaId] || 0;
-        return previousValue
-    }, {});
-    return filteredLocalizaId.filter(value => duplicatedLocalizaId[value.localizaId] && value.localizaId !== "")
-}
 
 
 const Filter = () => {
@@ -43,23 +19,7 @@ const Filter = () => {
     useEffect(() => {
         const loadAllCars = async () => {
             const cars = await Api.getClassfier();
-
-            //filtro para FipeId
-            const filteredFipeId = cars.data.filter(value => value.fipeId !== "");
-            const duplicatedFipeId = returnDuplicatedValuesWithEqualFipeID(filteredFipeId)
-            console.log(duplicatedFipeId);
-
-            // Filtro para WebMotorsId
-            var filteredWebMotorsId = cars.data.filter(value => value.webmotorsId !== "");
-            const duplicatedWebMotorsId = returnDuplicatedValuesWithEqualWebMotorsId(filteredWebMotorsId)
-            console.log(duplicatedWebMotorsId);
-
-            //Filtro para LocalizaId
-            var filteredLocalizaId = cars.data.filter(value => value.localizaId !== "");
-            const duplicatedLocalizaId = returnDuplicatedValuesWithEqualLocalizaId(filteredLocalizaId)
-            console.log(duplicatedLocalizaId);
-
-            console.log(cars.data);
+            setCars(cars.data)
             setLoading(true);
         };
 
@@ -115,7 +75,7 @@ const Filter = () => {
                                     initialSort="brand"
                                     data={cars}
                                     fields={fields}
-                                    noRecordsMessage="Carregando Carros"
+                                    noRecordsMessage="Houve um problema com a visualização dos dados"
                                     noFilteredRecordsMessage="Nenhum carro encontrado!"
                                 />
                                 :
