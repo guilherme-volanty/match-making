@@ -10,20 +10,21 @@ const Crud = () => {
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/all")
+        axios.get("https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/all")
             .then(res => {
                 setData(res.data)
             });
 
     }, [data])
+    console.log(data)
 
     //Pegar dados da base completa da Movida e Localiza 
     useEffect(() => {
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
+        axios.get(`https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
             })
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/MOVIDA/files`)
+        axios.get(`https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/MOVIDA/files`)
             .then(res => {
                 setMovidaCars(res.data)
             })
@@ -41,7 +42,7 @@ const Crud = () => {
 
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/delete/${id}`)
+        axios.delete(`https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -52,7 +53,7 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/update/${id}`,
+            url: `https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {

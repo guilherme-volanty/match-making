@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
-    const url = "https://match-api-rest.herokuapp.com"     
+    const url = "https://d1qz6xp2lbl1xi.cloudfront.net/matches"     
 
 
     //Envia o match para a base de dados

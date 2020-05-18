@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const uploadApi = axios.create({
-    baseURL: 'http://ec2-34-206-3-99.compute-1.amazonaws.com:3000/'
+    baseURL: 'https://d1qz6xp2lbl1xi.cloudfront.net/classifier'
 });
 
 const getAllCars = async () =>{
