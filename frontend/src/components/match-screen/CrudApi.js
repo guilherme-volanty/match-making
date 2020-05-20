@@ -1,10 +1,10 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
-    const url = "https://match-api-rest.herokuapp.com"     
+    const url = "https://d1qz6xp2lbl1xi.cloudfront.net/matches"
 
 
-    //Envia o match para a base de dados
+//Envia o match para a base de dados
     const postMatch = (webmotorsCars, localizaId, localizaName, localizaYear, localizaVersion,movidaId, movidaName,movidaYear,movidaVersion,setLoading) => {
         setLoading(true)
         axios({
@@ -42,7 +42,7 @@ import Cookie from 'js-cookie'
         }).then(res =>{
             console.log({message:"Enviado com sucesso"})
             window.location.reload()
-            
+
         }).catch(error=> {
             setLoading(false)
             console.log(error)

@@ -12,8 +12,8 @@ import Modal from 'react-bootstrap/Modal'
 import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
 import Api from "../../../services/uploadApi";
 
-const urlBase = "https://upload-base-csvs.herokuapp.com/base-cars"
-const urlOther = "https://upload-match-csvs.herokuapp.com/origins/"
+const urlBase = "https://d1qz6xp2lbl1xi.cloudfront.net/classifier/base-cars"
+const urlOther = "https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/"
 
 
 function returnDuplicatedValuesWithEqualFipeID(filteredFipeId) {
@@ -146,7 +146,7 @@ const MatchScreen = (props) => {
         setLoading(true)
         axios({
             method: 'post',
-            url: "http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match" ,
+            url: "https://d1qz6xp2lbl1xi.cloudfront.net/matches/match" ,
             data: {
                 createDate: `${Date.now()}`,
                 updateDate: null,

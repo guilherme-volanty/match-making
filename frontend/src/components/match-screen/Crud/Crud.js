@@ -10,20 +10,20 @@ const Crud = () => {
 
     //Pega todos os Matchs vindos da API criada
     useEffect(() => {
-        axios.get("http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/all")
+        axios.get("https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/all")
             .then(res => {
                 setData(res.data)
             });
 
     }, [data])
 
-    //Pegar dados da base completa da Movida e Localiza 
+    //Pegar dados da base completa da Movida e Localiza
     useEffect(() => {
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/LOCALIZA/files`)
+        axios.get(`https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/LOCALIZA/files`)
             .then(res => {
                 setLocalizaCars(res.data)
             })
-        axios.get(`https://upload-match-csvs.herokuapp.com/origins/MOVIDA/files`)
+        axios.get(`https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/MOVIDA/files`)
             .then(res => {
                 setMovidaCars(res.data)
             })
@@ -35,13 +35,13 @@ const Crud = () => {
     var user = firebase.auth().currentUser;
     useEffect(() => {
         if(user!=null){
-                setAuthId(user.uid)        
+                setAuthId(user.uid)
             }
     }, [user])
 
     //Deleta um Match
     const deleteMatch = (id) => {
-        axios.delete(`http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/delete/${id}`)
+        axios.delete(`https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/delete/${id}`)
             .then((res) => {
                 const filtrado = data.filter(item => item.id !== id);
                 setData(filtrado);
@@ -52,7 +52,7 @@ const Crud = () => {
     const updateMatch = (id) => {
         axios({
             method: 'put',
-            url: `http://ec2-34-206-3-99.compute-1.amazonaws.com:8080/match/update/${id}`,
+            url: `https://d1qz6xp2lbl1xi.cloudfront.net/matches/match/update/${id}`,
             data: {
                 updateDate: `${Date.now()}`,
                 localiza: {
@@ -96,14 +96,14 @@ const Crud = () => {
             .map(car => setaId(car._id))
     }
 
-    //Seta o Id das bases de dado 
+    //Seta o Id das bases de dado
     useEffect(() => {
         setId(localizaCars,localizaName,localizaYear,localizaVersion,setLocalizaId);
-        setId(movidaCars,movidaName,movidaYear,movidaVersion,setMovidaId); 
+        setId(movidaCars,movidaName,movidaYear,movidaVersion,setMovidaId);
     }, [movidaVersion, localizaVersion])
 
     //Função que muda o estado dos carros da localiza e movida
-    //De acordo com a mudança do que é setado id vindo do OtherCards 
+    //De acordo com a mudança do que é setado id vindo do OtherCards
     const setNameYearVersion= (base, id, setName,setYear,setVersion) => {
         base.filter(filter => filter._id === id)
             .map(car => {
@@ -129,7 +129,7 @@ const Crud = () => {
     const [idRemove, setIdRemove] = useState()
     const [showRemove, setShowRemove] = useState(false)
     const handleCloseRemove = () => setShowRemove(false);
-    
+
     //Abrir o modal exatamente do item que quero
     const openEditCar = (id) => {
         setShow(true)
@@ -254,7 +254,7 @@ const Crud = () => {
                     </td>
                 </tr>
                 :null}
-                
+
 
             </Fragment>
         );
