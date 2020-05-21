@@ -8,8 +8,6 @@ const webmotorsParser = require('../services/webmotorsParser');
 const baseCsvController = require('../controller/baseCsvController');
 
 
-routes.get('/classifier/base-csv', baseCsvController.indexMetadata);
-routes.get('/classifier/base-cars', baseCsvController.indexCarEntries);
 routes.get('/classifier/classfier-data', baseCsvController.classfierData);
 routes.get('/classifier/base-cars-list/brands', baseCsvController.listBrands);
 routes.get(`/classifier/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);

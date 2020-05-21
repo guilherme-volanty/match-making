@@ -1,19 +1,7 @@
-const MetaData = require('../models/metadataSchema');
-const EntriesData = require('../models/entrySchema');
 const ClassifierData = require('../models/classfierMatchSchema')
 
 module.exports = {
-    async indexMetadata(request, response){
-        allVersions = await MetaData.find();
-        console.log(allVersions);
-        return response.json(allVersions)
-    }, 
-
-    async indexCarEntries(request, response){
-        allVersions = await EntriesData.find();
-        return response.json(allVersions)
-    },
-
+    
     async classfierData(request, response){
         allClassifications = await ClassifierData.find();
         return response.json(allClassifications)
