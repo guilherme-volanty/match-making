@@ -5,15 +5,15 @@ const classifierParser = require('../services/classifierParser');
 const localizaParser = require('../services/localizaParser');
 const fipeParser = require('../services/fipeParser');
 const webmotorsParser = require('../services/webmotorsParser');
-const baseCsvController = require('../controller/baseCsvController');
+const classifierController = require('../controller/classifierController');
 
 
-routes.get('/classifier/classfier-data', baseCsvController.classfierData);
-routes.get('/classifier/base-cars-list/brands', baseCsvController.listBrands);
-routes.get(`/classifier/base-cars-list/brands/:brandsId/models`, baseCsvController.listModels);
-routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years', baseCsvController.listModelYear);
-routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version', baseCsvController.listVersions);
-routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', baseCsvController.listUniqueCar);
+routes.get('/classifier/classfier-data', classifierController.classfierData);
+routes.get('/classifier/base-cars-list/brands', classifierController.listBrands);
+routes.get(`/classifier/base-cars-list/brands/:brandsId/models`, classifierController.listModels);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years', classifierController.listModelYear);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version', classifierController.listVersions);
+routes.get('/classifier/base-cars-list/brands/:brandsId/models/:models/years/:year/version/:versionId', classifierController.listUniqueCar);
 
 
 routes.post('/webmotors-csv', multer(multerConfigs).single('file'), (request, response) =>{
@@ -44,5 +44,4 @@ routes.post('/classfier-csv', multer(multerConfigs).single('file'), (request, re
   return response.status(200).send('Arquivo CSV recebido! Processando')
 });
 
-routes.delete('/base-csv', baseCsvController.delete)
 module.exports = routes;

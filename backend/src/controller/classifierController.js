@@ -1,7 +1,7 @@
 const ClassifierData = require('../models/classfierMatchSchema')
 
 module.exports = {
-    
+    //Métodos do Classificador
     async classfierData(request, response){
         allClassifications = await ClassifierData.find();
         return response.json(allClassifications)
@@ -60,9 +60,14 @@ module.exports = {
         }
     },
 
-    async delete(request, response){
-        await MetaData.collection.updateMany({ isDeleted: false, isActive: true, deletedDate: Date },{ $set: {isDeleted: true, isActive: false, deletedDate: new Date}});
-        console.log("Dados deletados com sucesso!")
-        // return response.status(200).send("Base deletada com sucesso! Envie uma Nova Base")
-    },
+    // Métodos da Webmotos
+        //TODO
+    
+    // Métodos da Fipe
+        //TODO
+    
+    // Métodos da Localiza
+        //TODO
+
+    
 }
