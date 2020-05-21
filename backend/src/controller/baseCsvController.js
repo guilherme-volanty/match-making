@@ -77,11 +77,4 @@ module.exports = {
         console.log("Dados deletados com sucesso!")
         // return response.status(200).send("Base deletada com sucesso! Envie uma Nova Base")
     },
-
-    async store(request, response){
-
-        console.log(base);
-        return response.status(201).send("Arquivo CSV recebido! Processando").json(base);
-    }
-
 }
