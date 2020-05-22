@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const MatchSchema = new mongoose.Schema({
-    operationId: Number,
     createDate: Date,
     updateDate: Date,
-    mockId:Number,
+    isVerified: false,
+    totalCounts: 0,
     webmotors: {
         webmotorsId: String,
         brand: String,
@@ -33,7 +33,7 @@ const MatchSchema = new mongoose.Schema({
         userId: String,
         name:String,
         email:String
-    }]
+    }],
 });
 
 module.exports = mongoose.model("Match", MatchSchema);

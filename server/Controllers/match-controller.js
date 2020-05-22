@@ -39,7 +39,8 @@ function postNewMatch(request, response) {
                     });
             }else{
                 const queryId = query[0]._id;
-                Match.updateOne({_id:queryId},{$push:{user:match.user}})
+                const queryCounts = query[0].totalCounts + 1;
+                Match.updateOne({_id:queryId},{$push:{user:match.user},$set:{isVerified: true, totalCounts:queryCounts}})
                 .then(function(){
                     response.status(201).send({message:"Match Criado"})
                 })
