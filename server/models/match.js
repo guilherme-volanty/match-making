@@ -6,30 +6,34 @@ const MatchSchema = new mongoose.Schema({
     updateDate: Date,
     mockId:Number,
     webmotors: {
-        id: String,
+        webmotorsId: String,
         brand: String,
         model:String,
-        bodywork: String,
+        factoryYear: Number,
         modelYear: Number,
         version:String
     },
     localiza: {
-        id:String,
-        name:String,
-        year: Number,
-        version: String
+        localizaId: String,
+        brand: String,
+        model:String,
+        factoryYear: Number,
+        modelYear: Number,
+        version:String
     },
-    movida: {
-        id:String,
-        name:String,
-        year: Number,
-        version: String
+    fipe: {
+        fipeId: String,
+        brand: String,
+        model:String,
+        factoryYear: Number,
+        modelYear: Number,
+        version:String
     },
-    user:{
+    user:[{
         userId: String,
         name:String,
         email:String
-    }
+    }]
 });
 
 module.exports = mongoose.model("Match", MatchSchema);
