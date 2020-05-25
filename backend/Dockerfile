@@ -1,6 +1,6 @@
 FROM node:alpine
 
-MAINTAINER Jeremias_Norma
+MAINTAINER Jeremias Moraes
 
 COPY . .
 
