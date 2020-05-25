@@ -5,15 +5,11 @@ import volantyLogo from '../../../assets/volanty-logo.png';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import "firebase/auth";
-import firebaseConfig from "../../../services/firebase.config";
-
-
-
+import User from '../../../services/user'
 
 const Menu = () => {
     let history = useHistory();
-    const sessionKey = sessionStorage.getItem("firebase:authUser:" + firebaseConfig.apiKey + ":[DEFAULT]");
-    const json = JSON.parse(sessionKey);
+    const user = User();
 
     const onClick = () => {
       singOut();
@@ -48,7 +44,7 @@ const Menu = () => {
                 </Nav>
                 <div className="navbar-nav ml-auto">
             <div className="navbar-brand justify-content-between">
-              {json.displayName}
+              {user.displayName}
             </div>
             <button
               className="btn btn-primary menu"
@@ -60,7 +56,6 @@ const Menu = () => {
             </Navbar.Collapse>
         </Navbar>
     )
-
 }
 
 export default Menu;
