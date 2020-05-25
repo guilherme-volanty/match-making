@@ -15,7 +15,11 @@ const MatchScreen = (props) => {
     const [localizaCars, setLocalizaCars] = useState([]);
     const [fipeCars, setFipeCars] = useState([]);
     const [fipeVersion, setFipeVersion] = useState([]);
-    const [webmotorsVersion, setWebmotorsVersion] = useState([])
+    const [webmotorsVersion, setWebmotorsVersion] = useState([]);
+    const [selectWebmotorsVersion, setSelectWebmotorsVersion ] = useState('Não há Match');
+    const [selectFipeVersion, setSelectFipeVersion ] = useState('Não há Match');
+    const [webmotorsId, setWebmotorsId] = useState([])
+    const [fipeId, setFipeId] = useState([])
 
     //AUTH
     const [name, setName] = useState()
@@ -43,13 +47,14 @@ const MatchScreen = (props) => {
         loadAllCars()
     }, [])
 
-    const Brands = localizaCars.brand;
-    const Model = localizaCars.model;
-    const ModelYear = localizaCars.modelYear;
+    const brands = localizaCars.brand;
+    const model = localizaCars.model;
+    const modelYear = localizaCars.modelYear;
+    const factoryYear = localizaCars.factoryYear;
 
     useEffect(() =>{
         const getWebmotorsVersion = async () => {
-            const version = await Api.getWebmotorsVersion(Brands, Model, ModelYear) //TODO ROTA COM FACTORY YEAR
+            const version = await Api.getWebmotorsVersion(brands, model, modelYear, factoryYear) //TODO ROTA COM FACTORY YEAR
             const versionState = version.data;
             setWebmotorsVersion(versionState)
         }
@@ -58,20 +63,55 @@ const MatchScreen = (props) => {
 
     useEffect(() =>{
         const getFipeVersion = async () => {
-            const version = await Api.getFipeVersion(Brands, Model, ModelYear) //TODO ROTA COM FACTORY YEAR
+            const version = await Api.getFipeVersion(brands, model, modelYear) 
             const versionState = version.data;
             setFipeVersion(versionState);
         }
         getFipeVersion();
     }, [localizaCars])
 
-    // console.log(fipeVersion);
+    const handleWebmotorsVersionChange = (selectedVersion) => {
+        setSelectWebmotorsVersion(selectedVersion)
+    }
+
+    const handleFipeVersionChange = (selectedVersion) => {
+        setSelectFipeVersion(selectedVersion)
+    }
+
+    useEffect(() => {
+        const getWebmotorsId = async () =>{
+            const response = await Api.getWebmotorsId(brands, model, modelYear, factoryYear, selectWebmotorsVersion)
+            setWebmotorsId(response)
+        }
+        getWebmotorsId();
+    }, [selectWebmotorsVersion])
+
+    useEffect(() => {
+        const getFipeId = async () =>{
+            const response = await Api.getFipeId(brands, model, modelYear, selectFipeVersion)
+            setFipeId(response);
+        }
+        getFipeId();
+    }, [selectFipeVersion])
+
 
     //Envia o match para a base de dados
     const sendMatch = () => {
         setLoading(true)
-        postMatch(webmotorsCars, localizaCars, fipeCars, id, name, email)
+        postMatch(brands, 
+                  model, 
+                  modelYear,
+                  factoryYear, 
+                  id, 
+                  name, 
+                  email,
+                  localizaCars, 
+                  webmotorsId,
+                  fipeId,
+                  selectWebmotorsVersion, 
+                  selectFipeVersion)
         setLoading(false)
+        console.log("Enviou para o Mongo")
     }
 
     return (
@@ -87,13 +127,15 @@ const MatchScreen = (props) => {
                                database="Localiza" />
 
                     <MatchCard data={localizaCars}
-                               version={webmotorsVersion} 
+                               version={webmotorsVersion}
+                               onVersionChange={handleWebmotorsVersionChange} 
                                targetDatabase={false}
                                className="webmotors"
                                database="Webmotors" />
 
                     <MatchCard data={localizaCars}
-                               version={fipeVersion} 
+                               version={fipeVersion}
+                               onVersionChange={handleFipeVersionChange} 
                                targetDatabase={false}
                                className="fipe"
                                database="Fipe" />
