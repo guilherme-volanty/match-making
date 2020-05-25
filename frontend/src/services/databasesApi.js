@@ -9,14 +9,24 @@ const getClassfier = async() => {
     return response
 }
 
-const getFipeVersion = async(brandsId, models, year) =>{
-    const response = await databasesApi.get(`/fipe/list/brands/${brandsId}/models/${models}/years/${year}/version`)
+const getFipeVersion = async(brandsId, models, modelYear) =>{
+    const response = await databasesApi.get(`/fipe/list/brands/${brandsId}/models/${models}/modelYears/${modelYear}/version`)
     return response
 }
 
-const getWebmotorsVersion = async(brandsId, models, year) =>{
-    const response = await databasesApi.get(`/webmotors/list/brands/${brandsId}/models/${models}/years/${year}/version`)
+const getWebmotorsVersion = async(brandsId, models, modelYear, manufactoryYear) =>{
+    const response = await databasesApi.get(`/webmotors/list/brands/${brandsId}/models/${models}/modelYears/${modelYear}/manufactoryYears/${manufactoryYear}/version`)
     return response
+}
+
+const getFipeId = async(brandsId, models, modelYear, versionId) =>{
+    const response = await databasesApi.get(`/fipe/list/brands/${brandsId}/models/${models}/modelYears/${modelYear}/version/${versionId}`)
+    return response.data[0]
+}
+
+const getWebmotorsId = async(brandsId, models, modelYear, manufactoryYear, versionId) =>{
+    const response = await databasesApi.get(`/webmotors/list/brands/${brandsId}/models/${models}/modelYears/${modelYear}/manufactoryYears/${manufactoryYear}/version/${versionId}`)
+    return response.data[0]
 }
 
 const deletMetadata = async () =>{
@@ -27,6 +37,8 @@ const Api = {
     getClassfier,
     getFipeVersion,
     getWebmotorsVersion,
+    getFipeId,
+    getWebmotorsId,
     databasesApi,
     deletMetadata
 }
