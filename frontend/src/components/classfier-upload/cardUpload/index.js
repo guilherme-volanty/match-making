@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './styles.css';
-import Api from '../../../services/uploadApi';
+import Api from '../../../services/databasesApi';
 import { Button, Form, FormLabel, FormControl, Modal } from 'react-bootstrap';
 import FormFileInput from 'react-bootstrap/FormFileInput';
 import FormFileLabel from 'react-bootstrap/FormFileLabel';

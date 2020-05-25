@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from 'react';
-import Api from '../../../services/uploadApi';
+import Api from '../../../services/databasesApi';
 import './styles.css';
 import {Button, Modal} from 'react-bootstrap';
 import FilterTable from 'react-filterable-table';
