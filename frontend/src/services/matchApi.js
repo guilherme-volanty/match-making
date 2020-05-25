@@ -1,38 +1,37 @@
 import axios from 'axios'
 
     const matchApi = axios.create({
-        baseURL: 'http://localhost:3001/matches'
+        baseURL: 'https://d1qz6xp2lbl1xi.cloudfront.net/matches'
     });
-    // https://d1qz6xp2lbl1xi.cloudfront.net
-    const postMatch = async (webmotorsCars, localizaCars, fipeCars, id, name, email) => {
+    const postMatch = async (brands, model, modelYear, factoryYear, id, name, email, localizaCars, webmotorsId, fipeId, selectWebmotorsVersion, selectFipeVersion) => {
         await matchApi.post('/match', {
                 createDate: `${Date.now()}`,
                 updateDate: null,
                 isVerified: null,
                 totalCounts: null,
                 webmotors: {
-                    webmotorsId: String(webmotorsCars.webmotorsId), //REFACT
-                    brand: webmotorsCars.brand,
-                    model: webmotorsCars.model,
-                    factoryYear: webmotorsCars.factoryYear,
-                    modelYear: webmotorsCars.modelYear,
-                    version: ""
+                    webmotorsId: String(webmotorsId), 
+                    brand:  brands,
+                    model: model,
+                    factoryYear: factoryYear,
+                    modelYear: modelYear,
+                    version: String(selectWebmotorsVersion)
                 },
                 localiza: {
-                    localizaId: localizaCars.localizaId, //REFACT
-                    brand: localizaCars.brand,
-                    model: localizaCars.model,
-                    factoryYear: localizaCars.factoryYear,
-                    modelYear: localizaCars.modelYear,
+                    localizaId: String(localizaCars.localizaId),
+                    brand:  brands,
+                    model: model,
+                    factoryYear: factoryYear,
+                    modelYear: modelYear,
                     version: localizaCars.versionLocaliza
                 },
                 fipe: {
-                    fipeId: fipeCars.fipeId, //REFACT
-                    brand: fipeCars.brand,
-                    model: fipeCars.model,
-                    factoryYear: fipeCars.factoryYear,
-                    modelYear: fipeCars.modelYear,
-                    version: ""
+                    fipeId: String(fipeId), 
+                    brand:  brands,
+                    model: model,
+                    factoryYear: factoryYear,
+                    modelYear: modelYear,
+                    version: String(selectFipeVersion)
                 },
                 user: [{
                     userId:String(id),
