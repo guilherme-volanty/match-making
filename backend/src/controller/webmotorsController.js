@@ -1,16 +1,16 @@
-const ClassifierData = require('../models/classfierMatchSchema')
+const Webmotors = require('../models/webmotorsSchema')
 
 module.exports = {
     
-    //Métodos do Classificador
-    async classfierData(request, response){
-        allClassifications = await ClassifierData.find();
-        return response.json(allClassifications)
+    //Métodos da Webmotors
+    async webmotorsData(request, response){
+        webmotorsData = await Webmotors.find();
+        return response.json(webmotorsData)
     },
 
     async listBrands(request, response){
         try {
-            const brands = await ClassifierData.distinct("brand");
+            const brands = await Webmotors.distinct("brand");
             return response.json(brands);     
         } catch(err){
             console.log(err);
@@ -21,7 +21,7 @@ module.exports = {
     async listModels(brand, response){
         try {
             const brandId = brand.params.brandsId;
-            const models = await ClassifierData.find({brand: brandId}).distinct("model");
+            const models = await Webmotors.find({brand: brandId}).distinct("model");
             return response.json(models);
         } catch(error){
             console.log(err);
@@ -33,7 +33,7 @@ module.exports = {
         try{
             const brandsId = request.params.brandsId;
             const modely = request.params.models;
-            const years = await ClassifierData.find({brand: brandsId, model: modely}).distinct("modelYear")
+            const years = await Webmotors.find({brand: brandsId, model: modely}).distinct("modelYear")
             return response.json(years);
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
@@ -43,7 +43,7 @@ module.exports = {
     async listVersions(request, response){
         try{
             const {brandsId, models, year} = request.params;
-            const version = await ClassifierData.find({brand: brandsId, model: models, modelYear: year}).distinct("version")
+            const version = await Webmotors.find({brand: brandsId, model: models, modelYear: year}).distinct("version")
             return response.json(version)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
@@ -53,11 +53,11 @@ module.exports = {
     async listUniqueCar(request, response){
         try{
             const {brandsId, models, year, versionId} = request.params;
-            const uniqueCar = await ClassifierData.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
+            const uniqueCar = await Webmotors.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
             console.log(uniqueCar);
             return response.json(uniqueCar)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
         }
-    },    
+    },   
 }
