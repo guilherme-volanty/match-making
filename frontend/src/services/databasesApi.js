@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const databasesApi = axios.create({
-    baseURL: 'http://localhost:4002/databases'
+    baseURL: 'https://d1qz6xp2lbl1xi.cloudfront.net/databases'
 });
 
 const getClassfier = async() => {
