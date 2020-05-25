@@ -15,9 +15,10 @@ const localizaController = require('../controller/localizaController');
 routes.get('/databases/classifier/classifier-data', classifierController.classfierData);
 routes.get('/databases/classifier/list/brands', classifierController.listBrands);
 routes.get(`/databases/classifier/list/brands/:brandsId/models`, classifierController.listModels);
-routes.get('/databases/classifier/list/brands/:brandsId/models/:models/years', classifierController.listModelYear);
-routes.get('/databases/classifier/list/brands/:brandsId/models/:models/years/:year/version', classifierController.listVersions);
-routes.get('/databases/classifier/list/brands/:brandsId/models/:models/years/:year/version/:versionId', classifierController.listUniqueCar);
+routes.get('/databases/classifier/list/brands/:brandsId/models/:models/modelYears', classifierController.listModelYear);
+routes.get(`/databases/classifier/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears`, classifierController.listFactoryYear)
+routes.get('/databases/classifier/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears/:manufactoryYear/version', classifierController.listVersions);
+routes.get('/databases/classifier/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears/:manufactoryYear/version/:versionId', classifierController.listUniqueCar);
 
 routes.post('/databases/classfier-csv', multer(multerConfigs).single('file'), (request, response) =>{
   console.log(request.file);
@@ -30,9 +31,9 @@ routes.post('/databases/classfier-csv', multer(multerConfigs).single('file'), (r
 routes.get('/databases/fipe/classfier-data', fipeController.fipeData);
 routes.get('/databases/fipe/list/brands', fipeController.listBrands);
 routes.get('/databases/fipe/list/brands/:brandsId/models', fipeController.listModels);
-routes.get('/databases/fipe/list/brands/:brandsId/models/:models/years', fipeController.listModelYear);
-routes.get('/databases/fipe/list/brands/:brandsId/models/:models/years/:year/version', fipeController.listVersions);
-routes.get('/databases/fipe/list/brands/:brandsId/models/:models/years/:year/version/:versionId', fipeController.listUniqueCar);
+routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears', fipeController.listModelYear);
+routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears/:modelYear/version', fipeController.listVersions);
+routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears/:modelYear/version/versionId', fipeController.listUniqueCar);
 
 routes.post('/databases/fipe-csv', multer(multerConfigs).single('file'), (request, response) =>{
   console.log(request.file);
@@ -45,9 +46,10 @@ routes.post('/databases/fipe-csv', multer(multerConfigs).single('file'), (reques
 routes.get('/databases/webmotors/webmotors-data', webmotorsController.webmotorsData);
 routes.get('/databases/webmotors/list/brands', webmotorsController.listBrands);
 routes.get('/databases/webmotors/list/brands/:brandsId/models', webmotorsController.listModels);
-routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/years', webmotorsController.listModelYear);
-routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/years/:year/version', webmotorsController.listVersions);
-routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/years/:year/version/:versionId', webmotorsController.listUniqueCar);
+routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/modelYears', webmotorsController.listModelYear);
+routes.get(`/databases/webmotors/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears`, webmotorsController.listFactoryYear)
+routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears/:manufactoryYear/version', webmotorsController.listVersions);
+routes.get('/databases/webmotors/list/brands/:brandsId/models/:models/modelYears/:modelYear/manufactoryYears/:manufactoryYear/version/:versionId', webmotorsController.listUniqueCar); //REVER
 
 routes.post('/databases/webmotors-csv', multer(multerConfigs).single('file'), (request, response) =>{
   console.log(request.file);

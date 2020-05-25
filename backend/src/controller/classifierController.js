@@ -40,11 +40,22 @@ module.exports = {
         }
     },
 
+    async listFactoryYear(request, response){
+        try{
+            const {brandsId, models, modelYear} = request.params;
+            const manufactoryYear = await ClassifierData.find({brand: brandsId, model: models, modelYear: modelYear}).distinct("factoryYear")
+            console.log(manufactoryYear);
+            return response.json(manufactoryYear)
+        }catch(error){
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+
     async listVersions(request, response){
         try{
-            const {brandsId, models, year} = request.params;
-            const version = await ClassifierData.find({brand: brandsId, model: models, modelYear: year}).distinct("version")
-            return response.json(version)
+            const {brandsId, models, modelYear, manufactoryYear} = request.params;
+            const versionFipe = await ClassifierData.find({brand: brandsId, model: models, modelYear: modelYear, factoryYear: manufactoryYear}).distinct("versionFipe")
+            return response.json(versionFipe)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
         }

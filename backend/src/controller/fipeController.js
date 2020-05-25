@@ -42,8 +42,8 @@ module.exports = {
 
     async listVersions(request, response){
         try{
-            const {brandsId, models, year} = request.params;
-            const version = await Fipe.find({brand: brandsId, model: models, year: year}).distinct("version")
+            const {brandsId, models, modelYear} = request.params;
+            const version = await Fipe.find({brand: brandsId, model: models, year: modelYear}).distinct("version")
             return response.json(version)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})

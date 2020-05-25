@@ -40,10 +40,20 @@ module.exports = {
         }
     },
 
+    async listFactoryYear(request, response){
+        try{
+            const {brandsId, models, modelYear} = request.params;
+            const manufactoryYear = await Webmotors.find({brand: brandsId, model: models, modelYear: modelYear}).distinct("manufactoryYear")
+            return response.json(manufactoryYear)
+        }catch(error){
+            return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
+        }
+    },
+
     async listVersions(request, response){
         try{
-            const {brandsId, models, year} = request.params;
-            const version = await Webmotors.find({brand: brandsId, model: models, modelYear: year}).distinct("version")
+            const {brandsId, models, manufactoryYear, modelYear} = request.params;
+            const version = await Webmotors.find({brand: brandsId, model: models, manufactoryYear: manufactoryYear, modelYear: modelYear}).distinct("version")
             return response.json(version)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
@@ -52,8 +62,8 @@ module.exports = {
 
     async listUniqueCar(request, response){
         try{
-            const {brandsId, models, year, versionId} = request.params;
-            const uniqueCar = await Webmotors.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
+            const {brandsId, models, manufactoryYear, modelYear, version} = request.params;
+            const uniqueCar = await Webmotors.find({brand: brandsId, model: models, manufactoryYear: manufactoryYear, modelYear: modelYear, version: version}).distinct("webmotorsId")
             console.log(uniqueCar);
             return response.json(uniqueCar)
         }catch(error){
