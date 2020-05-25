@@ -3,7 +3,9 @@ import "./styles.css";
 import LoadingComponent from '../../misc/loading/index';
 
 const MatchCard = (props) => {
-
+    const handleChange = (e) =>{
+        props.onVersionChange(e.target.value)
+    }
     return (
         <div className="card mb-3-match-screen" >
             <div className="card-body text-dark">
@@ -33,18 +35,17 @@ const MatchCard = (props) => {
                         </div>
                         <div className="attribute5">
                             {props.targetDatabase ?
-                                <div> 
+                                <div className="selectedVersion"> 
                                     <span className="attributeName"> Versão </span>
                                     <span> {props.data.versionLocaliza} </span>
                                 </div>
-                                :<div>
-                                    <label htmlFor="nome">Versão</label>
-                                        <select className="form-control" placeholder="Selecione" >
-                                            <option defaultValue value = "">Não há Match</option>
-                                            {/* {console.log(props.version)} */}
-                                        {props.version.map((version, idx) => (
+                                :<div className="selectedVersion">
+                                    <label className="attributeName" htmlFor="nome">Versão</label>
+                                        <select className="form-control" placeholder="Selecione" onChange={handleChange}>
+                                            <option defaultValue value = "Não há Match">Não há Match</option>
+                                            {props.version.map((version, idx) => (
                                             <option key={idx} value={version}>{version}</option>
-                                        ))}
+                                            ))}
                                         </select>
                                 </div>}
                         </div>
