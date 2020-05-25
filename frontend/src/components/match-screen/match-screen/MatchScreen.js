@@ -1,91 +1,29 @@
 import React, { useState, useEffect } from 'react';
-
-import * as firebase from "firebase";
-
-
-import OtherCards from '../OtherCards/OtherCards';
-import WebmotorsCard from '../WebmotorsCard/WebmotorsCard'
-import { Button } from "react-bootstrap"
-import './MatchScreen.css'
-import axios from 'axios'
-import Modal from 'react-bootstrap/Modal'
-import Ilustration from '../../../assets/undraw_fast_car_p4cu.png'
-
-
-
-
-const urlBase = "https://d1qz6xp2lbl1xi.cloudfront.net/classifier/base-cars"
-const urlOther = "https://d1qz6xp2lbl1xi.cloudfront.net/databases/origins/"
-
+import { Button } from "react-bootstrap";
+import './MatchScreen.css';
+import User from '../../../services/user';
+import Api from '../../../services/databasesApi';
+import postMatch from '../../../services/matchApi';
+import Dedupe from '../../../services/dedupe';
+import MatchCard from '../MatchCard/index';
+import Modal from 'react-bootstrap/Modal';
+import Ilustration from '../../../assets/undraw_fast_car_p4cu.png';
 
 const MatchScreen = (props) => {
-    //==========WEBMOTORS==============
-    const [webmotorsCars, setWebmotorsCar] = useState({})
-    const [loading, setLoading] = useState(false)
-
-    //Math.floor(Math.random()*car.length)
-
-    //Pegando dados de todas as bases
-    useEffect(() => {
-        axios.get(urlBase)
-            .then(res => {
-                const car = res.data
-                setWebmotorsCar(car[2])
-            });
-        axios.get(`${urlOther}LOCALIZA/files`)
-            .then(res => {
-                setLocalizaCars(res.data)
-
-            });
-        axios.get(`${urlOther}MOVIDA/files`)
-            .then(res => {
-                setMovidaCars(res.data)
-            });
-    }, []);
-
-
-    //===========LOCALIZA===============
-    const [localizaCars, setLocalizaCars] = useState([])
-    const [localizaName, setLocalizaName] = useState("")
-    const [localizaYear, setLocalizaYear] = useState("")
-    const [localizaVersion, setLocalizaVersion] = useState("")
-    const [localizaId, setLocalizaId] = useState("")
-    const [localizaNoMatch, setLocalizaNoMatch] = useState(false)
-
-    //===========MOVIDA===============
-    const [movidaCars, setMovidaCars] = useState([])
-    const [movidaName, setMovidaName] = useState("")
-    const [movidaYear, setMovidaYear] = useState("")
-    const [movidaVersion, setMovidaVersion] = useState("")
-    const [movidaId, setMovidaId] = useState("")
-    const [movidaNoMatch, setMovidaNoMatch]= useState(false)
-
-
-    //Função que muda o estado dos carros da localiza e movida
-    //De acordo com a mudança do que é setado id vindo do OtherCards
-    const setCar= (base, id, setName,setYear,setVersion) => {
-        base.filter(filter => filter._id === id)
-            .map(car => {
-                setName(car.name);
-                setYear(Number(car.year));
-                setVersion(car.version)
-                return null
-            })
-    }
-
-    //Seto o modelo, ano e versao baseado no ID
-    useEffect(() => {
-        setCar(localizaCars,localizaId,setLocalizaName,setLocalizaYear,setLocalizaVersion);
-        setCar(movidaCars,movidaId,setMovidaName,setMovidaYear,setMovidaVersion);
-    }, [movidaId, localizaId])
-
+    const [loading, setLoading] = useState(false);
+    const [webmotorsCars, setWebmotorsCar] = useState([]);
+    const [localizaCars, setLocalizaCars] = useState([]);
+    const [fipeCars, setFipeCars] = useState([]);
+    const [fipeVersion, setFipeVersion] = useState([]);
+    const [webmotorsVersion, setWebmotorsVersion] = useState([])
 
     //AUTH
     const [name, setName] = useState()
     const [id, setId] = useState()
     const [email, setEmail] = useState()
-
-    var user = firebase.auth().currentUser;
+    
+    const user = User();    
+    
     useEffect(() => {
         if(user!=null){
             setId(user.uid)
@@ -93,54 +31,47 @@ const MatchScreen = (props) => {
             setEmail(user.email)
         }
     }, [user])
+    
+    //Pegando dados duplicados de todas as bases
+    useEffect(() => {
+        const loadAllCars = async () => {
+            const cars = await Api.getClassfier();
+            setWebmotorsCar(Dedupe.webmotors(cars));
+            setFipeCars(Dedupe.fipe(cars))
+            setLocalizaCars(Dedupe.localiza(cars))
+        }
+        loadAllCars()
+    }, [])
+
+    const Brands = localizaCars.brand;
+    const Model = localizaCars.model;
+    const ModelYear = localizaCars.modelYear;
+
+    useEffect(() =>{
+        const getWebmotorsVersion = async () => {
+            const version = await Api.getWebmotorsVersion(Brands, Model, ModelYear) //TODO ROTA COM FACTORY YEAR
+            const versionState = version.data;
+            setWebmotorsVersion(versionState)
+        }
+        getWebmotorsVersion();
+    }, [localizaCars])
+
+    useEffect(() =>{
+        const getFipeVersion = async () => {
+            const version = await Api.getFipeVersion(Brands, Model, ModelYear) //TODO ROTA COM FACTORY YEAR
+            const versionState = version.data;
+            setFipeVersion(versionState);
+        }
+        getFipeVersion();
+    }, [localizaCars])
+
+    // console.log(fipeVersion);
 
     //Envia o match para a base de dados
     const sendMatch = () => {
         setLoading(true)
-        axios({
-            method: 'post',
-            url: "https://d1qz6xp2lbl1xi.cloudfront.net/matches/match" ,
-            data: {
-                createDate: `${Date.now()}`,
-                updateDate: null,
-                webmotors: {
-                    id: String(webmotorsCars.id),
-                    brand: webmotorsCars.brand,
-                    model: webmotorsCars.model,
-                    bodywork: webmotorsCars.bodyWork,
-                    modelYear: webmotorsCars.modelYear,
-                    version: webmotorsCars.version
-                },
-                localiza: {
-                    id: String(localizaId),
-                    name: localizaName,
-                    year: localizaYear,
-                    version: localizaVersion
-                },
-                movida: {
-                    id: String(movidaId),
-                    name: movidaName,
-                    year: movidaYear,
-                    version: movidaVersion
-                },
-                user: {
-                    userId:String(id),
-                    name: String(name),
-                    email: String(email)
-                }
-            }
-        }).then(res =>{
-            console.log({message:"Enviado com sucesso"})
-            window.location.reload()
-
-        }).catch(error=> {
-            setLoading(false)
-            console.log(error)
-            alert("Tivemos um problema para enviar seus dados, tente novamente mais tarde!")
-        })
-    }
-
-    if(localizaNoMatch && movidaNoMatch){
+        postMatch(webmotorsCars, localizaCars, fipeCars, id, name, email)
+        setLoading(false)
     }
 
     return (
@@ -148,23 +79,24 @@ const MatchScreen = (props) => {
         <div className="">
             { /*Backround*/}
             <div className="items-match-screen">
-                <div className="Cards-match-screen">
-                    <WebmotorsCard data={webmotorsCars}
-                                   className="webmotors" />
+                <div className="Cards-match-screen" >
 
-                    <OtherCards data={localizaCars}
-                                webmotorsData={webmotorsCars}
-                                setLocalizaNoMatch={setLocalizaNoMatch}
-                                setLocalizaId={setLocalizaId}
-                                className="localiza"
-                                origin="Localiza" />
+                    <MatchCard data={localizaCars}
+                               targetDatabase={true}
+                               className="localiza"
+                               database="Localiza" />
 
-                    <OtherCards data={movidaCars}
-                                webmotorsData={webmotorsCars}
-                                setMovidaNoMatch={setMovidaNoMatch}
-                                setMovidaId={setMovidaId}
-                                className="movida"
-                                origin="Movida" />
+                    <MatchCard data={localizaCars}
+                               version={webmotorsVersion} 
+                               targetDatabase={false}
+                               className="webmotors"
+                               database="Webmotors" />
+
+                    <MatchCard data={localizaCars}
+                               version={fipeVersion} 
+                               targetDatabase={false}
+                               className="fipe"
+                               database="Fipe" />
                     { /*Animação que ocorre enquanto o match está sendo enviado*/}
                     <Modal show={loading} animation={true}>
                         <Modal.Header style={{ position: 'center' }} >
