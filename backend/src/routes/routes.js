@@ -33,7 +33,7 @@ routes.get('/databases/fipe/list/brands', fipeController.listBrands);
 routes.get('/databases/fipe/list/brands/:brandsId/models', fipeController.listModels);
 routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears', fipeController.listModelYear);
 routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears/:modelYear/version', fipeController.listVersions);
-routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears/:modelYear/version/versionId', fipeController.listUniqueCar);
+routes.get('/databases/fipe/list/brands/:brandsId/models/:models/modelYears/:modelYear/version/:versionId', fipeController.listUniqueCar);
 
 routes.post('/databases/fipe-csv', multer(multerConfigs).single('file'), (request, response) =>{
   console.log(request.file);

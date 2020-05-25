@@ -52,9 +52,9 @@ module.exports = {
 
     async listUniqueCar(request, response){
         try{
-            const {brandsId, models, year, versionId} = request.params;
-            const uniqueCar = await Fipe.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
-            console.log(uniqueCar);
+            const {brandsId, models, modelYear, versionId} = request.params;
+            const uniqueCar = await Fipe.find({brand: brandsId, model: models, year: modelYear, version: versionId}).distinct("fipeId")
+            console.log(versionId);
             return response.json(uniqueCar)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})

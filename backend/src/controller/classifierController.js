@@ -65,7 +65,6 @@ module.exports = {
         try{
             const {brandsId, models, year, versionId} = request.params;
             const uniqueCar = await ClassifierData.find({brand: brandsId, model: models, modelYear: year, versionId: versionId})
-            console.log(uniqueCar);
             return response.json(uniqueCar)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})

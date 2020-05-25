@@ -62,9 +62,8 @@ module.exports = {
 
     async listUniqueCar(request, response){
         try{
-            const {brandsId, models, manufactoryYear, modelYear, version} = request.params;
-            const uniqueCar = await Webmotors.find({brand: brandsId, model: models, manufactoryYear: manufactoryYear, modelYear: modelYear, version: version}).distinct("webmotorsId")
-            console.log(uniqueCar);
+            const {brandsId, models, manufactoryYear, modelYear, versionId} = request.params;
+            const uniqueCar = await Webmotors.find({brand: brandsId, model: models, manufactoryYear: manufactoryYear, modelYear: modelYear, version: versionId}).distinct("webmotorsId")
             return response.json(uniqueCar)
         }catch(error){
             return response.status(400).send({error: "Ocorreu um erro na listagem de carros"})
