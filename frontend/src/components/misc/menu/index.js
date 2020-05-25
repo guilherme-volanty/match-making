@@ -38,7 +38,7 @@ const Menu = () => {
 
                         <NavDropdown title="Match" className="menu-item" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#/match-screen">Faça Match</NavDropdown.Item>
-                            <NavDropdown.Item href="#/match-table">Tabela de Matches</NavDropdown.Item>
+                            {/* <NavDropdown.Item href="#/match-table">Tabela de Matches</NavDropdown.Item> */}
                         </NavDropdown>
                     </div>
                 </Nav>
