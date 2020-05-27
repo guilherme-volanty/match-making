@@ -1,0 +1,11 @@
+FROM node:alpine
+
+COPY . /app/database
+
+WORKDIR /app/database
+
+RUN cd /app/database && npm install
+
+CMD ["npm", "start"]
+
+EXPOSE 4000
